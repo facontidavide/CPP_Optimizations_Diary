@@ -36,7 +36,7 @@ You can even run it Google Benchmark online here: [quick-bench.com](http://quick
 
 ![quick-bench](images/quick-bench.png)
 
-Sex is good, but have you ever shown shown to someone else is he wrong about something
+Sex is good, but have you ever shown to a fellow developer he/she is wrong about optimizations
 using **quick-bench.com**?
 
 ## Rule 2: learn good design patterns, use them by default
@@ -65,9 +65,19 @@ I am kidding, Python developers, we love you!
 
 TODO
 
+- Const reference by default.
+
+- Move semantic and return value optimization.
+
+- 
+
 ## std::vector<>: your best friend
 
 TODO
+
+- ... after `std::array<>` of course.
+
+- ...and when using `std::array<>::reserve`.
 
 - "I have learnt linked-lists at university, should I use them?" Nooope.
 
@@ -82,8 +92,11 @@ TODO
 
 - When not to worry: small string optimization.
 
+- String concatenation: the false sense of security of `std::string::operator+`.
 
-## Don't compute that twice
+- `string_view`: love at first sight.
+
+## Don't compute that twice; practical examples of caching.
 
 TODO
 
@@ -91,7 +104,7 @@ TODO
 
 - Double for-loop: elegance or performance?
 
-## Fantastic data strucutres and where to find them
+## Fantastic data structures and where to find them.
 
 TODO
 
