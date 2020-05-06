@@ -24,8 +24,7 @@ My "goto" tools in Linux are [Hotspot](https://github.com/KDAB/hotspot) and
 [Heaptrack](https://github.com/KDE/heaptrack). I understand Windows has similar
 tools too.
 
-
-![hotspot_heaptrack.jpg](images/hotspot_heaptrack.jpg | width=100)
+<p align="center"><img src="images/hotspot_heaptrack.jpg" width="350"></p>
 
 In the benchmark war, if you are the soldier, these are your rifle and hand granades.
 
