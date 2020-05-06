@@ -25,7 +25,7 @@ My "goto" tools in Linux are [Hotspot](https://github.com/KDAB/hotspot) and
 tools too.
 
 
-![hotspot_heaptrack.jpg](images/hotspot_heaptrack.jpg)
+![hotspot_heaptrack.jpg](images/hotspot_heaptrack.jpg | width=100)
 
 In the benchmark war, if you are the soldier, these are your rifle and hand granades.
 
