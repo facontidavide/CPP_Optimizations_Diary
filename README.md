@@ -13,6 +13,9 @@ These rules help you look like a bad-ass/rockstar/10X engineer to your colleague
 
 You casually drop a `std::vector<>::reserve` in the code and get a considerable performance improvement.
 
+<p align="center"><img src="images/boom.gif"></p>
+
+
 Hopefully, the examples in this repository will help you to achieve this guru status
 and, as a side effect, save the planet from global warning, sparing useless CPU
 cycles from being wasted.
