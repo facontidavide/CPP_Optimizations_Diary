@@ -6,6 +6,24 @@ and pretend  that you are doing something useful for your organization at the sa
 In this repository, I will record some simple design patterns to improve your code 
 and remove unnecesay overhead in **C++**.
 
+If you are a seasoned C++ expert, you probably have already a set of rules in your head
+that you always follow.
+
+These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
+
+You casually drop a `std::vector<>::reserve` in the code and get a considerable performance improvement.
+
+Hopefully, the examples in this repository will help you to achieve this guru status
+and, as a side effect, save the planet from global warning, sparing useless CPU
+cycles from being wasted.
+
+Then, of course, someone on the other side of the planet will mine Bitcoins or write her/his 
+application in **Python** and all your effort to save electricity was useless.
+
+I am kidding, Python developers, we love you!
+
+> Narrator: "he was not kidding..."
+
 ## Rule 1: measure first (using _good_ tools)
 
 The very first thing any person concerned about perfomance should do is:
@@ -41,23 +59,16 @@ using **quick-bench.com**?
 
 ## Rule 2: learn good design patterns, use them by default
 
-If you are a seasoned C++ expert, you probably have already a set of rules in your head
-that you always follow.
+Writing good code is like brushing your teeth: you should do it without thinking too much about it.
 
-They help you looking like a bad-ass/rockstar/10X engineer to your colleagues, 
-whenever you casually drop a 
-`std::vector<>::reserve` in the code and get a considerable performance improvement.
+It is a muscle that you need to train, that will become stronger over time. But don't worry:
+once you start, you will begin seeing recurring patterns that 
+are surprisingly simple and works in many different use cases.
 
-Hopefully the examples in this repository will help you achieving this guru status
-and, as a side, effect, save the planet from global warning, sparing useless CPU
-cycles from  being wasted.
+**Spoiler alert**: one of my most beloved tricks is to _minimize the number of heap allocations_.
+You have no idea how much that helps.
 
-(The, of course, someone on the other side of the world will write her/his 
-application in Python and all your effort save electricity will be lost).
-
-I am kidding, Python developers, we love you!
-
-> Narrator: he was not kidding...
+But I am getting ahead of myself...
 
 # Optimization examples
 
@@ -69,9 +80,8 @@ TODO
 
 - Move semantic and return value optimization.
 
-- 
 
-## std::vector<>: your best friend
+## std::vector<>. Your best friend
 
 TODO
 
@@ -100,11 +110,13 @@ TODO
 
 TODO
 
-- Example: matrix multiplications.
+- Example: 2D/3D transforms the smart way.
 
-- Double for-loop: elegance or performance?
+- Double for-loop: less elegant, more performance
 
 ## Fantastic data structures and where to find them.
 
 TODO
+
+
 
