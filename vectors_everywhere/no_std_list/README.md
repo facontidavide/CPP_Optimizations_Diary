@@ -13,10 +13,14 @@ I am not wasting time here to repeat benchmark that a lot of people did already.
 You think you case is special. It is not. Just try using `std::vector<>`
  (with `reserve` if you can) and you will see.
  
- If you really believe that your case is different, have a look to
- [plf::colony](https://plflib.org/colony.htm).
+When you have to `push_front` and `pop_front`, your default data structure should be 
+ [std::deque<>](https://es.cppreference.com/w/cpp/container/deque). 
  
-  
+If you like very exotic alternatives (that you won't actually need most of the tile), have a look
+at [plf::colony](https://plflib.org/colony.htm).
+ 
+But seriously, just use `vector`or `deque`.
+
 
 
 
