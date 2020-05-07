@@ -11,17 +11,18 @@ that you always follow.
 
 These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
 
-You casually drop a `std::vector<>::reserve` in the code and get a considerable performance improvement.
+You are the kind of person that casually drops a `std::vector<>::reserve` before a loop and
+nods smiling, looking at the perfomance improvement and the astonishment of your team member.
 
 <p align="center"><img src="images/boom.gif" width="350"></p>
 
 
-Hopefully, the examples in this repository will help you to achieve this guru status
+Hopefully, the examples in this repository will help you achieve this status of guru
 and, as a side effect, save the planet from global warning, sparing useless CPU
 cycles from being wasted.
 
-Then, of course, someone on the other side of the planet will mine Bitcoins or write her/his 
-application in **Python** and all your effort to save electricity was useless.
+Then, of course, someone on the other side of the planet will start mining Bitcoins or write her/his 
+application in **Python** and all your effort to save electricity was for nothing.
 
 I am kidding, Python developers, we love you!
 
@@ -57,15 +58,12 @@ You can even run it Google Benchmark online here: [quick-bench.com](http://quick
 
 ![quick-bench](images/quick-bench.png)
 
-Sex is good, but have you ever shown to a fellow developer he/she is wrong about optimizations
-using **quick-bench.com**?
-
 ## Rule 2: learn good design patterns, use them by default
 
 Writing good code is like brushing your teeth: you should do it without thinking too much about it.
 
 It is a muscle that you need to train, that will become stronger over time. But don't worry:
-once you start, you will begin seeing recurring patterns that 
+once you start, you will start seeing recurring patterns that 
 are surprisingly simple and works in many different use cases.
 
 **Spoiler alert**: one of my most beloved tricks is to _minimize the number of heap allocations_.
@@ -92,7 +90,7 @@ TODO
 
 - ...and when using `std::array<>::reserve`.
 
-- "I have learnt linked-lists at university, should I use them?" [Nooope](vectors_everywhere/no_std_list).
+- ["I have learnt linked-lists at university, should I use them?" Nooope](vectors_everywhere/no_std_list).
 
 - You don't need a `std::map<>` for that.
 
