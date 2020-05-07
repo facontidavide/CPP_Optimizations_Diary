@@ -92,7 +92,7 @@ TODO
 
 - ...and when using `std::array<>::reserve`.
 
-- "I have learnt linked-lists at university, should I use them?" Nooope.
+- "I have learnt linked-lists at university, should I use them?" [Nooope](vectors_everywhere/no_std_list).
 
 - You don't need a `std::map<>` for that.
 
