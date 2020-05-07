@@ -1,6 +1,6 @@
 # If you are using std::list<>, you are doing it wrong
 
-![linked lists](linked_list.jpg)
+![linked lists](linked_list.png)
 
 I am not wasting time here to repeat benchmark that a lot of people did already.
 
