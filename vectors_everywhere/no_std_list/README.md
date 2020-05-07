@@ -10,7 +10,7 @@ I am not wasting time here to repeat benchmark that a lot of people did already.
 
 - [Video from Bjarne Stroustrup keynote](https://www.youtube.com/watch?v=YQs6IC-vgmo)
 
-You think you case is special. It is not. Just try using `std::vector<>`
+You think your case is special. It is not. Just try using `std::vector<>`
  (with `reserve` if you can) and you will see.
  
 When you have to `push_front` and `pop_front`, your default data structure should be 
