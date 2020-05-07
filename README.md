@@ -4,7 +4,7 @@ Optimizing code in C++ is something that no one can resist. You can have fun
 and pretend  that you are doing something useful for your organization at the same time!
 
 In this repository, I will record some simple design patterns to improve your code 
-and remove unnecesay overhead in **C++**.
+and remove unnecessary overhead in **C++**.
 
 If you are a seasoned C++ expert, you probably have already a set of rules in your head
 that you always follow.
@@ -50,8 +50,8 @@ tools too.
 In the benchmark war, if you are the soldier, these are your rifle and hand granades.
 
 Once you know which part of the code deserves to be optimized, you might want to use
-[Google Benchmark](https://github.com/google/benchmark) to optimize a very specific
-class of function.
+[Google Benchmark](https://github.com/google/benchmark) to measure the time spent in a very specific
+class or function.
 
 You can even run it Google Benchmark online here: [quick-bench.com](http://quick-bench.com/G7B2w0xPUWgOVvuzI7unES6cU4w).
 
@@ -107,7 +107,7 @@ TODO
 
 - String concatenation: the false sense of security of `std::string::operator+`.
 
-- `string_view`: love at first sight.
+- `std::string_view`: love at first sight.
 
 ## Don't compute that twice; practical examples of caching.
 
@@ -115,7 +115,7 @@ TODO
 
 - Example: 2D/3D transforms the smart way.
 
-- Double for-loop: less elegant, more performance
+- Double for-loop: less elegant, more performant version.
 
 ## Fantastic data structures and where to find them.
 
