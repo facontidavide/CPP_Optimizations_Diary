@@ -82,13 +82,11 @@ TODO
 - Move semantic and return value optimization.
 
 
-## std::vector<>. Your best friend
+## std::vector<>... your best friend
 
 TODO
 
-- ... after `std::array<>` of course.
-
-- ...and when using `std::array<>::reserve`.
+- ...when using `std::vector<>::reserve`.
 
 - ["I have learnt linked-lists at university, should I use them?" Nooope](vectors_everywhere/no_std_list).
 
