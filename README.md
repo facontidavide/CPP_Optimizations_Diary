@@ -88,8 +88,7 @@ just because you believe it may run 2.5% faster.
 
 # Optimization examples
 
-## "If you pass that by value one more time, I swear to god that..."
-
+## "If you pass that by value one more time..."
 
 - [Use Const reference by default](basics/prefer_references).
 
@@ -120,7 +119,7 @@ just because you believe it may run 2.5% faster.
 
 - `std::string_view`: love at first sight (TODO).
 
-## Don't compute that twice; practical examples of caching.
+## Don't compute things twice.
 
 - Example: 2D/3D transforms the smart way (TODO).
 
