@@ -19,8 +19,8 @@ that you always follow.
 
 These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
 
-You are the kind of person that casually drops a `std::vector<>::reserve` before a loop and
-nods smiling, looking at the perfomance improvement and the astonishment of your team member.
+You are the kind of person that casually drops a [std::vector<>::reserve](vectors_everywhere/reserve) before a loop and
+nods, smiling, looking at the perfomance improvement and the astonishment of your team member.
 
 <p align="center"><img src="images/boom.gif" width="350"></p>
 
