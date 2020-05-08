@@ -82,11 +82,11 @@ TODO
 - Move semantic and return value optimization.
 
 
-## std::vector<>... your best friend
+## std::vector<> is your best friend
 
 TODO
 
-- ...when using `std::vector<>::reserve`.
+- [Use std::vector<>::reserve by default](vectors_everywhere/reserve)
 
 - ["I have learnt linked-lists at university, should I use them?" Nooope](vectors_everywhere/no_std_list).
 
@@ -95,9 +95,9 @@ TODO
 - Small vector optimization.
 
 
-## ["It is just a string, how bad could that be?"](./just_a_string)
+## "It is just a string, how bad could that be?"
 
-TODO
+- [Strings are (almost) vectors](./just_a_string/strings_are_vectors)
 
 - [When not to worry: small string optimization](./just_a_string/small_strings).
 

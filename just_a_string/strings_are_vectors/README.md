@@ -11,7 +11,7 @@ with some useful utility that makes sense for text, but no much more.
 
 On one hand, **it is**, but here comes what is called **Small String Optimization (SSO)**.
 
-[Read more about SSO here](./small_strings/).
+[Read more about SSO here](../small_strings/).
 
 What I want to show you here is that, as any objects that **might**
 require memory allocation, you must use best practices you should use
