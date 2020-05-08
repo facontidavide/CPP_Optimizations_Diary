@@ -84,11 +84,11 @@ This is the amount of memory an applications of mine was using over time (image 
 
 ![](growing_vector.png)
 
-Look at that! Someone in my app is doubling the amount of memory it is using by a factor of two every multiple times...
+Look at that! Something is doubling the amount of memory it is using by a factor of two every few seconds...
 
-I wonder what it could be? A vector, of course.
+I wonder what it could be? A vector, of course, because other data structurer would have a more "linear" grow.
 
-That, by the way, **what you are seeing is a bug in our code**: that vector was not supposed to grow that much ;)
+That, by the way, **is a bug in the code that was found thanks to memory profiling**: that vector was not supposed to grow at all.
 
 
 
