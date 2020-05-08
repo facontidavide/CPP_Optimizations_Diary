@@ -15,6 +15,8 @@ function(compile_example  target file)
     target_link_libraries(${target}  benchmark Threads::Threads)
 endfunction()
 
+compile_example(prefer_references          basics/prefer_references/prefer_references.cpp)
+
 compile_example(vector_reserve             vectors_everywhere/reserve/reserve.cpp)
 
 compile_example(strings_are_vectors        just_a_string/strings_are_vectors/strings_are_vectors.cpp)

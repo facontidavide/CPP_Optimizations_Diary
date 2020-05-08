@@ -20,7 +20,7 @@ that you always follow.
 These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
 
 You are the kind of person that casually drops a [std::vector<>::reserve](vectors_everywhere/reserve) before a loop and
-nods, smiling, looking at the perfomance improvement and the astonishment of your team member.
+nods, smiling, looking at the performance improvement and the astonishment of your team member.
 
 <p align="center"><img src="images/boom.gif" width="350"></p>
 
@@ -38,7 +38,7 @@ I am kidding, Python developers, we love you!
 
 ## Rule 1: measure first (using _good_ tools)
 
-The very first thing any person concerned about perfomance should do is:
+The very first thing any person concerned about performance should do is:
  
 - **Measure first** and **make hypothesis later**.
 
@@ -56,7 +56,7 @@ tools too.
 
 <p align="center"><img src="images/hotspot_heaptrack.jpg" width="350"></p>
 
-In the benchmark war, if you are the soldier, these are your rifle and hand granades.
+In the benchmark war, if you are the soldier, these are your rifle and hand grenades.
 
 Once you know which part of the code deserves to be optimized, you might want to use
 [Google Benchmark](https://github.com/google/benchmark) to measure the time spent in a very specific
@@ -79,8 +79,8 @@ You have no idea how much that helps.
 
 But let's make something absolutely clear: 
 
-- Your **first goal** as a developer (software engineer?) is to create code that is **correct** and fulfill the requirements.
-- The **second** most important thing is to make your code **maintenable and readable** for other people.
+- Your **first goal** as a developer (software engineer?) is to create code that is **correct** and fulfil the requirements.
+- The **second** most important thing is to make your code **maintainable and readable** for other people.
 - In many cases, you also want to make code faster, because [faster code is better code](https://craigmod.com/essays/fast_software/).
 
 In other words, think twice before doing any change in your code that makes it less readable or harder to debug,
@@ -90,24 +90,24 @@ just because you believe it may run 2.5% faster.
 
 ## "If you pass that by value one more time, I swear to god that..."
 
-TODO
 
-- Const reference by default.
+- [Use Const reference by default](basics/prefer_references).
 
-- Move semantic and return value optimization.
+- Move semantic (TODO).
+- 
+- Return value optimization (TODO).
 
 
 ## std::vector<> is your best friend
 
-TODO
 
 - [Use std::vector<>::reserve by default](vectors_everywhere/reserve)
 
 - ["I have learnt linked-lists at university, should I use them?" Nooope](vectors_everywhere/no_std_list).
 
-- You don't need a `std::map<>` for that.
+- You don't need a `std::map<>` for that (TODO).
 
-- Small vector optimization.
+- Small vector optimization (TODO).
 
 
 ## "It is just a string, how bad could that be?"
@@ -116,21 +116,19 @@ TODO
 
 - [When not to worry: small string optimization](./just_a_string/small_strings).
 
-- String concatenation: the false sense of security of `std::string::operator+`.
+- String concatenation: the false sense of security of `std::string::operator+` (TODO).
 
-- `std::string_view`: love at first sight.
+- `std::string_view`: love at first sight (TODO).
 
 ## Don't compute that twice; practical examples of caching.
 
-TODO
+- Example: 2D/3D transforms the smart way (TODO).
 
-- Example: 2D/3D transforms the smart way.
-
-- Double for-loop: less elegant, more performant version.
+- Double for-loop: less elegant, more performant version (TODO).
 
 ## Fantastic data structures and where to find them.
 
-TODO
+TODO...
 
 
 
