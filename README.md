@@ -77,7 +77,14 @@ are surprisingly simple and works in many different use cases.
 **Spoiler alert**: one of my most beloved tricks is to _minimize the number of heap allocations_.
 You have no idea how much that helps.
 
-But I am getting ahead of myself...
+But let's make something absolutely clear: 
+
+- Your **first goal** as a developer (software engineer?) is to create code that is **correct** and fulfill the requirements.
+- The **second** most important thing is to make your code **maintenable and readable** for other people.
+- In many cases, you also want to make code faster, because [faster code is better code](https://craigmod.com/essays/fast_software/).
+
+In other words, think twice before doing any change in your code that makes it less readable or harder to debug,
+just because you believe it may run 2.5% faster.
 
 # Optimization examples
 
