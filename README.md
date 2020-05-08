@@ -94,7 +94,7 @@ just because you believe it may run 2.5% faster.
 - [Use Const reference by default](basics/prefer_references).
 
 - Move semantic (TODO).
-- 
+
 - Return value optimization (TODO).
 
 
