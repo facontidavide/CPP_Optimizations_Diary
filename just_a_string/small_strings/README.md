@@ -5,12 +5,12 @@ Remember when I said that "strings are `std::vector<char>` in disguise"?
 In practice, very small folks realized that you may store
 small strings inside the already allocated memory.
 
-Given that the size of a `std::string` is 24 bytes on a 64-bits
+Given that the size of a `std::string` is **24 bytes** on a 64-bits
 platform (to store data pointer, size and capacity), some
-very cool trucks allow us to store statically up to 23 bytes
+very cool tricks allow us to store **statically** up to 23 bytes
 before you need to allocate memory.
 
-That has a huge impact in performance!
+That has a huge impact in terms of performance!
 
 <p align="center"><img src="../images/relax_sso.jpg" width="350"></p>
 
@@ -19,8 +19,8 @@ For the curious minds, here there are some details about the implementation:
 - [SSO-23](https://github.com/elliotgoodrich/SSO-23)
 - [CppCon 2016: “The strange details of std::string at Facebook"](https://www.youtube.com/watch?v=kPR8h4-qZdk)
 
-According to your version of your compiler, you may have less than 23 bytes, that is theoretical
-limit.
+According to your version of the compiler, you may have less than 23 bytes, that is
+the theoretical limit.
 
 ## Example
 
@@ -38,9 +38,8 @@ void ShortStringCreation(benchmark::State& state) {
 
 void ShortStringCopy(benchmark::State& state) {
   // Here we create the string only once, but copy repeatably.
-  // Why it is much slower than ShortStringCreation?
+  // Why is it much slower than ShortStringCreation?
   // The compiler, apparently, outsmarted me
-
   std::string x; // create once
   for (auto _ : state) {
     x = SHORT_STR; // copy
@@ -50,15 +49,15 @@ void ShortStringCopy(benchmark::State& state) {
 const char* LONG_STR = "this will not fit into small string optimization";
 
 void LongStringCreation(benchmark::State& state) {
-  // The long string will trigget memory allocation for sure
+  // The long string will trigger memory allocation for sure
   for (auto _ : state) {
     std::string created_string(LONG_STR);
   }
 }
 
 void LongStringCopy(benchmark::State& state) {
-  // Now we do see an actual advantage, reciclying the same string
-  // multiple times
+  // Now we do see an actual speed-up, when recycling
+  // the same string multiple times
   std::string x;
   for (auto _ : state) {
     x = LONG_STR;
