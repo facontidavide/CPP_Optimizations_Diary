@@ -12,7 +12,7 @@ before you need to allocate memory.
 
 That has a huge impact in performance!
 
-<p align="center"><img src="../images/relax_sso.jpg" width="300"></p>
+<p align="center"><img src="../images/relax_sso.jpg" width="350"></p>
 
 For the curious minds, here there are some details about the implementation:
 
@@ -70,6 +70,6 @@ As you may notice, my attempt to be clever and say "I will not create a new stri
 every time" fails miserably if the string is short, but has a huge impact if the string
 is allocating memory.
 
-<p align="center"><img src="../images/sso_in_action.png" width="450"></p>
+<p align="center"><img src="../images/sso_in_action.png"></p>
 
 

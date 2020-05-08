@@ -11,7 +11,7 @@ with some useful utility that makes sense for text, but no much more.
 
 On one hand, **it is**, but here comes what is called **Small String Optimization (SSO)**.
 
-[Read more about SSO here](small_strings/README-md).
+[Read more about SSO here](small_strings/README.md).
 
 What I want to show you here is that, as any objects that **might**
 require memory allocation, you must use best practices you should use
@@ -49,12 +49,12 @@ const std::string& ToStringBetter(Color c)
 This is just an example of how, if you can, you should not create over and
 over a string. Of course, I can hear you arguing:
 
-"Davide, you are forgetting return value optimization".
+"Davide, you are forgetting Return Value Optimization"?
 
 I am not. But a `const&` is **always** guaranteed to be the most
 performing option, so why try your luck?
 
-<p align="center"><img src="images/tostring.png" width="350"></p>
+<p align="center"><img src="images/tostring.png"></p>
 
 ## Reuse temporary strings
 
@@ -83,6 +83,6 @@ static void ModifyStringBetter(const std::string& input, std::string& output)
 
 And, as expected...
 
-<p align="center"><img src="images/modifystring.png" width="350"></p>
+<p align="center"><img src="images/modifystring.png"></p>
 
 
