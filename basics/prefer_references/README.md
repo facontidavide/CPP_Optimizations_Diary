@@ -178,5 +178,5 @@ My rule of thum is: never pass by reference any argument with size 8 bytes or le
 Since we know for sure that there is 0% benefit, writing something like this **makes no sense** and it is "ugly":
 
 ```C++
-void YouAreTryingToHardDude(const int& a, const double& b);
+void YouAreTryingTooHardDude(const int& a, const double& b);
 ```
