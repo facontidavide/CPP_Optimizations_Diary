@@ -21,6 +21,33 @@ If you like very exotic alternatives have a look at [plf::colony](https://plflib
  
 But seriously, just use `vector`or `deque`.
 
+## Real world example: improving the Intel RealSense driver
 
+This is a practical example of a Pull Request I sent to the [RealSense](https://github.com/IntelRealSense)
+repository a while ago.
+
+<p align="center"><img src="https://www.intel.es/content/dam/www/public/us/en/images/product/16x9/d435-realsense-camera-16x9.png.rendition.intel.web.864.486.png" width="350"></p>
+
+They where using that abomination called `std::list<>` for a reason that I can not understand.
+
+Just kidding, Intel Developers, we love you!
+
+Here you can find the link to the Pull Request:
+- [Considerable CPU saving in BaseRealSenseNode::publishPointCloud()](https://github.com/IntelRealSense/realsense-ros/pull/1097)
+
+In a nutshell, the whole PR contains only two tiny changes:
+
+```C++
+We changed this list, created at each camera frame
+std::list<unsigned> valid_indices;
+
+// With this vector: a class member, that we clear() before reusing
+std::vector<unsigned> _valid_indices;
+```
+
+Additionally, we have a quite large object called `sensor_msgs::PointCloud2 msg_pointcloud` that
+is converted into a class member that is reused over and over again at each frame.
+
+The reported speed improvement is 20%-30%, that is huge, if you think about it.
 
 
