@@ -97,11 +97,11 @@ TODO
 - Small vector optimization.
 
 
-## "It is just a string, how bad could that be?"
+## ["It is just a string, how bad could that be?"](./just_a_string)
 
 TODO
 
-- When not to worry: small string optimization.
+- [When not to worry: small string optimization](./just_a_string/small_strings).
 
 - String concatenation: the false sense of security of `std::string::operator+`.
 
