@@ -126,7 +126,7 @@ void PassVectorByRef(benchmark::State& state) {
 
 <p align="center"><img src="const_reference.png"></p>
 
-As you may see, passing by reference wins hands down.
+Clearly, passing by reference wins hands down.
 
 ## Exceptions to the rule
 
