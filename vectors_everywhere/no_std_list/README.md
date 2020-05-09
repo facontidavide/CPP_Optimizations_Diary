@@ -12,8 +12,8 @@ I am not wasting time here to repeat benchmarks which a lot of people did alread
 
 You think your case is special, a unique snowflake. **It is not**. 
 
-You have another STL data structure that is almost 99% of the times better than `std::list`:
- [std::deque<>](https://es.cppreference.com/w/cpp/container/deque). 
+You have another STL data structure that is better than `std::list`:
+ [std::deque<>](https://es.cppreference.com/w/cpp/container/deque) almost 99% of the time. 
  
  In some cases, even the humble `std::vector` is better than a list.
  
