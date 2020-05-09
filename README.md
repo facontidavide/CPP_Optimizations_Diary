@@ -123,7 +123,7 @@ just because you believe it may run 2.5% faster.
 
 - Example: 2D/3D transforms the smart way (TODO).
 
-- Double for-loop: less elegant, more performant version (TODO).
+- [Iterating over a 2D matrix: less elegant, more performant](compute_once/2d_matrix_iteration).
 
 ## Fantastic data structures and where to find them.
 
