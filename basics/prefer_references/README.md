@@ -171,9 +171,9 @@ Interesting! Using `const&` has no benefit at all, this time.
 When you copy an object that doesn't require heap allocation and is smaller than a few dozens of bytes,
 you won't notice any benefit passing them by reference.
 
-On the other hand, it will bever be slower so, if you are in doubt, using `const&` is always a "safe bet".
+On the other hand, it will never be slower so, if you are in doubt, using `const&` is always a "safe bet". While passing primitive types by const references can be shown to generate an extra instruction (see https://godbolt.org/z/-rusab). That gets optimized out when compiling with `-O3`.
 
-My rule of thum is: never pass by reference any argument with size 8 bytes or less (integers, doubles, chars, long, etc.).
+My rule of thumb is: never pass by reference any argument with size 8 bytes or less (integers, doubles, chars, long, etc.).
 
 Since we know for sure that there is 0% benefit, writing something like this **makes no sense** and it is "ugly":
 
