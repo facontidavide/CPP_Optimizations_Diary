@@ -1,7 +1,7 @@
 # Value semantic vs references
 
 What I am going to say here is so trivial that probably any seasoned developer
-known that already.
+knows it already.
 
 Nevertheless, I keep seeing people doing stuff like this:
 

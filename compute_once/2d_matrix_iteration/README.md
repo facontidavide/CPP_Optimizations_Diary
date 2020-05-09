@@ -22,7 +22,7 @@ for( size_t y = y_min; y < y_max; y++ )
 ```
 
 Pretty straightforward, right? Elegantly written, as it should be.
-But since my measurements revealed that it was using too much CPU, I decided to get 
+But since my measurements revealed that it was using too much CPU, I decided to 
 follow the white rabbit inside the optimization hole.
 
 ## How do you write a good 2D matrix in C++?
@@ -98,7 +98,7 @@ In each iteration, we calculate the index 3 times using the formula:
 
 Holy moly, that is a lot of multiplications!
 
-It tuned out that it was worth rewriting the code like this:
+It turned out that it was worth rewriting the code like this:
 
 ```C++
 // calculating the index "by hand"
