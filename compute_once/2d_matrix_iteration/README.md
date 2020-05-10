@@ -104,20 +104,20 @@ It turned out that it was worth rewriting the code like this:
 // calculating the index "by hand"
 for(size_t y = y_min; y < y_max; y++) 
 {
-	size_t offset_out =  y * matrix_out.rows();
-	size_t offset_a   =  y * mat_a.rows();
-	size_t offset_b   =  y * mat_b.rows();
-	for(size_t x = x_min; x < x_max; x++) 
-	{
-		size_t index_out =  offset_out + x;
-		size_t index_a   =  offset_a + x;
-		size_t index_b   =  offset_b + x;
-		matrix_out( index_out ) = std::max( mat_a( index_a ), mat_b( index_b ) ); 
-	}
+    size_t offset_out =  y * matrix_out.rows();
+    size_t offset_a   =  y * mat_a.rows();
+    size_t offset_b   =  y * mat_b.rows();
+    for(size_t x = x_min; x < x_max; x++) 
+    {
+        size_t index_out =  offset_out + x;
+        size_t index_a   =  offset_a + x;
+        size_t index_b   =  offset_b + x;
+        matrix_out( index_out ) = std::max( mat_a( index_a ), mat_b( index_b ) ); 
+    }
 }
 ```
 
-So, I know what you are thinking, my eyes are hurting too. It is ugly. But the performance boost was too much to ignore.
+So, I know what you are thinking, **my eyes are hurting too**. It is ugly. But the performance boost was too much to ignore.
 
 That is not surprising, considering that the number of multiplications is dramatically reduced by a factor `(x_max-x_min)*3`.
 
