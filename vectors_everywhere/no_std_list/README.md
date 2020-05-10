@@ -38,10 +38,11 @@ Here you can find the link to the Pull Request:
 In a nutshell, the whole PR contains only two tiny changes:
 
 ```C++
-We changed this list, created at each camera frame
+// We changed this list, created at each camera frame
 std::list<unsigned> valid_indices;
 
-// With this vector: a class member, that we clear() before reusing
+// With this vector: a class member, that is cleared before reusing
+// (but allocated memory is still there)
 std::vector<unsigned> _valid_indices;
 ```
 
