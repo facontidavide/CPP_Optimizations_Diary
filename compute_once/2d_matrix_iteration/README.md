@@ -14,10 +14,10 @@ a third one. The function looked qualitatively like this:
 // this is over simplified code, do not argue about it with me
 for( size_t y = y_min; y < y_max; y++ ) 
 {
-	for( size_t x = x_min; x < x_max; x++ ) 
-	{
-		matrix_out( x, y ) = std::max( mat_a( x, y ), mat_b( x, y ) ); 
-	}
+    for( size_t x = x_min; x < x_max; x++ ) 
+    {
+        matrix_out( x,y ) = std::max( mat_a( x,y ), mat_b( x,y ) ); 
+    }
 }
 ```
 
