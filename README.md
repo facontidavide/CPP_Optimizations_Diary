@@ -104,7 +104,7 @@ just because you believe it may run 2.5% faster.
 
 - ["I have learnt linked-lists at university, should I use them?" Nooope](vectors_everywhere/no_std_list).
 
-- You don't need a `std::map<>` for that (TODO).
+- [You don't need a `std::map<>` for that](vectors_everywhere/dont_need_map).
 
 - Small vector optimization (TODO).
 
