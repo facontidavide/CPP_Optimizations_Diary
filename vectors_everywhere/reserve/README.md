@@ -1,7 +1,7 @@
 # Vectors are awesome...
 
-`std::vectors<>` have a huge advantage when compared to other data structures:
-its element are packed in memory one next to the other.
+`std::vector<>`s have a huge advantage when compared to other data structures:
+their elements are packed in memory one next to the other.
 
 We might have a long discussion about how this may affect performance, based on how memory
 works in modern processors.
@@ -70,12 +70,12 @@ static void ObsessiveRecycling(benchmark::State& state) {
 
 Look at the difference! And these are only 100 elements.
 
-The number of elements influence a lot the final performance gain, but something is sure: it **will** be faster.
+The number of elements influence the final performance gain a lot, but one thing is sure: it **will** be faster.
 
 Note also as the `ObsessiveRecycling` brings a performance gain that is probably visible for small vectors, but negligible with bigger ones.
 
 Don't take me wrong, though: `ObsessiveRecycling` will always be faster, even if according to the size of the object you are storing
-you may notice that difference or not.
+you may or may not notice that difference.
 
 
 ## Recognizing a vector at first sight
@@ -86,9 +86,9 @@ This is the amount of memory an applications of mine was using over time (image 
 
 Look at that! Something is doubling the amount of memory it is using by a factor of two every few seconds...
 
-I wonder what it could be? A vector, of course, because other data structures would have a more "linear" grow.
+I wonder what it could be? A vector, of course, because other data structures would have a more "linear" growth.
 
-That, by the way, **it's a bug in the code that was found thanks to memory profiling**: that vector was not supposed to grow at all.
+That, by the way, **is a bug in the code that was found thanks to memory profiling**: that vector was not supposed to grow at all.
 
 
 
