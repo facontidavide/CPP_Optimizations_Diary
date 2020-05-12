@@ -79,13 +79,13 @@ So, I proposed this change and you can not imagine what happened next:
 
 <p align="center"><img src="quote.png" width="800"></p>
 
-Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index) is working just fine.
+Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index in the vector) is working just fine.
 
-I don't blame in any way the developers of the Velodyne driver, because changes like these make sense only in retrospective:  until you profile your application and do some actual profiling, it is hard to see how changes like this may influence performance.
+I don't blame in any way the developers of the Velodyne driver, because changes like these make sense only in retrospective:  until you profile your application and do some actual measurements, it is hard to see how changes like this may influence performance.
 
 When you think that the rest of the function does **a lot** of mathematical operations, you can understand how counter-intuitive it is that the actual bottleneck was a tiny `std::map`.
 
-## Going a step further: vector of pairs
+## Going a step further: vector of [key,value]  pairs
 
 This example was quite "extreme", because of its very convenient integer key, a small number between 0 and N.
 
