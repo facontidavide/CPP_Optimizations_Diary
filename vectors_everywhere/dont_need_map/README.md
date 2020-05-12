@@ -111,7 +111,7 @@ std::sort( my_map.begin(), my_map.end() ) ;
 In that case, you can find your element by its key searching in an **ordered** vector with the function 
 [std::lower_bound](http://www.cplusplus.com/reference/algorithm/lower_bound/).
 
-The complexity of lower_bound/upper_bound is **O(log n)**, the same as `std::map`, but iteration through all the elements is much, much faster.
+The complexity of `lower_bound` / `upper_bound` is **O(log n)**, the same as `std::map`, but iteration through all the elements is much, much faster.
 
 ## Summarizing
 
