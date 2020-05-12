@@ -49,27 +49,27 @@ So I explored the code and I found this:
  and used over and over again in a loop like this:
  
 ```C++
- // code simplided
+ // code simplified
  for (int i = 0; i < BLOCKS_PER_PACKET; i++) {
     //some code
     for (int j = 0; j < NUM_SCANS; j++) 
     {   
         int laser_number = // omitted for simplicity
         const LaserCorrection &corrections = laser_corrections[laser_number];
-    // some code
+        // some code
     }
  }
 ```
 
 <p align="center"><img src="that_is_logn.jpg" width="500"></p>
 
-Indeed., behind this innocent line of code:
+Indeed, behind this innocent line of code:
 
       laser_corrections[laser_number];
 
 There is a search in a red-black tree!
 
-Remember: the index is **not** a random number, its a value is always between 0 and N, where N is very small.
+Remember: the index is **not** a random number, its value is always between 0 and N-1, where N is very small.
 
 So, I proposed this change and you can not imagine what happened next:
 
@@ -81,41 +81,41 @@ So, I proposed this change and you can not imagine what happened next:
 
 Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index) is working just fine.
 
-I don't blame in any way the developers of the Velodyne driver, because changes like these make sense in retrospective, but until you profile your application and do actual profiling, it is hard to see how things like this may play a relevant role.
+I don't blame in any way the developers of the Velodyne driver, because changes like these make sense only in retrospective:  until you profile your application and do some actual profiling, it is hard to see how changes like this may influence performance.
 
-When you think that the rest of the function does **a lot **of mathematical operations, you can understand how counter-intuitive it is that the actual bottleneck was this one.
+When you think that the rest of the function does **a lot** of mathematical operations, you can understand how counter-intuitive it is that the actual bottleneck was a tiny `std::map`.
 
 ## Going a step further: vector of pairs
 
-This example was very "extreme", because of its very convenient index, a small number between 0 and N.
+This example was quite "extreme", because of its very convenient integer key, a small number between 0 and N.
 
-Nevertheless, often in my code, I use this structure like this, instead of a "real" associative container:
+Nevertheless, in my code I use often a structure like this, instead of a "real" associative container:
 
 ```C++
 std::vector< std::pair<KeyType, ValueType> > my_map;
 ```
 
-This is the best data structure if what you need to **iterate frequently over all the elements** .
+This is the best data structure if what you need to **iterate frequently over all the elements**.
 
 Most of the times, you can not beat it!
 
 > "But Davide, I need to have those elements ordered, that is the reason why I used `std::map`"!
 
-Well, if you need it ordered... order it after an insertion (or a bunch of them):
+Well, if you need them ordered... order them!
 
 ```C++
 std::sort( my_map.begin(), my_map.end() ) ;
 ```
-> "But Davide, sometimes I need to search an element in my map"!
+> "But Davide, sometimes I need to search an element in my map"
 
-In that case, you can find your element by its key in an **ordered** vector using 
+In that case, you can find your element by its key searching in an **ordered** vector with the function 
 [std::lower_bound](http://www.cplusplus.com/reference/algorithm/lower_bound/).
 
-The complexity of the search operation will be **O(log n)**, same as an `std::map`, but iteration through all the elements of the vector will be much, much faster.
+The complexity of lower_bound/upper_bound is **O(log n)**, the same as `std::map`, but iteration through all the elements is much, much faster.
 
 ## Summarizing
 
-- think about the way you want to access your data.
-- ask yourself if you have frequent or infrequent insertion/deletion.
-- do not underestimate the cost of an associative container.
-- use `std::unordered_map` by default... or `std::vector`, of course !
+- Think about the way you want to access your data.
+- Ask yourself if you have frequent or infrequent insertion/deletion.
+- Do not underestimate the cost of an associative container.
+- Use `std::unordered_map` by default... or `std::vector`, of course !
