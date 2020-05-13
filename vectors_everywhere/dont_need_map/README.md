@@ -81,7 +81,7 @@ So, I proposed this change and you can not imagine what happened next:
 
 Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index in the vector) is working just fine.
 
-I don't blame in any way the developers of the Velodyne driver, because changes like these make sense only in retrospective:  until you profile your application and do some actual measurements, it is hard to see how changes like this may influence performance.
+I don't blame in any way the developers of the Velodyne driver, because changes like these make sense only in retrospective:  until you profile your application and do some actual measurements, it is hard to find an unnecesary overhead hidden in plain sight.
 
 When you think that the rest of the function does **a lot** of mathematical operations, you can understand how counter-intuitive it is that the actual bottleneck was a tiny `std::map`.
 
