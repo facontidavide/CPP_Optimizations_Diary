@@ -26,7 +26,7 @@ nods, smiling, looking at the performance improvement and the astonishment of yo
 
 
 Hopefully, the examples in this repository will help you achieve this status of guru
-and, as a side effect, save the planet from global warning, sparing useless CPU
+and, as a side effect, save the planet from global warming, sparing useless CPU
 cycles from being wasted.
 
 Then, of course, someone on the other side of the planet will start mining Bitcoins or write her/his 
