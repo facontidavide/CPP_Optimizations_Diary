@@ -106,7 +106,7 @@ just because you believe it may run 2.5% faster.
 
 - [You don't need a `std::map<>` for that](vectors_everywhere/dont_need_map).
 
-- Small vector optimization (TODO).
+- [Small vector optimization](vectors_everywhere/small_vectors)
 
 
 ## "It is just a string, how bad could that be?"
