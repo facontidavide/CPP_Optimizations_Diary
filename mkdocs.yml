@@ -1,0 +1,45 @@
+site_name: CPP Optimizations diary
+
+site_description: Introduction to Behavior Trees
+site_author: Davide Faconti
+
+copyright: 'Copyright &copy; 2020 Davide Faconti, Eurecat'
+
+theme:
+  name: 'material'
+  language: en
+  logo: 'images/BT.png'
+  feature:
+    tabs: true
+  palette:
+    primary: indigo  
+    accent: Deep Purple
+  font:
+    text: Ubuntu
+    code: Roboto Mono
+  
+repo_name: 'CPP_Optimizations_Diary'
+repo_url: 'https://github.com/facontidavide/CPP_Optimizations_Diary'
+
+
+nav:
+    - Home: index.md
+
+    - Reference and move semantic:
+        - Use references: prefer_references.md
+
+    - Vectors are your best friend:
+        - Use reserve: reserve.md
+        - Avoid std::list : no_lists.md
+        - You may not need std::map : dont_need_map.md
+        - Small vector optimization: small_vectors.md
+
+    - "It's just a string...":
+        - Strings are vectors: strings_are_vectors.md
+        - Small string optimization: small_strings.md
+        
+    - Don't compute it twice:
+        - Iterating over a 2D matrix: 2d_matrix_iteration.md
+
+    - About me: about.md
+    

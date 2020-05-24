@@ -66,7 +66,7 @@ static void ObsessiveRecycling(benchmark::State& state) {
 }
 ```
 
-![](vector_reserve.png)
+![](../images/vector_reserve.png)
 
 Look at the difference! And these are only 100 elements.
 
@@ -82,7 +82,7 @@ you may or may not notice that difference.
 
 This is the amount of memory an applications of mine was using over time (image obtained with **Heaptrack**):
 
-![](growing_vector.png)
+![](../images/growing_vector.png)
 
 Look at that! Something is doubling the amount of memory it is using by a factor of two every few seconds...
 

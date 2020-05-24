@@ -1,11 +1,3 @@
-# Preface: about me
-
- My name is [Davide Faconti](https://twitter.com/facontidavide) and my job is one of the best in the world: I work to **create service robots** at an amazing company called [Blue Ocean Robotics](https://www.blue-ocean-robotics.com/).
-  
-This blog/repository is maintained in **my spare time** and it is not  related to my work there. Therefore *opinions (and memes) are all mine and don't represent my employer in any way*.
-
-I love C++ programming and Open Source and this "diary" is my small contribution to the OSS community.
-
 # CPP Optimizations Diary
 
 Optimizing code in C++ is something that no one can resist. You can have fun
@@ -19,10 +11,10 @@ that you always follow.
 
 These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
 
-You are the kind of person that casually drops a [std::vector<>::reserve](vectors_everywhere/reserve) before a loop and
+You are the kind of person that casually drops a [std::vector<>::reserve](reserve.md) before a loop and
 nods, smiling, looking at the performance improvement and the astonishment of your team member.
 
-<p align="center"><img src="images/boom.gif" width="350"></p>
+<p align="center"><img src="images/boom.gif" width="450	"></p>
 
 
 Hopefully, the examples in this repository will help you achieve this status of guru
@@ -54,7 +46,7 @@ My "goto" tools in Linux are [Hotspot](https://github.com/KDAB/hotspot) and
 [Heaptrack](https://github.com/KDE/heaptrack). I understand Windows has similar
 tools too.
 
-<p align="center"><img src="images/hotspot_heaptrack.jpg" width="350"></p>
+<p align="center"><img src="images/hotspot_heaptrack.jpg" width="450"></p>
 
 In the benchmark war, if you are the soldier, these are your rifle and hand grenades.
 
@@ -90,7 +82,7 @@ just because you believe it may run 2.5% faster.
 
 ## "If you pass that by value one more time..."
 
-- [Use Const reference by default](basics/prefer_references).
+- [Use Const reference by default](prefer_references.md).
 
 - Move semantic (TODO).
 
@@ -100,20 +92,20 @@ just because you believe it may run 2.5% faster.
 ## std::vector<> is your best friend
 
 
-- [Use std::vector<>::reserve by default](docs/reserve.md)
+- [Use std::vector<>::reserve by default](reserve.md)
 
-- ["I have learnt linked-lists at university, should I use them?" Nooope](docs/no_lists.md).
+- ["I have learnt linked-lists at university, should I use them?" Nooope](no_lists.md).
 
-- [You don't need a `std::map<>` for that](vectors_everywhere/dont_need_map).
+- [You don't need a `std::map<>` for that](dont_need_map.md).
 
-- [Small vector optimization](docs/small_vectors.md)
+- [Small vector optimization](small_vectors.md)
 
 
 ## "It is just a string, how bad could that be?"
 
-- [Strings are (almost) vectors](docs/strings_are_vectors.md)
+- [Strings are (almost) vectors](strings_are_vectors.md)
 
-- [When not to worry: small string optimization](docs/small_strings.d).
+- [When not to worry: small string optimization](small_strings.md).
 
 - String concatenation: the false sense of security of `std::string::operator+` (TODO).
 
@@ -123,7 +115,7 @@ just because you believe it may run 2.5% faster.
 
 - Example: 2D/3D transforms the smart way (TODO).
 
-- [Iterating over a 2D matrix: less elegant, more performant](docs/2d_matrix_iteration.md).
+- [Iterating over a 2D matrix: less elegant, more performant](2d_matrix_iteration.md).
 
 ## Fantastic data structures and where to find them.
 

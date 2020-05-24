@@ -41,7 +41,7 @@ for(int r=0; r<rows_count; r++)
 Then you are grounded. The best you can do with this code is to take it to
 [Mount Doom in Mordor](https://en.wikipedia.org/wiki/Mount_Doom) and throw it inside the volcano.
 
-<p align="center"><img src="mordor.jpg" width="350"></p>
+<p align="center"><img src="../images/mordor.jpg" width="450"></p>
 
 
 First of all, use [Eigen](http://eigen.tuxfamily.org). It is a wonderful library, that is performant and has a beautiful API.
