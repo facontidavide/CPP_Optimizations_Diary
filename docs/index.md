@@ -56,7 +56,7 @@ class or function.
 
 You can even run it Google Benchmark online here: [quick-bench.com](http://quick-bench.com/G7B2w0xPUWgOVvuzI7unES6cU4w).
 
-![quick-bench](images/quick-bench.png)
+![quick-bench](img/quick-bench.png)
 
 ## Rule 2: learn good design patterns, use them by default
 
