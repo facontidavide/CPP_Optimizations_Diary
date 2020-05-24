@@ -102,7 +102,7 @@ private:
 
 In some cases, there is a very high probability that a vector-like container will have at most **N** elements, but we are not "absolutely sure".
 
-We can still use a container, generally known as **SmallVector**, that will use the pre-allocated  memory from the stack for its first N alements and **only** when the container needs to grow further, will create a new storage block using an heap allocation.
+We can still use a container, generally known as **SmallVector**, that will use the pre-allocated  memory from the stack for its first N elements and **only** when the container needs to grow further, will create a new storage block using an heap allocation.
 
 ## StaticVector and SmallVector in the wild
 
