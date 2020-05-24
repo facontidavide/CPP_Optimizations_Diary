@@ -108,7 +108,7 @@ We can still use a container, generally known as **SmallVector**, that will use 
 
 It turn out that these tricks are well known and can be found implemented and ready to use in many popular libraries:
 
-- [Boost::cotainer](https://www.boost.org/doc/libs/1_73_0/doc/html/container.html). If it exists, Boost has it of course.
+- [Boost::container](https://www.boost.org/doc/libs/1_73_0/doc/html/container.html). If it exists, Boost has it of course.
 - [Abseil](https://github.com/abseil/abseil-cpp/tree/master/absl/container). They are called `fixed_array` and `inlined_vector`. 
 - For didactic purpose, you may have a look to the [SmallVector used internally by LLVM](https://github.com/llvm/llvm-project/blob/master/llvm/include/llvm/ADT/SmallVector.h)
 
