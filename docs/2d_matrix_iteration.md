@@ -36,6 +36,8 @@ for(int r=0; r<rows_count; r++)
 {
     matrix[r] = (float*) malloc( columns_count * sizeof(float) );
 }
+// access an element of the matrix like this:
+matrix[row][col] = 42;
 ```
 
 Then you are grounded. The best you can do with this code is to take it to
@@ -79,6 +81,10 @@ private:
     std::vector<T> _data;
     size_t _num_rows;
 };
+
+// access an element of the matrix like this:
+matrix(row, col) = 42;
+
 ```
 
 This is the most cache-friendly way to build a matrix, with a single memory allocation and 
