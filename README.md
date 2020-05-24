@@ -19,10 +19,10 @@ that you always follow.
 
 These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
 
-You are the kind of person that casually drops a [std::vector<>::reserve](vectors_everywhere/reserve) before a loop and
+You are the kind of person that casually drops a [std::vector<>::reserve](docs/reserve.md) before a loop and
 nods, smiling, looking at the performance improvement and the astonishment of your team member.
 
-<p align="center"><img src="images/boom.gif" width="350"></p>
+<p align="center"><img src="docs/img/boom.gif" width="350"></p>
 
 
 Hopefully, the examples in this repository will help you achieve this status of guru
@@ -54,7 +54,7 @@ My "goto" tools in Linux are [Hotspot](https://github.com/KDAB/hotspot) and
 [Heaptrack](https://github.com/KDE/heaptrack). I understand Windows has similar
 tools too.
 
-<p align="center"><img src="images/hotspot_heaptrack.jpg" width="350"></p>
+<p align="center"><img src="docs/img/hotspot_heaptrack.jpg" width="350"></p>
 
 In the benchmark war, if you are the soldier, these are your rifle and hand grenades.
 
@@ -64,7 +64,7 @@ class or function.
 
 You can even run it Google Benchmark online here: [quick-bench.com](http://quick-bench.com/G7B2w0xPUWgOVvuzI7unES6cU4w).
 
-![quick-bench](images/quick-bench.png)
+![quick-bench](docs/img/quick-bench.png)
 
 ## Rule 2: learn good design patterns, use them by default
 
@@ -86,48 +86,6 @@ But let's make something absolutely clear:
 In other words, think twice before doing any change in your code that makes it less readable or harder to debug,
 just because you believe it may run 2.5% faster.
 
-# Optimization examples
+# Get started: optimization examples
 
-## "If you pass that by value one more time..."
-
-- [Use Const reference by default](basics/prefer_references).
-
-- Move semantic (TODO).
-
-- Return value optimization (TODO).
-
-
-## std::vector<> is your best friend
-
-
-- [Use std::vector<>::reserve by default](docs/reserve.md)
-
-- ["I have learnt linked-lists at university, should I use them?" Nooope](docs/no_lists.md).
-
-- [You don't need a `std::map<>` for that](vectors_everywhere/dont_need_map).
-
-- [Small vector optimization](docs/small_vectors.md)
-
-
-## "It is just a string, how bad could that be?"
-
-- [Strings are (almost) vectors](docs/strings_are_vectors.md)
-
-- [When not to worry: small string optimization](docs/small_strings.d).
-
-- String concatenation: the false sense of security of `std::string::operator+` (TODO).
-
-- `std::string_view`: love at first sight (TODO).
-
-## Don't compute things twice.
-
-- Example: 2D/3D transforms the smart way (TODO).
-
-- [Iterating over a 2D matrix: less elegant, more performant](docs/2d_matrix_iteration.md).
-
-## Fantastic data structures and where to find them.
-
-TODO...
-
-
-
+You can find all my articles here: https://cpp-optimizations.netlify.app

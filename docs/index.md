@@ -78,9 +78,9 @@ But let's make something absolutely clear:
 In other words, think twice before doing any change in your code that makes it less readable or harder to debug,
 just because you believe it may run 2.5% faster.
 
-# Optimization examples
+## Optimization examples
 
-## "If you pass that by value one more time..."
+### "If you pass that by value one more time..."
 
 - [Use Const reference by default](prefer_references.md).
 
@@ -89,7 +89,7 @@ just because you believe it may run 2.5% faster.
 - Return value optimization (TODO).
 
 
-## std::vector<> is your best friend
+### std::vector<> is your best friend
 
 
 - [Use std::vector<>::reserve by default](reserve.md)
@@ -101,7 +101,7 @@ just because you believe it may run 2.5% faster.
 - [Small vector optimization](small_vectors.md)
 
 
-## "It is just a string, how bad could that be?"
+### "It is just a string, how bad could that be?"
 
 - [Strings are (almost) vectors](strings_are_vectors.md)
 
@@ -111,13 +111,13 @@ just because you believe it may run 2.5% faster.
 
 - `std::string_view`: love at first sight (TODO).
 
-## Don't compute things twice.
+### Don't compute things twice.
 
 - Example: 2D/3D transforms the smart way (TODO).
 
 - [Iterating over a 2D matrix: less elegant, more performant](2d_matrix_iteration.md).
 
-## Fantastic data structures and where to find them.
+### Fantastic data structures and where to find them.
 
 TODO...
 
