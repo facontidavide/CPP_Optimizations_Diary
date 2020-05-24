@@ -54,7 +54,8 @@ over a string. Of course, I can hear you arguing:
 I am not. But a `const&` is **always** guaranteed to be the most
 performing option, so why try your luck?
 
-<p align="center"><img src="../images/tostring.png"></p>
+
+![](img/tostring.png)
 
 ## Reuse temporary strings
 
@@ -83,6 +84,5 @@ static void ModifyStringBetter(const std::string& input, std::string& output)
 
 And, as expected...
 
-<p align="center"><img src="../images/modifystring.png"></p>
-
+![](img/modifystring.png)
 

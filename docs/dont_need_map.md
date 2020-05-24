@@ -28,7 +28,7 @@ This is a Pull Request I am particularly proud of:
 
 To understand how a small change can make a huge difference, think about what this driver is doing.
 
-<p align="center"><img src="../images/velodyne.png" width="1000"></p>
+![](img/velodyne.png)
 
 The Velodyne is a sensor that measures hundreds of thousands of points per seconds (distance from obstacles); it is the most important sensor in most autonomous cars.
 
@@ -61,7 +61,7 @@ So I explored the code and I found this:
  }
 ```
 
-<p align="center"><img src="../images/that_is_logn.jpg" width="500"></p>
+![](img/that_is_logn.jpg)
 
 Indeed, behind this innocent line of code:
 
@@ -77,7 +77,7 @@ So, I proposed this change and you can not imagine what happened next:
  std::vector<LaserCorrection> laser_corrections;
 ```
 
-<p align="center"><img src="../images/quote.png" width="800"></p>
+![](img/quote.png)
 
 Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index in the vector) is working just fine.
 

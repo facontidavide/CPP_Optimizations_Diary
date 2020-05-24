@@ -1,6 +1,7 @@
 # If you are using std::list<>, you are doing it wrong
 
-<p align="center"><img src="../images/linked_list.png" width="400"></p>
+
+![](img/linked_list.png)
 
 I am not wasting time here to repeat benchmarks which a lot of people did already.
 
@@ -26,7 +27,7 @@ But seriously, just use `vector`or `deque`.
 This is a practical example of a Pull Request I sent to the [RealSense](https://github.com/IntelRealSense)
 repository a while ago.
 
-<p align="center"><img src="../images/realsense.png" width="450"></p>
+![](img/realsense.png)
 
 They where using that abomination called `std::list<>` for a reason that I can not understand.
 

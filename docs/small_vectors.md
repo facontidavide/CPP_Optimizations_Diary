@@ -98,7 +98,7 @@ private:
 
 **StaticVector** looks like a `std::vector` but is...
 
-<p align="center"><img src="images/inconceivably.jpg" width="350"></p>
+![](img/inconceivably.jpg)
 
 In some cases, there is a very high probability that a vector-like container will have at most **N** elements, but we are not "absolutely sure".
 

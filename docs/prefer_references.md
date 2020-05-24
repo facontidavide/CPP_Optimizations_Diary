@@ -23,7 +23,7 @@ What do these functions have in common? You are passing the argument **by value*
 In other words, whenever you call one of these functions, you make a copy of the input in your scope
 and pass the **copy** to the function.
 
-<p align="center"><img src="../images/why_copy.jpg" width="350"></p>
+![](img/why_copy.jpg)
 
 Copies may, or may not, be an expensive operation, according to the size of the object or the fact
 that it requires dynamic heap memory allocation or not.
@@ -124,7 +124,8 @@ void PassVectorByRef(benchmark::State& state) {
 
 ```
 
-<p align="center"><img src="../images/const_reference.png"></p>
+![](img/const_reference.png)
+
 
 Clearly, passing by reference wins hands down.
 
@@ -164,7 +165,8 @@ void MultiplyVector_Ref(benchmark::State& state) {
 }
 ```
 
-<p align="center"><img src="../images/multiply_vector.png"></p>
+![](img/multiply_vector.png)
+
 
 Interesting! Using `const&` has no benefit at all, this time.
 

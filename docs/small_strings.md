@@ -12,7 +12,7 @@ before you need to allocate memory.
 
 That has a huge impact in terms of performance!
 
-<p align="center"><img src="../images/relax_sso.jpg" width="350"></p>
+![](img/relax_sso.jpg)
 
 For the curious minds, here there are some details about the implementation:
 
@@ -69,6 +69,7 @@ As you may notice, my attempt to be clever and say "I will not create a new stri
 every time" fails miserably if the string is short, but has a huge impact if the string
 is allocating memory.
 
-<p align="center"><img src="../images/sso_in_action.png"></p>
+![](img/sso_in_action.png)
+
 
 

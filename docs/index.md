@@ -14,8 +14,8 @@ These rules help you look like a bad-ass/rockstar/10X engineer to your colleague
 You are the kind of person that casually drops a [std::vector<>::reserve](reserve.md) before a loop and
 nods, smiling, looking at the performance improvement and the astonishment of your team member.
 
-<p align="center"><img src="images/boom.gif" width="450	"></p>
 
+![](img/boom.gif)
 
 Hopefully, the examples in this repository will help you achieve this status of guru
 and, as a side effect, save the planet from global warming, sparing useless CPU
@@ -46,7 +46,7 @@ My "goto" tools in Linux are [Hotspot](https://github.com/KDAB/hotspot) and
 [Heaptrack](https://github.com/KDE/heaptrack). I understand Windows has similar
 tools too.
 
-<p align="center"><img src="images/hotspot_heaptrack.jpg" width="450"></p>
+![](img/hotspot_heaptrack.jpg)
 
 In the benchmark war, if you are the soldier, these are your rifle and hand grenades.
 
