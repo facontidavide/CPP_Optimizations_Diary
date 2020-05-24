@@ -86,6 +86,49 @@ But let's make something absolutely clear:
 In other words, think twice before doing any change in your code that makes it less readable or harder to debug,
 just because you believe it may run 2.5% faster.
 
-# Get started: optimization examples
+# Get started
 
-You can find all my articles here: https://cpp-optimizations.netlify.app
+For a more comfortable reading experience, visit: https://cpp-optimizations.netlify.app
+
+## Optimization examples
+
+### "If you pass that by value one more time..."
+
+- [Use Const reference by default](prefer_references.md).
+
+- Move semantic (TODO).
+
+- Return value optimization (TODO).
+
+
+### std::vector<> is your best friend
+
+
+- [Use std::vector<>::reserve by default](reserve.md)
+
+- ["I have learnt linked-lists at university, should I use them?" Nooope](no_lists.md).
+
+- [You don't need a `std::map<>` for that](dont_need_map.md).
+
+- [Small vector optimization](small_vectors.md)
+
+
+### "It is just a string, how bad could that be?"
+
+- [Strings are (almost) vectors](strings_are_vectors.md)
+
+- [When not to worry: small string optimization](small_strings.md).
+
+- String concatenation: the false sense of security of `std::string::operator+` (TODO).
+
+- `std::string_view`: love at first sight (TODO).
+
+### Don't compute things twice.
+
+- Example: 2D/3D transforms the smart way (TODO).
+
+- [Iterating over a 2D matrix: less elegant, more performant](2d_matrix_iteration.md).
+
+### Fantastic data structures and where to find them.
+
+TODO...
