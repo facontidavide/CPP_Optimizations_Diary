@@ -526,8 +526,7 @@ platform (to store data pointer, size and capacity), some
 very cool tricks allow us to store <strong>statically</strong> up to 23 bytes
 before you need to allocate memory.</p>
 <p>That has a huge impact in terms of performance!</p>
-<p align="center"><img src="../images/relax_sso.jpg" width="350"></p>
-
+<p><img alt="" src="../img/relax_sso.jpg" /></p>
 <p>For the curious minds, here there are some details about the implementation:</p>
 <ul>
 <li><a href="https://github.com/elliotgoodrich/SSO-23">SSO-23</a></li>
@@ -579,7 +578,7 @@ void LongStringCopy(benchmark::State&amp; state) {
 <p>As you may notice, my attempt to be clever and say "I will not create a new string
 every time" fails miserably if the string is short, but has a huge impact if the string
 is allocating memory.</p>
-<p align="center"><img src="../images/sso_in_action.png"></p>
+<p><img alt="" src="../img/sso_in_action.png" /></p>
                 
               
               

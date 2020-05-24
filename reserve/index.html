@@ -525,7 +525,7 @@ static void ObsessiveRecycling(benchmark::State&amp; state) {
 }
 </code></pre>
 
-<p><img alt="" src="../images/vector_reserve.png" /></p>
+<p><img alt="" src="../img/vector_reserve.png" /></p>
 <p>Look at the difference! And these are only 100 elements.</p>
 <p>The number of elements influence the final performance gain a lot, but one thing is sure: it <strong>will</strong> be faster.</p>
 <p>Note also as the <code>ObsessiveRecycling</code> brings a performance gain that is probably visible for small vectors, but negligible with bigger ones.</p>
@@ -533,7 +533,7 @@ static void ObsessiveRecycling(benchmark::State&amp; state) {
 you may or may not notice that difference.</p>
 <h2 id="recognizing-a-vector-at-first-sight">Recognizing a vector at first sight</h2>
 <p>This is the amount of memory an applications of mine was using over time (image obtained with <strong>Heaptrack</strong>):</p>
-<p><img alt="" src="../images/growing_vector.png" /></p>
+<p><img alt="" src="../img/growing_vector.png" /></p>
 <p>Look at that! Something is doubling the amount of memory it is using by a factor of two every few seconds...</p>
 <p>I wonder what it could be? A vector, of course, because other data structures would have a more "linear" growth.</p>
 <p>That, by the way, <strong>is a bug in the code that was found thanks to memory profiling</strong>: that vector was not supposed to grow at all.</p>

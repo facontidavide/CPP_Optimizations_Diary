@@ -577,8 +577,7 @@ over a string. Of course, I can hear you arguing:</p>
 <p>"Davide, you are forgetting Return Value Optimization"?</p>
 <p>I am not. But a <code>const&amp;</code> is <strong>always</strong> guaranteed to be the most
 performing option, so why try your luck?</p>
-<p align="center"><img src="../images/tostring.png"></p>
-
+<p><img alt="" src="../img/tostring.png" /></p>
 <h2 id="reuse-temporary-strings">Reuse temporary strings</h2>
 <p>Here it comes a similar example in which we <strong>potentially</strong>
 recycle the memory already allocated in the past.</p>
@@ -601,7 +600,7 @@ static void ModifyStringBetter(const std::string&amp; input, std::string&amp; ou
 </code></pre>
 
 <p>And, as expected...</p>
-<p align="center"><img src="../images/modifystring.png"></p>
+<p><img alt="" src="../img/modifystring.png" /></p>
                 
               
               

@@ -555,8 +555,7 @@ private:
 </code></pre>
 
 <p><strong>StaticVector</strong> looks like a <code>std::vector</code> but is...</p>
-<p align="center"><img src="images/inconceivably.jpg" width="350"></p>
-
+<p><img alt="" src="../img/inconceivably.jpg" /></p>
 <p>In some cases, there is a very high probability that a vector-like container will have at most <strong>N</strong> elements, but we are not "absolutely sure".</p>
 <p>We can still use a container, generally known as <strong>SmallVector</strong>, that will use the pre-allocated  memory from the stack for its first N alements and <strong>only</strong> when the container needs to grow further, will create a new storage block using an heap allocation.</p>
 <h2 id="staticvector-and-smallvector-in-the-wild">StaticVector and SmallVector in the wild</h2>

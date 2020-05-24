@@ -563,8 +563,7 @@ not much different than an <code>std::list</code>, i.e. an unwelcome memory allo
 <p>This is a Pull Request I am particularly proud of:  </p>
 <p><a href="https://github.com/ros-drivers/velodyne/pull/194">Avoid unnecessary computation in RawData::unpack</a></p>
 <p>To understand how a small change can make a huge difference, think about what this driver is doing.</p>
-<p align="center"><img src="../images/velodyne.png" width="1000"></p>
-
+<p><img alt="" src="../img/velodyne.png" /></p>
 <p>The Velodyne is a sensor that measures hundreds of thousands of points per seconds (distance from obstacles); it is the most important sensor in most autonomous cars.</p>
 <p>The Velodyne driver converts measurements in polar coordinates to 3D cartesian coordinates (the so-called "PointCloud").</p>
 <p>I profiled the Velodyne driver using <strong>Hotspot</strong> and, surprise surprise, I found that something related to <code>std::map::operator[]</code> was using a lot of CPU.</p>
@@ -588,8 +587,7 @@ not much different than an <code>std::list</code>, i.e. an unwelcome memory allo
  }
 </code></pre>
 
-<p align="center"><img src="../images/that_is_logn.jpg" width="500"></p>
-
+<p><img alt="" src="../img/that_is_logn.jpg" /></p>
 <p>Indeed, behind this innocent line of code:</p>
 <pre><code>  laser_corrections[laser_number];
 </code></pre>
@@ -599,8 +597,7 @@ not much different than an <code>std::list</code>, i.e. an unwelcome memory allo
 <pre><code class="C++"> std::vector&lt;LaserCorrection&gt; laser_corrections;
 </code></pre>
 
-<p align="center"><img src="../images/quote.png" width="800"></p>
-
+<p><img alt="" src="../img/quote.png" /></p>
 <p>Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index in the vector) is working just fine.</p>
 <p>I don't blame in any way the developers of the Velodyne driver, because changes like these make sense only in retrospective:  until you profile your application and do some actual measurements, it is hard to find an unnecesary overhead hidden in plain sight.</p>
 <p>When you think that the rest of the function does <strong>a lot</strong> of mathematical operations, you can understand how counter-intuitive it is that the actual bottleneck was a tiny <code>std::map</code>.</p>

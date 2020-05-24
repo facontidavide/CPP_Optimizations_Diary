@@ -535,8 +535,7 @@ Matrix3D Rotate(Matrix3D mat, AxisAngle axis_angle);
 <p>What do these functions have in common? You are passing the argument <strong>by value</strong>.</p>
 <p>In other words, whenever you call one of these functions, you make a copy of the input in your scope
 and pass the <strong>copy</strong> to the function.</p>
-<p align="center"><img src="../images/why_copy.jpg" width="350"></p>
-
+<p><img alt="" src="../img/why_copy.jpg" /></p>
 <p>Copies may, or may not, be an expensive operation, according to the size of the object or the fact
 that it requires dynamic heap memory allocation or not.</p>
 <p>In these examples, the objects that probably have a negligible overhead,
@@ -627,8 +626,7 @@ void PassVectorByRef(benchmark::State&amp; state) {
 
 </code></pre>
 
-<p align="center"><img src="../images/const_reference.png"></p>
-
+<p><img alt="" src="../img/const_reference.png" /></p>
 <p>Clearly, passing by reference wins hands down.</p>
 <h2 id="exceptions-to-the-rule">Exceptions to the rule</h2>
 <blockquote>
@@ -664,8 +662,7 @@ void MultiplyVector_Ref(benchmark::State&amp; state) {
 }
 </code></pre>
 
-<p align="center"><img src="../images/multiply_vector.png"></p>
-
+<p><img alt="" src="../img/multiply_vector.png" /></p>
 <p>Interesting! Using <code>const&amp;</code> has no benefit at all, this time.</p>
 <p>When you copy an object that doesn't require heap allocation and is smaller than a few dozens of bytes,
 you won't notice any benefit passing them by reference.</p>
