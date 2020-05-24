@@ -94,7 +94,7 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 
 ### "If you pass that by value one more time..."
 
-- [Use Const reference by default](prefer_references.md).
+- [Use Const reference by default](docs/prefer_references.md).
 
 - Move semantic (TODO).
 
@@ -104,20 +104,20 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 ### std::vector<> is your best friend
 
 
-- [Use std::vector<>::reserve by default](reserve.md)
+- [Use std::vector<>::reserve by default](docs/reserve.md)
 
-- ["I have learnt linked-lists at university, should I use them?" Nooope](no_lists.md).
+- ["I have learnt linked-lists at university, should I use them?" Nooope](docs/no_lists.md).
 
-- [You don't need a `std::map<>` for that](dont_need_map.md).
+- [You don't need a `std::map<>` for that](docs/dont_need_map.md).
 
-- [Small vector optimization](small_vectors.md)
+- [Small vector optimization](docs/small_vectors.md)
 
 
 ### "It is just a string, how bad could that be?"
 
-- [Strings are (almost) vectors](strings_are_vectors.md)
+- [Strings are (almost) vectors](docs/strings_are_vectors.md)
 
-- [When not to worry: small string optimization](small_strings.md).
+- [When not to worry: small string optimization](docs/small_strings.md).
 
 - String concatenation: the false sense of security of `std::string::operator+` (TODO).
 
@@ -127,7 +127,7 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 
 - Example: 2D/3D transforms the smart way (TODO).
 
-- [Iterating over a 2D matrix: less elegant, more performant](2d_matrix_iteration.md).
+- [Iterating over a 2D matrix: less elegant, more performant](docs/2d_matrix_iteration.md).
 
 ### Fantastic data structures and where to find them.
 
