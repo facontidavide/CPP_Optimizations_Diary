@@ -22,6 +22,11 @@ theme:
 repo_name: 'CPP_Optimizations_Diary'
 repo_url: 'https://github.com/facontidavide/CPP_Optimizations_Diary'
 
+markdown_extensions:
+  - admonition
+  - codehilite
+
+
 extra:
   social:
     - icon: fontawesome/brands/twitter
