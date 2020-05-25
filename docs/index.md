@@ -107,7 +107,7 @@ just because you believe it may run 2.5% faster.
 
 - [When not to worry: small string optimization](small_strings.md).
 
-- String concatenation: the false sense of security of `std::string::operator+` (TODO).
+- [String concatenation: the false sense of security of `operator+`](strings_concatenation.md).
 
 - `std::string_view`: love at first sight (TODO).
 

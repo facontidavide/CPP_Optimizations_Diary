@@ -119,7 +119,7 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 
 - [When not to worry: small string optimization](docs/small_strings.md).
 
-- String concatenation: the false sense of security of `std::string::operator+` (TODO).
+- [String concatenation: the false sense of security of `operator+`](docs/strings_concatenation.md).
 
 - `std::string_view`: love at first sight (TODO).
 

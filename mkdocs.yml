@@ -22,15 +22,14 @@ theme:
 repo_name: 'CPP_Optimizations_Diary'
 repo_url: 'https://github.com/facontidavide/CPP_Optimizations_Diary'
 
-markdown_extensions:
-  - admonition
-  - codehilite
-
-
 extra:
   social:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/facontidavide
+
+markdown_extensions:
+  - admonition
+  - codehilite
 
 nav:
   - Home: index.md
@@ -47,6 +46,7 @@ nav:
   - "It's just a string...":
     - Strings are vectors: strings_are_vectors.md
     - Small string optimization: small_strings.md
+    - String concatenation: strings_concatenation.md
         
   - Don't compute it twice:
     - Iterating over a 2D matrix: 2d_matrix_iteration.md
