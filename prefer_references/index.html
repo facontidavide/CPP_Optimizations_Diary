@@ -521,15 +521,15 @@
 <p>What I am going to say here is so trivial that probably any seasoned developer
 knows it already.</p>
 <p>Nevertheless, I keep seeing people doing stuff like this:</p>
-<pre><code class="C++">bool OpenFile(str::string filename);
+<div class="codehilite"><pre><span></span><code><span class="kt">bool</span> <span class="nf">OpenFile</span><span class="p">(</span><span class="n">str</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">);</span>
 
-void DrawPath(std::vector&lt;Points&gt; path);
+<span class="kt">void</span> <span class="nf">DrawPath</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Points</span><span class="o">&gt;</span> <span class="n">path</span><span class="p">);</span>
 
-Pose DetectFace(Image image);
+<span class="n">Pose</span> <span class="nf">DetectFace</span><span class="p">(</span><span class="n">Image</span> <span class="n">image</span><span class="p">);</span>
 
-Matrix3D Rotate(Matrix3D mat, AxisAngle axis_angle);
+<span class="n">Matrix3D</span> <span class="nf">Rotate</span><span class="p">(</span><span class="n">Matrix3D</span> <span class="n">mat</span><span class="p">,</span> <span class="n">AxisAngle</span> <span class="n">axis_angle</span><span class="p">);</span>
+</code></pre></div>
 
-</code></pre>
 
 <p>I made these functions up, but <strong>I do see</strong> code like this in production sometimes.</p>
 <p>What do these functions have in common? You are passing the argument <strong>by value</strong>.</p>
@@ -543,15 +543,15 @@ when passed by value, are <code>Matrix3D</code> and <code>AngleAxis</code>, beca
 heap allocations.</p>
 <p>But, even if the overhead is small, is there any reason to waste CPU cycle, if we can avoid it?</p>
 <p>This is a better API:</p>
-<pre><code class="C++">bool OpenFile(const str::string&amp; filename); // string_view is even better
+<div class="codehilite"><pre><span></span><code><span class="kt">bool</span> <span class="nf">OpenFile</span><span class="p">(</span><span class="k">const</span> <span class="n">str</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">filename</span><span class="p">);</span> <span class="c1">// string_view is even better</span>
 
-void DrawPath(const std::vector&lt;Points&gt;&amp; path);
+<span class="kt">void</span> <span class="nf">DrawPath</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Points</span><span class="o">&gt;&amp;</span> <span class="n">path</span><span class="p">);</span>
 
-Pose DetectFace(const Image&amp; image);
+<span class="n">Pose</span> <span class="nf">DetectFace</span><span class="p">(</span><span class="k">const</span> <span class="n">Image</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">);</span>
 
-Matrix3D Rotate(const Matrix3D&amp; mat, const AxisAngle&amp; axis_angle);
+<span class="n">Matrix3D</span> <span class="nf">Rotate</span><span class="p">(</span><span class="k">const</span> <span class="n">Matrix3D</span><span class="o">&amp;</span> <span class="n">mat</span><span class="p">,</span> <span class="k">const</span> <span class="n">AxisAngle</span><span class="o">&amp;</span> <span class="n">axis_angle</span><span class="p">);</span>
+</code></pre></div>
 
-</code></pre>
 
 <p>In the latter version, we are using what is called <strong>"reference semantic"</strong>.</p>
 <p>You may use <strong>C-style</strong> (not-owning) pointers instead of references and get the same benefits, in terms of
@@ -562,69 +562,69 @@ performance, but here we are telling to the compiler that the arguments are:</p>
 <li>Not being a pointer, we are sure that we are not transferring the ownership of the object.</li>
 </ul>
 <p>The cost can be dramatically different, as you may see here:</p>
-<pre><code class="C++">size_t GetSpaces_Value(std::string str)
-{
-    size_t spaces = 0;
-    for(const char c: str){
-        if( c == ' ') spaces++;
-    }
-    return spaces;
-}
+<div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">GetSpaces_Value</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">spaces</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="nl">c</span><span class="p">:</span> <span class="n">str</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="n">spaces</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">spaces</span><span class="p">;</span>
+<span class="p">}</span>
 
-size_t GetSpaces_Ref(const std::string&amp; str)
-{
-    size_t spaces = 0;
-    for(const char c: str){
-        if( c == ' ') spaces++;
-    }
-    return spaces;
-}
+<span class="kt">size_t</span> <span class="nf">GetSpaces_Ref</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">spaces</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="nl">c</span><span class="p">:</span> <span class="n">str</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="n">spaces</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">spaces</span><span class="p">;</span>
+<span class="p">}</span>
 
-const std::string LONG_STR(&quot;a long string that can't use Small String Optimization&quot;);
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">LONG_STR</span><span class="p">(</span><span class="s">&quot;a long string that can&#39;t use Small String Optimization&quot;</span><span class="p">);</span>
 
-void PassStringByValue(benchmark::State&amp; state) {
-    for (auto _ : state) {
-        size_t n = GetSpaces_Value(LONG_STR);
-    }
-}
+<span class="kt">void</span> <span class="nf">PassStringByValue</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">GetSpaces_Value</span><span class="p">(</span><span class="n">LONG_STR</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-void PassStringByRef(benchmark::State&amp; state) {
-    for (auto _ : state) {
-        size_t n = GetSpaces_Ref(LONG_STR);
-    }
-}
+<span class="kt">void</span> <span class="nf">PassStringByRef</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">GetSpaces_Ref</span><span class="p">(</span><span class="n">LONG_STR</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-//----------------------------------
-size_t Sum_Value(std::vector&lt;unsigned&gt; vect)
-{
-    size_t sum = 0;
-    for(unsigned val: vect) { sum += val; }
-    return sum;
-}
+<span class="c1">//----------------------------------</span>
+<span class="kt">size_t</span> <span class="nf">Sum_Value</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;</span> <span class="n">vect</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="nl">val</span><span class="p">:</span> <span class="n">vect</span><span class="p">)</span> <span class="p">{</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
 
-size_t Sum_Ref(const std::vector&lt;unsigned&gt;&amp; vect)
-{
-    size_t sum = 0;
-    for(unsigned val: vect) { sum += val; }
-    return sum;
-}
+<span class="kt">size_t</span> <span class="nf">Sum_Ref</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;&amp;</span> <span class="n">vect</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">unsigned</span> <span class="nl">val</span><span class="p">:</span> <span class="n">vect</span><span class="p">)</span> <span class="p">{</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
 
-const std::vector&lt;unsigned&gt; vect_in = { 1, 2, 3, 4, 5 };
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;</span> <span class="n">vect_in</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">};</span>
 
-void PassVectorByValue(benchmark::State&amp; state) {
-    for (auto _ : state) {
-        size_t n = Sum_Value(vect_in);
-    }
-}
+<span class="kt">void</span> <span class="nf">PassVectorByValue</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Sum_Value</span><span class="p">(</span><span class="n">vect_in</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-void PassVectorByRef(benchmark::State&amp; state) {
-    for (auto _ : state) {
-        size_t n = Sum_Ref(vect_in);
-        benchmark::DoNotOptimize(n);
-    }
-}
+<span class="kt">void</span> <span class="nf">PassVectorByRef</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Sum_Ref</span><span class="p">(</span><span class="n">vect_in</span><span class="p">);</span>
+        <span class="n">benchmark</span><span class="o">::</span><span class="n">DoNotOptimize</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
-</code></pre>
 
 <p><img alt="" src="../img/const_reference.png" /></p>
 <p>Clearly, passing by reference wins hands down.</p>
@@ -633,34 +633,35 @@ void PassVectorByRef(benchmark::State&amp; state) {
 <p>"That is cool Davide, I will use <code>const&amp;</code> everywhere".</p>
 </blockquote>
 <p>Let's have a look to another example, first.</p>
-<pre><code class="C++">struct Vector3D{
-    double x;
-    double y;
-    double z;
-};
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">Vector3D</span><span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">z</span><span class="p">;</span>
+<span class="p">};</span>
 
-Vector3D MultiplyByTwo_Value(Vector3D p){
-    return { p.x*2, p.y*2, p.z*2 };
-}
+<span class="n">Vector3D</span> <span class="nf">MultiplyByTwo_Value</span><span class="p">(</span><span class="n">Vector3D</span> <span class="n">p</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">z</span><span class="o">*</span><span class="mi">2</span> <span class="p">};</span>
+<span class="p">}</span>
 
-Vector3D MultiplyByTwo_Ref(const Vector3D&amp; p){
-    return { p.x*2, p.y*2, p.z*2 };
-}
+<span class="n">Vector3D</span> <span class="nf">MultiplyByTwo_Ref</span><span class="p">(</span><span class="k">const</span> <span class="n">Vector3D</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">z</span><span class="o">*</span><span class="mi">2</span> <span class="p">};</span>
+<span class="p">}</span>
 
-void MultiplyVector_Value(benchmark::State&amp; state) {
-    Vector3D in = {1,2,3};
-    for (auto _ : state) {
-        Vector3D out = MultiplyByTwo_Value(in);
-    }
-}
+<span class="kt">void</span> <span class="nf">MultiplyVector_Value</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Vector3D</span> <span class="n">in</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Vector3D</span> <span class="n">out</span> <span class="o">=</span> <span class="n">MultiplyByTwo_Value</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-void MultiplyVector_Ref(benchmark::State&amp; state) {
-    Vector3D in = {1,2,3};
-    for (auto _ : state) {
-        Vector3D out = MultiplyByTwo_Ref(in);
-    }
-}
-</code></pre>
+<span class="kt">void</span> <span class="nf">MultiplyVector_Ref</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Vector3D</span> <span class="n">in</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Vector3D</span> <span class="n">out</span> <span class="o">=</span> <span class="n">MultiplyByTwo_Ref</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p><img alt="" src="../img/multiply_vector.png" /></p>
 <p>Interesting! Using <code>const&amp;</code> has no benefit at all, this time.</p>
@@ -669,8 +670,8 @@ you won't notice any benefit passing them by reference.</p>
 <p>On the other hand, it will never be slower so, if you are in doubt, using <code>const&amp;</code> is always a "safe bet". While passing primitive types by const references can be shown to generate an extra instruction (see https://godbolt.org/z/-rusab). That gets optimized out when compiling with <code>-O3</code>.</p>
 <p>My rule of thumb is: never pass by reference any argument with size 8 bytes or less (integers, doubles, chars, long, etc.).</p>
 <p>Since we know for sure that there is 0% benefit, writing something like this <strong>makes no sense</strong> and it is "ugly":</p>
-<pre><code class="C++">void YouAreTryingTooHardDude(const int&amp; a, const double&amp; b);
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">YouAreTryingTooHardDude</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">);</span>
+</code></pre></div>
                 
               
               

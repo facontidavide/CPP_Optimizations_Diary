@@ -494,36 +494,37 @@ the block of memory (and the capacity) will jump to 200. </p>
 <p>To prevent these allocations, that may happen multiple times, we can <strong>reserve</strong> the capacity that 
 we know (or believe) the vector needs.</p>
 <p>Let's have a look to a micro-benchmark.</p>
-<pre><code class="C++">static void NoReserve(benchmark::State&amp; state) 
-{
-  for (auto _ : state) {
-    // create a vector and add 100 elements
-    std::vector&lt;size_t&gt; v;
-    for(size_t i=0; i&lt;100; i++){  v.push_back(i);  }
-  }
-}
+<div class="codehilite"><pre><span></span><code><span class="k">static</span> <span class="kt">void</span> <span class="nf">NoReserve</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create a vector and add 100 elements</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-static void WithReserve(benchmark::State&amp; state) 
-{
-  for (auto _ : state) {
-    // create a vector and add 100 elements, but reserve first
-    std::vector&lt;size_t&gt; v;
-    v.reserve(100);
-    for(size_t i=0; i&lt;100; i++){  v.push_back(i);  }
-  }
-}
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">WithReserve</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// create a vector and add 100 elements, but reserve first</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
 
-static void ObsessiveRecycling(benchmark::State&amp; state) {
-  // create the vector only once
-  std::vector&lt;size_t&gt; v;
-  for (auto _ : state) {
-    // clear it. Capacity is still 100+ from previous run
-    v.clear();
-    for(size_t i=0; i&lt;100; i++){  v.push_back(i);  }
-  }
-}
-</code></pre>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">ObsessiveRecycling</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// create the vector only once</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">_</span> <span class="p">:</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// clear it. Capacity is still 100+ from previous run</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>  <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p><img alt="" src="../img/vector_reserve.png" /></p>
 <p>Look at the difference! And these are only 100 elements.</p>

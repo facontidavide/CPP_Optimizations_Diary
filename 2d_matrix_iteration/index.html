@@ -538,64 +538,72 @@
  and I profiled it using <strong>Hotspot</strong>.</p>
 <p>I realized that one of the bottlenecks was a function that combined together two costmaps to create
 a third one. The function looked qualitatively like this:</p>
-<pre><code class="C++">// this is over simplified code, do not argue about it with me
-for( size_t y = y_min; y &lt; y_max; y++ ) 
-{
-    for( size_t x = x_min; x &lt; x_max; x++ ) 
-    {
-        matrix_out( x,y ) = std::max( mat_a( x,y ), mat_b( x,y ) ); 
-    }
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1">// this is over simplified code, do not argue about it with me</span>
+<span class="k">for</span><span class="p">(</span> <span class="kt">size_t</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y_min</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">y_max</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span> <span class="p">)</span> 
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span> <span class="kt">size_t</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x_min</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x_max</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span> <span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="n">matrix_out</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="p">)</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span> <span class="n">mat_a</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="p">),</span> <span class="n">mat_b</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="p">)</span> <span class="p">);</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p>Pretty straightforward, right? Elegantly written, as it should be.
 But since my measurements revealed that it was using too much CPU, I decided to 
 follow the white rabbit inside the optimization hole.</p>
 <h2 id="how-do-you-write-a-good-2d-matrix-in-c">How do you write a good 2D matrix in C++?</h2>
 <p>Have you ever written code like this?</p>
-<pre><code class="C++">// My computer science professor did it like this
-float** matrix = (float**) malloc( rows_count * sizeof(float*) );
-for(int r=0; r&lt;rows_count; r++) 
-{
-    matrix[r] = (float*) malloc( columns_count * sizeof(float) );
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1">// My computer science professor did it like this</span>
+<span class="kt">float</span><span class="o">**</span> <span class="n">matrix</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="o">**</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span> <span class="n">rows_count</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span> <span class="p">);</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">r</span><span class="o">&lt;</span><span class="n">rows_count</span><span class="p">;</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="n">matrix</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span> <span class="n">columns_count</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// access an element of the matrix like this:</span>
+<span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</code></pre></div>
+
 
 <p>Then you are grounded. The best you can do with this code is to take it to
 <a href="https://en.wikipedia.org/wiki/Mount_Doom">Mount Doom in Mordor</a> and throw it inside the volcano.</p>
 <p><img alt="" src="../img/mordor.jpg" /></p>
 <p>First of all, use <a href="http://eigen.tuxfamily.org">Eigen</a>. It is a wonderful library, that is performant and has a beautiful API.</p>
 <p>Secondary, just <strong>for didactic purposes</strong>, this is the way you should implement an efficient matrix (but don't, use Eigen, seriously). It is relevant to show it here, because this is the approach that everybody follows, including Eigen.</p>
-<pre><code class="C++">template &lt;typename T&gt; class Matrix2D
-{
-public:
-    Matrix2D(size_t rows, size_t columns):  _num_rows(rows)
-    {
-        _data.resize( rows * columns );
-    }
+<div class="codehilite"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Matrix2D</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Matrix2D</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">rows</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">columns</span><span class="p">)</span><span class="o">:</span>  <span class="n">_num_rows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_data</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span> <span class="n">rows</span> <span class="o">*</span> <span class="n">columns</span> <span class="p">);</span>
+    <span class="p">}</span>
 
-    size_t rows() const
-    { 
-        return _num_rows; 
-    }
+    <span class="kt">size_t</span> <span class="n">rows</span><span class="p">()</span> <span class="k">const</span>
+    <span class="p">{</span> 
+        <span class="k">return</span> <span class="n">_num_rows</span><span class="p">;</span> 
+    <span class="p">}</span>
 
-    T&amp; operator()(size_t row, size_t col)  
-    {
-        size_t index = col*_num_rows + row; 
-        return _data[index];
-    }
+    <span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">()(</span><span class="kt">size_t</span> <span class="n">row</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">col</span><span class="p">)</span>  
+    <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">col</span><span class="o">*</span><span class="n">_num_rows</span> <span class="o">+</span> <span class="n">row</span><span class="p">;</span> 
+        <span class="k">return</span> <span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+    <span class="p">}</span>
 
-    T&amp; operator[](size_t index)  
-    {
-        return _data[index];
-    }
+    <span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="kt">size_t</span> <span class="n">index</span><span class="p">)</span>  
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_data</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+    <span class="p">}</span>
 
-    // all the other methods omitted
-private:
-    std::vector&lt;T&gt; _data;
-    size_t _num_rows;
-};
-</code></pre>
+    <span class="c1">// all the other methods omitted</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">_data</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">_num_rows</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// access an element of the matrix like this:</span>
+<span class="n">matrix</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</code></pre></div>
+
 
 <p>This is the most cache-friendly way to build a matrix, with a single memory allocation and 
 the data stored in a way known as <a href="https://www.geeksforgeeks.org/row-wise-vs-column-wise-traversal-matrix/">column-wise</a>.</p>
@@ -605,25 +613,28 @@ the data stored in a way known as <a href="https://www.geeksforgeeks.org/row-wis
 <p>We have a number of iterations that is equal to <code>(x_max-x_min)*(y_max-y_min)</code>.<br />
 Often, that it is a lot of pixels/cells.</p>
 <p>In each iteration, we calculate the index 3 times using the formula:</p>
-<pre><code> size_t index = col*_num_rows + row;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="err"> size_t index = col*_num_rows + row;</span>
+</code></pre></div>
+
+
 <p>Holy moly, that is a lot of multiplications!</p>
 <p>It turned out that it was worth rewriting the code like this:</p>
-<pre><code class="C++">// calculating the index &quot;by hand&quot;
-for(size_t y = y_min; y &lt; y_max; y++) 
-{
-    size_t offset_out =  y * matrix_out.rows();
-    size_t offset_a   =  y * mat_a.rows();
-    size_t offset_b   =  y * mat_b.rows();
-    for(size_t x = x_min; x &lt; x_max; x++) 
-    {
-        size_t index_out =  offset_out + x;
-        size_t index_a   =  offset_a + x;
-        size_t index_b   =  offset_b + x;
-        matrix_out( index_out ) = std::max( mat_a( index_a ), mat_b( index_b ) ); 
-    }
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1">// calculating the index &quot;by hand&quot;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y_min</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">y_max</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">offset_out</span> <span class="o">=</span>  <span class="n">y</span> <span class="o">*</span> <span class="n">matrix_out</span><span class="p">.</span><span class="n">rows</span><span class="p">();</span>
+    <span class="kt">size_t</span> <span class="n">offset_a</span>   <span class="o">=</span>  <span class="n">y</span> <span class="o">*</span> <span class="n">mat_a</span><span class="p">.</span><span class="n">rows</span><span class="p">();</span>
+    <span class="kt">size_t</span> <span class="n">offset_b</span>   <span class="o">=</span>  <span class="n">y</span> <span class="o">*</span> <span class="n">mat_b</span><span class="p">.</span><span class="n">rows</span><span class="p">();</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x_min</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x_max</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">index_out</span> <span class="o">=</span>  <span class="n">offset_out</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+        <span class="kt">size_t</span> <span class="n">index_a</span>   <span class="o">=</span>  <span class="n">offset_a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+        <span class="kt">size_t</span> <span class="n">index_b</span>   <span class="o">=</span>  <span class="n">offset_b</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+        <span class="n">matrix_out</span><span class="p">(</span> <span class="n">index_out</span> <span class="p">)</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span> <span class="n">mat_a</span><span class="p">(</span> <span class="n">index_a</span> <span class="p">),</span> <span class="n">mat_b</span><span class="p">(</span> <span class="n">index_b</span> <span class="p">)</span> <span class="p">);</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p>So, I know what you are thinking, <strong>my eyes are hurting too</strong>. It is ugly. But the performance boost was too much to ignore.</p>
 <p>That is not surprising, considering that the number of multiplications is dramatically reduced by a factor <code>(x_max-x_min)*3</code>.</p>

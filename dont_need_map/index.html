@@ -568,34 +568,39 @@ not much different than an <code>std::list</code>, i.e. an unwelcome memory allo
 <p>The Velodyne driver converts measurements in polar coordinates to 3D cartesian coordinates (the so-called "PointCloud").</p>
 <p>I profiled the Velodyne driver using <strong>Hotspot</strong> and, surprise surprise, I found that something related to <code>std::map::operator[]</code> was using a lot of CPU.</p>
 <p>So I explored the code and I found this:</p>
-<pre><code class="C++"> std::map&lt;int, LaserCorrection&gt; laser_corrections;
-</code></pre>
+<div class="codehilite"><pre><span></span><code> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">LaserCorrection</span><span class="o">&gt;</span> <span class="n">laser_corrections</span><span class="p">;</span>
+</code></pre></div>
+
 
 <p><code>LaserCorrection</code>contains some calibration information that was needed to adjust the measurements.</p>
 <p>The <code>int</code> key of the map is a number in the range  [0, N-1], where N could be 16, 32 or 64. Maybe one day it will reach 128!</p>
 <p>Furthermore <code>laser_corrections</code> was created once (no further insertions)
  and used over and over again in a loop like this:</p>
-<pre><code class="C++"> // code simplified
- for (int i = 0; i &lt; BLOCKS_PER_PACKET; i++) {
-    //some code
-    for (int j = 0; j &lt; NUM_SCANS; j++) 
-    {   
-        int laser_number = // omitted for simplicity
-        const LaserCorrection &amp;corrections = laser_corrections[laser_number];
-        // some code
-    }
- }
-</code></pre>
+<div class="codehilite"><pre><span></span><code> <span class="c1">// code simplified</span>
+ <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">BLOCKS_PER_PACKET</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//some code</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">NUM_SCANS</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> 
+    <span class="p">{</span>   
+        <span class="kt">int</span> <span class="n">laser_number</span> <span class="o">=</span> <span class="c1">// omitted for simplicity</span>
+        <span class="k">const</span> <span class="n">LaserCorrection</span> <span class="o">&amp;</span><span class="n">corrections</span> <span class="o">=</span> <span class="n">laser_corrections</span><span class="p">[</span><span class="n">laser_number</span><span class="p">];</span>
+        <span class="c1">// some code</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>
+
 
 <p><img alt="" src="../img/that_is_logn.jpg" /></p>
 <p>Indeed, behind this innocent line of code:</p>
-<pre><code>  laser_corrections[laser_number];
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="n">laser_corrections</span><span class="o">[</span><span class="n">laser_number</span><span class="o">]</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+
 <p>There is a search in a red-black tree!</p>
 <p>Remember: the index is <strong>not</strong> a random number, its value is always between 0 and N-1, where N is very small.</p>
 <p>So, I proposed this change and you can not imagine what happened next:</p>
-<pre><code class="C++"> std::vector&lt;LaserCorrection&gt; laser_corrections;
-</code></pre>
+<div class="codehilite"><pre><span></span><code> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">LaserCorrection</span><span class="o">&gt;</span> <span class="n">laser_corrections</span><span class="p">;</span>
+</code></pre></div>
+
 
 <p><img alt="" src="../img/quote.png" /></p>
 <p>Summarizing, there wasn't any need for an associative container, because the position in the vector itself (the index in the vector) is working just fine.</p>
@@ -604,8 +609,9 @@ not much different than an <code>std::list</code>, i.e. an unwelcome memory allo
 <h2 id="going-a-step-further-vector-of-keyvalue-pairs">Going a step further: vector of [key,value]  pairs</h2>
 <p>This example was quite "extreme", because of its very convenient integer key, a small number between 0 and N.</p>
 <p>Nevertheless, in my code I use often a structure like this, instead of a "real" associative container:</p>
-<pre><code class="C++">std::vector&lt; std::pair&lt;KeyType, ValueType&gt; &gt; my_map;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">KeyType</span><span class="p">,</span> <span class="n">ValueType</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">my_map</span><span class="p">;</span>
+</code></pre></div>
+
 
 <p>This is the best data structure if what you need to <strong>iterate frequently over all the elements</strong>.</p>
 <p>Most of the times, you can not beat it!</p>
@@ -613,8 +619,9 @@ not much different than an <code>std::list</code>, i.e. an unwelcome memory allo
 <p>"But Davide, I need to have those elements ordered, that is the reason why I used <code>std::map</code>"!</p>
 </blockquote>
 <p>Well, if you need them ordered... order them!</p>
-<pre><code class="C++">std::sort( my_map.begin(), my_map.end() ) ;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span> <span class="n">my_map</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">my_map</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="p">)</span> <span class="p">;</span>
+</code></pre></div>
+
 
 <blockquote>
 <p>"But Davide, sometimes I need to search an element in my map"</p>

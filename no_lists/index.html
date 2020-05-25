@@ -546,13 +546,14 @@ repository a while ago.</p>
 <p>Here you can find the link to the Pull Request:
 - <a href="https://github.com/IntelRealSense/realsense-ros/pull/1097">Considerable CPU saving in BaseRealSenseNode::publishPointCloud()</a></p>
 <p>In a nutshell, the whole PR contains only two tiny changes:</p>
-<pre><code class="C++">// We changed this list, created at each camera frame
-std::list&lt;unsigned&gt; valid_indices;
+<div class="codehilite"><pre><span></span><code><span class="c1">// We changed this list, created at each camera frame</span>
+<span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;</span> <span class="n">valid_indices</span><span class="p">;</span>
 
-// With this vector: a class member, that is cleared before reusing
-// (but allocated memory is still there)
-std::vector&lt;unsigned&gt; _valid_indices;
-</code></pre>
+<span class="c1">// With this vector: a class member, that is cleared before reusing</span>
+<span class="c1">// (but allocated memory is still there)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;</span> <span class="n">_valid_indices</span><span class="p">;</span>
+</code></pre></div>
+
 
 <p>Additionally, we have a quite large object called <code>sensor_msgs::PointCloud2 msg_pointcloud</code> that
 is converted into a class member that is reused over and over again at each frame.</p>

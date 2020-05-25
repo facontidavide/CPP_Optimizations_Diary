@@ -546,31 +546,32 @@ with some useful utility that makes sense for text, but no much more.</p>
 require memory allocation, you must use best practices you should use
 with similar containers (even if, arguably, often you need to worry less).</p>
 <h2 id="tostring">ToString</h2>
-<pre><code class="c++">enum Color{
-    BLUE,
-    RED,
-    YELLOW
-};
+<div class="codehilite"><pre><span></span><code><span class="k">enum</span> <span class="n">Color</span><span class="p">{</span>
+    <span class="n">BLUE</span><span class="p">,</span>
+    <span class="n">RED</span><span class="p">,</span>
+    <span class="n">YELLOW</span>
+<span class="p">};</span>
 
-std::string ToStringBad(Color c)
-{
-    switch(c) {
-    case BLUE:   return &quot;BLUE&quot;;
-    case RED:    return &quot;RED&quot;;
-    case YELLOW: return &quot;YELLOW&quot;;
-    }
-}
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ToStringBad</span><span class="p">(</span><span class="n">Color</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">BLUE</span><span class="p">:</span>   <span class="k">return</span> <span class="s">&quot;BLUE&quot;</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">RED</span><span class="p">:</span>    <span class="k">return</span> <span class="s">&quot;RED&quot;</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">YELLOW</span><span class="p">:</span> <span class="k">return</span> <span class="s">&quot;YELLOW&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-const std::string&amp; ToStringBetter(Color c)
-{
-    static const std::string color_name[3] ={&quot;BLUE&quot;, &quot;RED&quot;, &quot;YELLOW&quot;};
-    switch(c) {
-    case BLUE:   return color_name[0];
-    case RED:    return color_name[1];
-    case YELLOW: return color_name[2];
-    }
-}
-</code></pre>
+<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">ToStringBetter</span><span class="p">(</span><span class="n">Color</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span><span class="p">{</span><span class="s">&quot;BLUE&quot;</span><span class="p">,</span> <span class="s">&quot;RED&quot;</span><span class="p">,</span> <span class="s">&quot;YELLOW&quot;</span><span class="p">};</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">BLUE</span><span class="p">:</span>   <span class="k">return</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">case</span> <span class="nl">RED</span><span class="p">:</span>    <span class="k">return</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">case</span> <span class="nl">YELLOW</span><span class="p">:</span> <span class="k">return</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p>This is just an example of how, if you can, you should not create over and
 over a string. Of course, I can hear you arguing:</p>
@@ -583,21 +584,22 @@ performing option, so why try your luck?</p>
 recycle the memory already allocated in the past.</p>
 <p>You are not guaranteed to be faster with the latter version, but you
 might be.</p>
-<pre><code class="c++">// Create a new string every time (even if return value optimization may help)
-static std::string ModifyString(const std::string&amp; input)
-{
-    std::string output = input;
-    output.append(&quot;... indeed&quot;);
-    return output;
-}
-// Reuse an existing string that MAYBE, have the space already reserved
-// (or maybe not..)
-static void ModifyStringBetter(const std::string&amp; input, std::string&amp; output)
-{
-    output = input;
-    output.append(&quot;... indeed&quot;);
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Create a new string every time (even if return value optimization may help)</span>
+<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ModifyString</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">output</span> <span class="o">=</span> <span class="n">input</span><span class="p">;</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;... indeed&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">output</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Reuse an existing string that MAYBE, have the space already reserved</span>
+<span class="c1">// (or maybe not..)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">ModifyStringBetter</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">input</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">output</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">input</span><span class="p">;</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;... indeed&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <p>And, as expected...</p>
 <p><img alt="" src="../img/modifystring.png" /></p>
