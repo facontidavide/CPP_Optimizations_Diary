@@ -19,7 +19,7 @@
     
     
       
-        <title>Strings are vectors - CPP Optimizations diary</title>
+        <title>String concatenation - CPP Optimizations diary</title>
       
     
     
@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#it-is-just-a-string-should-i-worry" class="md-skip">
+        <a href="#string-concatenation" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +88,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Strings are vectors
+              String concatenation
             
           </span>
         </div>
@@ -344,60 +344,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Strings are vectors
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
-      </label>
-    
-    <a href="./" title="Strings are vectors" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../strings_are_vectors/" title="Strings are vectors" class="md-nav__link">
       Strings are vectors
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#tostring" class="md-nav__link">
-    ToString
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reuse-temporary-strings" class="md-nav__link">
-    Reuse temporary strings
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -417,11 +368,74 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../strings_concatenation/" title="String concatenation" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        String concatenation
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="String concatenation" class="md-nav__link md-nav__link--active">
       String concatenation
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#default-concatenation" class="md-nav__link">
+    "Default" concatenation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-concatenation" class="md-nav__link">
+    "Manual" concatenation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variadic-concatenation" class="md-nav__link">
+    Variadic concatenation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-copy-and-paste-my-code" class="md-nav__link">
+    Before you copy and paste my code...
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -510,15 +524,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tostring" class="md-nav__link">
-    ToString
+  <a href="#default-concatenation" class="md-nav__link">
+    "Default" concatenation
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#reuse-temporary-strings" class="md-nav__link">
-    Reuse temporary strings
+  <a href="#manual-concatenation" class="md-nav__link">
+    "Manual" concatenation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variadic-concatenation" class="md-nav__link">
+    Variadic concatenation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-copy-and-paste-my-code" class="md-nav__link">
+    Before you copy and paste my code...
   </a>
   
 </li>
@@ -535,7 +563,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/strings_are_vectors.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/strings_concatenation.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -543,78 +571,130 @@
                   
                 
                 
-                <h1 id="it-is-just-a-string-should-i-worry">It is just a string: should I worry?</h1>
-<p><code>std::string</code> is a wonderful abstraction, when compared to the awful mess of
- raw pointers and lengths that you have to deal with in <strong>C</strong>.</p>
-<p>I am kidding, C developers, we love you!</p>
-<blockquote>
-<p>Or we sympathize for you, depends on how you want to look at it.</p>
-</blockquote>
-<p>If you think about it, it should be no more than an <code>std::vector&lt;char&gt;</code> in disguise,
-with some useful utility that makes sense for text, but no much more.</p>
-<p>On one hand, <strong>it is</strong>, but here comes what is called <strong>Small String Optimization (SSO)</strong>.</p>
-<p><a href="../small_strings/">Read more about SSO here</a>.</p>
-<p>What I want to show you here is that, as any objects that <strong>might</strong>
-require memory allocation, you must use best practices you should use
-with similar containers (even if, arguably, often you need to worry less).</p>
-<h2 id="tostring">ToString</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">enum</span> <span class="n">Color</span><span class="p">{</span>
-    <span class="n">BLUE</span><span class="p">,</span>
-    <span class="n">RED</span><span class="p">,</span>
-    <span class="n">YELLOW</span>
-<span class="p">};</span>
+                <h1 id="string-concatenation">String concatenation</h1>
+<p>Warning: before you read this, remember the rule #1 we mentioned at the beginning.</p>
+<p><strong> Optimize your code only if you can observe a visible overhead 
+with you profiling tools</strong>. Said that...</p>
+<p>As we said, strings are a little more than vectors of characters, therefore
+they may need heap allocations to store all their elements.</p>
+<p>Concatenating strings in C++ is very easy, but there is something we should
+be aware of.</p>
+<h2 id="default-concatenation">"Default" concatenation</h2>
+<p>Look at this familiar line of code. </p>
+<div class="codehilite"><pre><span></span><code><span class="nl">std</span><span class="p">:</span><span class="n">string</span> <span class="n">big_string</span> <span class="o">=</span> <span class="n">first</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">third</span><span class="p">;</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ToStringBad</span><span class="p">(</span><span class="n">Color</span> <span class="n">c</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">switch</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nl">BLUE</span><span class="p">:</span>   <span class="k">return</span> <span class="s">&quot;BLUE&quot;</span><span class="p">;</span>
-    <span class="k">case</span> <span class="nl">RED</span><span class="p">:</span>    <span class="k">return</span> <span class="s">&quot;RED&quot;</span><span class="p">;</span>
-    <span class="k">case</span> <span class="nl">YELLOW</span><span class="p">:</span> <span class="k">return</span> <span class="s">&quot;YELLOW&quot;</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="c1">// Where...</span>
+<span class="c1">// std::string first(&quot;This is my first string.&quot;);</span>
+<span class="c1">// std::string second(&quot;This is the second string I want to append.&quot;);</span>
+<span class="c1">// std::string third(&quot;This is the third and last string to append.&quot;); </span>
+</code></pre></div>
+
+
+<p>Noticing anything suspicious? Think about heap allocations...</p>
+<p><img alt="" src="../img/spider_senses.png" /></p>
+<p>Let me rewrite it like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nl">std</span><span class="p">:</span><span class="n">string</span> <span class="n">big_string</span> <span class="o">=</span> <span class="p">(((</span><span class="n">first</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">second</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">third</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>Hopefully you got it. To concatenate strings of this length, you will 
+need multiple heap allocations and copies from the old memory block to the new one.</p>
+<p>If only <code>std::string</code> had a method similar to <code>std::vector::reserve()</code> :(</p>
+<p>Hey, wait... <a href="https://en.cppreference.com/w/cpp/string/basic_string/reserve">what is this</a>?</p>
+<h2 id="manual-concatenation">"Manual" concatenation</h2>
+<p>Let's use reserve to reduce the amount of heap allocations to exactly one.</p>
+<p>We can calculate the total amount of characters needed by <code>big_string</code> in
+advance and reserve it like this:</p>
+<div class="codehilite"><pre><span></span><code>    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">big_one</span><span class="p">;</span>
+    <span class="n">big_one</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">first_str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> 
+                    <span class="n">second_str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> 
+                    <span class="n">third_str</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> 
+                    <span class="n">strlen</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="p">);</span>
+
+    <span class="n">big_one</span> <span class="o">+=</span> <span class="n">first</span><span class="p">;</span>
+    <span class="n">big_one</span> <span class="o">+=</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="n">big_one</span> <span class="o">+=</span> <span class="n">second</span><span class="p">;</span>
+    <span class="n">big_one</span> <span class="o">+=</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="n">big_one</span> <span class="o">+=</span> <span class="n">third</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>I know what you are thinking and you are 100% right.</p>
+<p><img alt="" src="../img/feel_bad.jpg" /></p>
+<p>That is a horrible piece of code... that is <strong>2.5 times faster</strong> than the 
+default string concatenation!</p>
+<h2 id="variadic-concatenation">Variadic concatenation</h2>
+<p>Can we create a string concatenation function that is fast, reusable <strong>and</strong> 
+readable?</p>
+<p>We do, but we need to use some heavy weapons of Modern C++: <strong>variadic templates</strong>.</p>
+<p>There is a very <a href="https://arne-mertz.de/2016/11/more-variadic-templates/">nice article about variadic templates here</a>,
+that you should probably need if you are not familiar with them.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">//--- functions to calculate the total size ---</span>
+<span class="kt">size_t</span> <span class="nf">StrSize</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">ToStringBetter</span><span class="p">(</span><span class="n">Color</span> <span class="n">c</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span><span class="p">{</span><span class="s">&quot;BLUE&quot;</span><span class="p">,</span> <span class="s">&quot;RED&quot;</span><span class="p">,</span> <span class="s">&quot;YELLOW&quot;</span><span class="p">};</span>
-    <span class="k">switch</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nl">BLUE</span><span class="p">:</span>   <span class="k">return</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-    <span class="k">case</span> <span class="nl">RED</span><span class="p">:</span>    <span class="k">return</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="k">case</span> <span class="nl">YELLOW</span><span class="p">:</span> <span class="k">return</span> <span class="n">color_name</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-    <span class="p">}</span>
+<span class="kt">size_t</span> <span class="nf">StrSize</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Head</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Tail</span><span class="o">&gt;</span>
+<span class="kt">size_t</span> <span class="n">StrSize</span><span class="p">(</span><span class="k">const</span> <span class="n">Head</span><span class="o">&amp;</span> <span class="n">head</span><span class="p">,</span> <span class="n">Tail</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">tail</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">head</span><span class="p">)</span> <span class="o">+</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">tail</span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="c1">//--- functions to append strings together ---</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Head</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Tail</span><span class="o">&gt;</span>
+<span class="kt">size_t</span> <span class="n">StrSize</span><span class="p">(</span><span class="k">const</span> <span class="n">Head</span><span class="o">&amp;</span> <span class="n">head</span><span class="p">,</span> <span class="n">Tail</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">tail</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">head</span><span class="p">)</span> <span class="o">+</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">tail</span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Head</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">StrAppend</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Head</span><span class="o">&amp;</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Head</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">StrAppend</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Head</span><span class="o">&amp;</span> <span class="n">head</span><span class="p">,</span> <span class="n">Args</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">out</span> <span class="o">+=</span> <span class="n">head</span><span class="p">;</span>
+  <span class="n">StrAppend</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="c1">//--- Finally, the function to concatenate strings ---</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> 
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">StrCat</span><span class="p">(</span><span class="n">Args</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">size_t</span> <span class="n">tot_size</span> <span class="o">=</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">out</span><span class="p">;</span>
+  <span class="n">out</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">tot_size</span><span class="p">);</span>
+
+  <span class="n">StrAppend</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
+  <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
-<p>This is just an example of how, if you can, you should not create over and
-over a string. Of course, I can hear you arguing:</p>
-<p>"Davide, you are forgetting Return Value Optimization"?</p>
-<p>I am not. But a <code>const&amp;</code> is <strong>always</strong> guaranteed to be the most
-performing option, so why try your luck?</p>
-<p><img alt="" src="../img/tostring.png" /></p>
-<h2 id="reuse-temporary-strings">Reuse temporary strings</h2>
-<p>Here it comes a similar example in which we <strong>potentially</strong>
-recycle the memory already allocated in the past.</p>
-<p>You are not guaranteed to be faster with the latter version, but you
-might be.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Create a new string every time (even if return value optimization may help)</span>
-<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ModifyString</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">input</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">output</span> <span class="o">=</span> <span class="n">input</span><span class="p">;</span>
-    <span class="n">output</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;... indeed&quot;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">output</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">// Reuse an existing string that MAYBE, have the space already reserved</span>
-<span class="c1">// (or maybe not..)</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="n">ModifyStringBetter</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">input</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">output</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">input</span><span class="p">;</span>
-    <span class="n">output</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;... indeed&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<p>That was a lot of complex code, even for a trained eye. But the good news are
+that it is very easy to use:</p>
+<div class="codehilite"><pre><span></span><code><span class="nl">std</span><span class="p">:</span><span class="n">string</span> <span class="n">big_string</span> <span class="o">=</span> <span class="n">StrCat</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">third</span> <span class="p">);</span>
 </code></pre></div>
 
 
-<p>And, as expected...</p>
-<p><img alt="" src="../img/modifystring.png" /></p>
+<p>So, how fast is that?</p>
+<p><img alt="" src="../img/string_concatenation.png" /></p>
+<p>The reason why the version with variadic templates is slightly slower than
+the "ugly" manual concatenation is... </p>
+<p>I have no idea!</p>
+<p>What I <strong>do</strong> know is that it is twice as fast that the default one and
+it is not an unreadable mess. </p>
+<h2 id="before-you-copy-and-paste-my-code">Before you copy and paste my code...</h2>
+<p>My implementation of <code>StrCat</code> is very limited and I just wanted to make a point:
+beware of string concatenations in C++.</p>
+<p>Nevertheless, don't think it twice and use <a href="https://github.com/fmtlib/fmt">{fmt}</a> instead.</p>
+<p>Not only it is an easy to integrate, well documented and <strong>very</strong>
+fast library to format strings.</p>
+<p>It is also an implementation of <a href="https://en.cppreference.com/w/cpp/utility/format">C++20 std::format</a>.</p>
+<p>This means that you can write code that is readable, performant and future proof! </p>
                 
               
               
@@ -633,7 +713,7 @@ might be.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../small_vectors/" title="Small vector optimization" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../small_strings/" title="Small string optimization" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -642,19 +722,19 @@ might be.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Small vector optimization
+                Small string optimization
               </div>
             </div>
           </a>
         
         
-          <a href="../small_strings/" title="Small string optimization" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../2d_matrix_iteration/" title="Iterating over a 2D matrix" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Small string optimization
+                Iterating over a 2D matrix
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
