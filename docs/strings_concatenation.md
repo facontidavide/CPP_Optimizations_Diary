@@ -142,7 +142,7 @@ the "ugly" manual concatenation is...
 
 I have no idea!
 
-What I **do** know is that it is twice as fast that the default one and
+What I **do** know is that it is twice as fast as the default one and
 it is not an unreadable mess. 
 
 ## Before you copy and paste my code...
