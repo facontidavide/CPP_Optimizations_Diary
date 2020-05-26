@@ -628,7 +628,7 @@ default string concatenation!</p>
 readable?</p>
 <p>We do, but we need to use some heavy weapons of Modern C++: <strong>variadic templates</strong>.</p>
 <p>There is a very <a href="https://arne-mertz.de/2016/11/more-variadic-templates/">nice article about variadic templates here</a>,
-that you should probably need if you are not familiar with them.</p>
+that you should probably read if you are not familiar with them.</p>
 <div class="codehilite"><pre><span></span><code><span class="c1">//--- functions to calculate the total size ---</span>
 <span class="kt">size_t</span> <span class="nf">StrSize</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
@@ -644,11 +644,6 @@ that you should probably need if you are not familiar with them.</p>
 <span class="p">}</span>
 
 <span class="c1">//--- functions to append strings together ---</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Head</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Tail</span><span class="o">&gt;</span>
-<span class="kt">size_t</span> <span class="n">StrSize</span><span class="p">(</span><span class="k">const</span> <span class="n">Head</span><span class="o">&amp;</span> <span class="n">head</span><span class="p">,</span> <span class="n">Tail</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">tail</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">head</span><span class="p">)</span> <span class="o">+</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">tail</span><span class="p">...);</span>
-<span class="p">}</span>
-
 <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Head</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">StrAppend</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Head</span><span class="o">&amp;</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">out</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
@@ -661,7 +656,6 @@ that you should probably need if you are not familiar with them.</p>
 <span class="p">}</span>
 
 <span class="c1">//--- Finally, the function to concatenate strings ---</span>
-
 <span class="k">template</span> <span class="o">&lt;</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> 
 <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">StrCat</span><span class="p">(</span><span class="n">Args</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">size_t</span> <span class="n">tot_size</span> <span class="o">=</span> <span class="n">StrSize</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
@@ -685,7 +679,7 @@ that it is very easy to use:</p>
 <p>The reason why the version with variadic templates is slightly slower than
 the "ugly" manual concatenation is... </p>
 <p>I have no idea!</p>
-<p>What I <strong>do</strong> know is that it is twice as fast that the default one and
+<p>What I <strong>do</strong> know is that it is twice as fast as the default one and
 it is not an unreadable mess. </p>
 <h2 id="before-you-copy-and-paste-my-code">Before you copy and paste my code...</h2>
 <p>My implementation of <code>StrCat</code> is very limited and I just wanted to make a point:
