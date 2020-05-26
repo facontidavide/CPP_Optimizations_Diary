@@ -2,7 +2,7 @@
 
 Warning: before you read this, remember the rule #1 we mentioned at the beginning.
 
-** Optimize your code only if you can observe a visible overhead 
+**Optimize your code only if you can observe a visible overhead 
 with you profiling tools**. Said that...
 
 As we said, strings are a little more than vectors of characters, therefore
