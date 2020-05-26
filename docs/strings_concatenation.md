@@ -78,7 +78,7 @@ readable?
 We do, but we need to use some heavy weapons of Modern C++: **variadic templates**.
 
 There is a very [nice article about variadic templates here](https://arne-mertz.de/2016/11/more-variadic-templates/),
-that you should probably need if you are not familiar with them.
+that you should probably read if you are not familiar with them.
 
 
 ```C++
@@ -97,11 +97,6 @@ size_t StrSize(const Head& head, Tail const&... tail) {
 }
 
 //--- functions to append strings together ---
-template <class Head, class... Tail>
-size_t StrSize(const Head& head, Tail const&... tail) {
-  return StrSize(head) + StrSize(tail...);
-}
-
 template <class Head>
 void StrAppend(std::string& out, const Head& head) {
   out = head;
@@ -114,7 +109,6 @@ void StrAppend(std::string& out, const Head& head, Args const&... args) {
 }
 
 //--- Finally, the function to concatenate strings ---
-
 template <class... Args> 
 std::string StrCat(Args const&... args) {
   size_t tot_size = StrSize(args...);
