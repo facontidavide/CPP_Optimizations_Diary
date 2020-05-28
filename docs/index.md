@@ -121,5 +121,7 @@ just because you believe it may run 2.5% faster.
 
 TODO...
 
+### Case studies
 
+- [Simpler and faster way to filter Point Clouds in PCL.](pcl_filter.md)
 

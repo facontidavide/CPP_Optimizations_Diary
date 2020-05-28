@@ -132,3 +132,7 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 ### Fantastic data structures and where to find them.
 
 TODO...
+
+### Case studies
+
+- [Simpler and faster way to filter Point Clouds in PCL.](docs/pcl_filter.md)
