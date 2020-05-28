@@ -23,15 +23,14 @@ From the [official tutorial](https://pcl-tutorials.readthedocs.io/en/latest/remo
 
 ```C++
 // slightly changed for clarity
-using namespace pcl;
-auto range_cond  = std::make_shared<pcl::ConditionAnd<PointXYZ> ();
+auto range_cond  = std::make_shared<pcl::ConditionAnd<pcl::PointXYZ> ();
 range_cond->addComparison ( 
-    std::make_shared<FieldComparison<PointXYZ>("z", ComparisonOps::GT, 0.0));
+    std::make_shared<pcl::FieldComparison<pcl::PointXYZ>("z", ComparisonOps::GT, 0.0));
 range_cond->addComparison (
-    std::make_shared<FieldComparison<PointXYZ>("z", ComparisonOps::LT, 1.0)));
+    std::make_shared<FieldComparison<pcl::PointXYZ>("z", ComparisonOps::LT, 1.0)));
 
 // build the filter
-ConditionalRemoval<PointXYZ> condition_removal;
+pcl::ConditionalRemoval<pcl::PointXYZ> condition_removal;
 condition_removal.setCondition (range_cond);
 condition_removal.setInputCloud (input_cloud);
 // apply filter
@@ -150,11 +149,11 @@ This is the **old** code:
 
 
 ```C++
-auto range_cond  = std::make_shared<pcl::ConditionAnd<PointXYZ> ();
+auto range_cond  = std::make_shared<pcl::ConditionAnd<pcl::PointXYZ> ();
 range_cond->addComparison ( 
-    std::make_shared<FieldComparison<PointXYZ>("z", ComparisonOps::GT, 0.0));
+    std::make_shared<pcl::FieldComparison<pcl::PointXYZ>("z", ComparisonOps::GT, 0.0));
 range_cond->addComparison (
-    std::make_shared<FieldComparison<PointXYZ>("z", ComparisonOps::LT, 0.8)));
+    std::make_shared<FieldComparison<pcl::PointXYZ>("z", ComparisonOps::LT, 1.0)));
 ```
 
 And this is the **new** one, where my condition is expressed in plain old code:
