@@ -173,7 +173,7 @@ The rest of the code is unchanged!!!
 
 You may find the code to replicate my tests [here](https://github.com/facontidavide/CPP_Optimizations_Diary/tree/master/cpp/pcl_conditional_removal.cpp).
 
-This are the benchmark result with my test image.
+This are the benchmark result based on my sample cloud.
 
 ```
 -------------------------------------------------------------
@@ -183,10 +183,10 @@ PCL_Filter            1403083 ns      1403084 ns          498
 Naive_Filter           107418 ns       107417 ns         6586
 PCL_Filter_Generic     668223 ns       668191 ns         1069
 ```
-Your results may change a lot accordingto the number of conditions and the size of the point cloud.
+Your results may change a lot according to the number of conditions and the size of the point cloud.
 
-But the take away are:
+But the lessons to learn are:
 
 - The "naive" filter might be an option in same cases and it is blazing fast.
-- The "safe" `pcl::ConditionalRemoval` can still be used if you just ditch the `Conditions` implemented in PCL and use  the much more concise and readable `GenericCondition` instead.
+- The "safe" `pcl::ConditionalRemoval` can still be used if you just ditch the builtin `pcl::Conditions` and use instead the much more concise and readable `GenericCondition`.
 
