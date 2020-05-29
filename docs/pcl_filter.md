@@ -174,7 +174,7 @@ The rest of the code is unchanged!!!
 
 You may find the code to replicate my tests [here](https://github.com/facontidavide/CPP_Optimizations_Diary/tree/master/cpp/pcl_conditional_removal.cpp).
 
-This are the benchmark result based on my sample cloud.
+These are the benchmarks based on my sample cloud and 4 filters (upper and lower bound in X and Y):
 
 ```
 -------------------------------------------------------------
@@ -188,6 +188,6 @@ Your results may change a lot according to the number of conditions and the size
 
 But the lessons to learn are:
 
-- The "naive" filter might be an option in same cases and it is blazing fast.
+- The "naive" filter might be an option in many cases and it is blazing fast.
 - The "safe" `pcl::ConditionalRemoval` can still be used if you just ditch the builtin `pcl::Conditions` and use instead the much more concise and readable `GenericCondition`.
 
