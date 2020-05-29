@@ -742,7 +742,7 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
 <p><img alt="" src="../img/beautiful.jpg" /></p>
 <h2 id="lets-talk-about-speed">Let's talk about speed</h2>
 <p>You may find the code to replicate my tests <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/tree/master/cpp/pcl_conditional_removal.cpp">here</a>.</p>
-<p>This are the benchmark result based on my sample cloud.</p>
+<p>These are the benchmarks based on my sample cloud and 4 filters (upper and lower bound in X and Y):</p>
 <div class="codehilite"><pre><span></span><code><span class="err">-------------------------------------------------------------</span>
 <span class="err">Benchmark                   Time             CPU   Iterations</span>
 <span class="err">-------------------------------------------------------------</span>
@@ -755,7 +755,7 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
 <p>Your results may change a lot according to the number of conditions and the size of the point cloud.</p>
 <p>But the lessons to learn are:</p>
 <ul>
-<li>The "naive" filter might be an option in same cases and it is blazing fast.</li>
+<li>The "naive" filter might be an option in many cases and it is blazing fast.</li>
 <li>The "safe" <code>pcl::ConditionalRemoval</code> can still be used if you just ditch the builtin <code>pcl::Conditions</code> and use instead the much more concise and readable <code>GenericCondition</code>.</li>
 </ul>
                 
