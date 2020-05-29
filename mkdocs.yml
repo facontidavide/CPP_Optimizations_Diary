@@ -50,6 +50,9 @@ nav:
         
   - Don't compute it twice:
     - Iterating over a 2D matrix: 2d_matrix_iteration.md
+    
+  - Case studies:
+    - Faster and simpler PCL filter:  pcl_filter.md
 
   - About me: about.md
     
