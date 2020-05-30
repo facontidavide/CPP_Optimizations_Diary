@@ -2,7 +2,7 @@
 
 Remember when I said that "strings are `std::vector<char>` in disguise"?
 
-In practice, very small folks realized that you may store
+In practice, very smart folks realized that you may store
 small strings inside the already allocated memory.
 
 Given that the size of a `std::string` is **24 bytes** on a 64-bits
