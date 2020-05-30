@@ -632,13 +632,13 @@ in plain sight, even more inside the most frequently used functions.</p>
 
 <blockquote>
 <p>Basically, we create the condition which a given point must satisfy for it to remain in our PointCloud. 
-In this example, we use add two comparisons to the condition: greater than (GT) 0.0 and less than (LT) 0.8. 
+In this example, we use add two comparisons to the condition: greater than (GT) 0.0 and less than (LT) 1.0. 
 This condition is then used to build the filter.</p>
 </blockquote>
 <p>Let me rephrase it for people that are not familiar with PCL:</p>
 <ul>
 <li>An object is created that says: "the Z value of the point must be greater than 0.0".</li>
-<li>Another object is created saying: "Z value of the point must be less than 1.0".</li>
+<li>Another object is created saying: "the Z value of the point must be less than 1.0".</li>
 <li>They are both added to a <code>ConditionAnd</code>.</li>
 <li>We tell <code>ConditionalRemoval</code> to use this combined condition.</li>
 <li>Apply the filter to an input cloud to create a filtered one.</li>

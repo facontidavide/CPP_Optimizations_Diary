@@ -573,7 +573,7 @@
                 
                 <h1 id="small-string-optimizations">Small String Optimizations</h1>
 <p>Remember when I said that "strings are <code>std::vector&lt;char&gt;</code> in disguise"?</p>
-<p>In practice, very small folks realized that you may store
+<p>In practice, very smart folks realized that you may store
 small strings inside the already allocated memory.</p>
 <p>Given that the size of a <code>std::string</code> is <strong>24 bytes</strong> on a 64-bits
 platform (to store data pointer, size and capacity), some
