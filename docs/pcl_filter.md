@@ -39,13 +39,13 @@ condition_removal.filter (*cloud_filtered);
 ```
 
 > Basically, we create the condition which a given point must satisfy for it to remain in our PointCloud. 
-> In this example, we use add two comparisons to the condition: greater than (GT) 0.0 and less than (LT) 0.8. 
+> In this example, we use add two comparisons to the condition: greater than (GT) 0.0 and less than (LT) 1.0. 
 > This condition is then used to build the filter.
 
 Let me rephrase it for people that are not familiar with PCL:
 
 - An object is created that says: "the Z value of the point must be greater than 0.0".
-- Another object is created saying: "Z value of the point must be less than 1.0".
+- Another object is created saying: "the Z value of the point must be less than 1.0".
 - They are both added to a `ConditionAnd`.
 - We tell `ConditionalRemoval` to use this combined condition.
 - Apply the filter to an input cloud to create a filtered one.
