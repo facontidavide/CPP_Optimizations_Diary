@@ -79,7 +79,7 @@ auto cloud_filtered = std::make_shared<PointCloud<PointXYZ>();
 
 for (const auto& point: input_cloud->points) 
 {
-  if( point.z > 0.0 && point.x < 1.0 )
+  if( point.z > 0.0 && point.z < 1.0 )
   {
     cloud_filtered->push_back( point );
   }
