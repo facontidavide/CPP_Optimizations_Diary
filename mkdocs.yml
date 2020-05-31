@@ -31,6 +31,10 @@ markdown_extensions:
   - admonition
   - codehilite
 
+google_analytics:
+  - UA-134735656-2
+  - auto
+  
 nav:
   - Home: index.md
 
