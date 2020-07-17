@@ -19,7 +19,7 @@
     
     
       
-        <title>About me - CPP Optimizations diary</title>
+        <title>More efficient 2D transforms - CPP Optimizations diary</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#about-me" class="md-skip">
+        <a href="#dont-compute-it-twice" class="md-skip">
           Skip to content
         </a>
       
@@ -93,7 +93,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              About me
+              More efficient 2D transforms
             
           </span>
         </div>
@@ -388,10 +388,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Don't compute it twice
@@ -413,11 +415,53 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../2d_transforms/" title="More efficient 2D transforms" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        More efficient 2D transforms
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="More efficient 2D transforms" class="md-nav__link md-nav__link--active">
       More efficient 2D transforms
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2d-transforms" class="md-nav__link">
+    2D transforms
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -484,20 +528,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="About me" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../about/" title="About me" class="md-nav__link">
       About me
     </a>
-    
   </li>
 
     
@@ -518,6 +553,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2d-transforms" class="md-nav__link">
+    2D transforms
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -528,7 +580,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/about.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/2d_transforms.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -536,10 +588,63 @@
                   
                 
                 
-                <h1 id="about-me">About me</h1>
-<p>My name is <a href="https://twitter.com/facontidavide">Davide Faconti</a> and my job is one of the best in the world: I work to <strong>create service robots</strong> at an amazing company called <a href="https://www.blue-ocean-robotics.com/">Blue Ocean Robotics</a>.</p>
-<p>This blog/repository is maintained in <strong>my spare time</strong> and it is not  related to my work there. Therefore <em>opinions (and memes) are all mine and don't represent my employer in any way</em>.</p>
-<p>I love C++ programming and Open Source and this "diary" is my small contribution to the OSS community.</p>
+                <h1 id="dont-compute-it-twice">Don't compute it twice</h1>
+<p>The example I am going to present will make some of you react like this:</p>
+<p><img alt="really" src="../img/really.jpg" /></p>
+<p>I say this because for some of you it will be absolutely obvious... in retrospective.</p>
+<p>On the other hand, I have seen <strong> this same code</strong> being actually used in open source projects.</p>
+<p>Projects with hundreds of Github stars missed this (apparently obvious) opportunity for optimization.</p>
+<p>Have a look to: <a href="https://github.com/laboshinl/loam_velodyne/pull/20">Speed up improvement for laserOdometry and scanRegister (20%)</a></p>
+<h2 id="2d-transforms">2D transforms</h2>
+<p>Let's look at this code:</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">tx</span><span class="p">;</span>
+<span class="kt">double</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">ty</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>People with a trained eye and a little of trigonometric background will immediately recognize this as an [affine transform of a 2D point], commonly used in computer graphics or robotics.</p>
+<p>Don't you see anything we can do better? Of course</p>
+<div class="codehilite"><pre><span></span><code><span class="k">const</span> <span class="kt">double</span> <span class="n">Cos</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">Sin</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
+<span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Cos</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">Sin</span> <span class="o">+</span> <span class="n">tx</span><span class="p">;</span>
+<span class="kt">double</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Sin</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">Cos</span> <span class="o">+</span> <span class="n">ty</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>The cost of trigonometric functions is relatively high and there is absolutely no reason to compute twice the same value.
+The latter code will be 2x times faster then the former, because the cost of multiplication and sum is really low compared with <code>sin()</code> and <code>cos()</code>.</p>
+<p>In general, if the number of potential angles you need to test is finite, consider to use look-up-table where you can store pre-computed values.</p>
+<p>This is the case, for instance, of laser scan data, that needs to be converted from polar coordinates to cartesian ones.</p>
+<p><img alt="laser_scan_matcher.png" src="../img/laser_scan_matcher.png" /></p>
+<p>A naive implementation would invoke trigonometric functions for each point (in the order of thousands per seconds).</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Conceptual operation (inefficient)</span>
+<span class="c1">// Data is usally stored in a vector of distances, and</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">scan_distance</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Pos2D</span><span class="o">&gt;</span> <span class="n">cartesian_points</span><span class="p">;</span>
+
+<span class="n">cartesian_points</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span> <span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">);</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">scan_distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">angle_minimum</span> <span class="o">+</span> <span class="p">(</span><span class="n">angle_increment</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">dist</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dist</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
+
+    <span class="n">cartesian_points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">Pos2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>That is unecessary inefficient, because: </p>
+<ul>
+<li><strong>angle_minimum</strong> and <strong>angle_increment</strong> are constants that never change.</li>
+<li>the size of the <strong>scan_distance</strong> is constant too (not its content, of course).</li>
+</ul>
+<p>This is the perfect example where a LUT makes sense and can dramatically improve performance.</p>
+<h1 id="lessons-to-take-home">Lessons to take home</h1>
+<p>This is a simple example; what you shouls really learn from it is that whenever an operation is expensive to compute (SQL queries, stateless mathematical operations), you should consider to cache it and or to build a look-up-table.</p>
+<p>But, as always, measure first, to be sure that the optimization is actually relevant ;)</p>
                 
               
               
@@ -558,7 +663,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../pcl_filter/" title="Faster and simpler PCL filter" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../strings_concatenation/" title="String concatenation" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -567,11 +672,25 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Faster and simpler PCL filter
+                String concatenation
               </div>
             </div>
           </a>
         
+        
+          <a href="../2d_matrix_iteration/" title="Iterating over a 2D matrix" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Iterating over a 2D matrix
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
         
       </nav>
     </div>
