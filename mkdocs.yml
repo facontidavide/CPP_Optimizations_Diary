@@ -35,6 +35,9 @@ google_analytics:
   - UA-134735656-2
   - auto
   
+extrahead:
+  
+  
 nav:
   - Home: index.md
 
@@ -53,6 +56,7 @@ nav:
     - String concatenation: strings_concatenation.md
         
   - Don't compute it twice:
+    - More efficient 2D transforms: 2d_transforms.md 
     - Iterating over a 2D matrix: 2d_matrix_iteration.md
     
   - Case studies:
