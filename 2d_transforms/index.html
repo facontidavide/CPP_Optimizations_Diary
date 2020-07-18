@@ -591,19 +591,19 @@
                 <h1 id="dont-compute-it-twice">Don't compute it twice</h1>
 <p>The example I am going to present will make some of you react like this:</p>
 <p><img alt="really" src="../img/really.jpg" /></p>
-<p>I say this because for some of you it will be absolutely obvious... in retrospective.</p>
-<p>On the other hand, I have seen <strong> this same code</strong> being actually used in open source projects.</p>
+<p>I say this because, for some of you ,it will be absolutely obvious... in retrospective.</p>
+<p>On the other hand, I have seen <strong>this same code</strong> being used in open source projects.</p>
 <p>Projects with hundreds of Github stars missed this (apparently obvious) opportunity for optimization.</p>
 <p>Have a look to: <a href="https://github.com/laboshinl/loam_velodyne/pull/20">Speed up improvement for laserOdometry and scanRegister (20%)</a></p>
 <h2 id="2d-transforms">2D transforms</h2>
-<p>Let's look at this code:</p>
+<p>Let's consider this code:</p>
 <div class="codehilite"><pre><span></span><code><span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">tx</span><span class="p">;</span>
 <span class="kt">double</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">ty</span><span class="p">;</span>
 </code></pre></div>
 
 
-<p>People with a trained eye and a little of trigonometric background will immediately recognize this as an [affine transform of a 2D point], commonly used in computer graphics or robotics.</p>
-<p>Don't you see anything we can do better? Of course</p>
+<p>People with a trained eye and a little of trigonometric background will immediately recognize the [affine transform of a 2D point], commonly used in computer graphics or robotics.</p>
+<p>Don't you see anything we can do better? Of course:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span> <span class="kt">double</span> <span class="n">Cos</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
 <span class="k">const</span> <span class="kt">double</span> <span class="n">Sin</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
 <span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Cos</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">Sin</span> <span class="o">+</span> <span class="n">tx</span><span class="p">;</span>
@@ -618,7 +618,7 @@ The latter code will be 2x times faster then the former, because the cost of mul
 <p><img alt="laser_scan_matcher.png" src="../img/laser_scan_matcher.png" /></p>
 <p>A naive implementation would invoke trigonometric functions for each point (in the order of thousands per seconds).</p>
 <div class="codehilite"><pre><span></span><code><span class="c1">// Conceptual operation (inefficient)</span>
-<span class="c1">// Data is usally stored in a vector of distances, and</span>
+<span class="c1">// Data is usually stored in a vector of distances</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">scan_distance</span><span class="p">;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Pos2D</span><span class="o">&gt;</span> <span class="n">cartesian_points</span><span class="p">;</span>
 
@@ -626,11 +626,10 @@ The latter code will be 2x times faster then the former, because the cost of mul
 
 <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">const</span> <span class="kt">double</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">scan_distance</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">scan_distance</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="k">const</span> <span class="kt">double</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">angle_minimum</span> <span class="o">+</span> <span class="p">(</span><span class="n">angle_increment</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
     <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">dist</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
     <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dist</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
-
     <span class="n">cartesian_points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">Pos2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -642,8 +641,30 @@ The latter code will be 2x times faster then the former, because the cost of mul
 <li>the size of the <strong>scan_distance</strong> is constant too (not its content, of course).</li>
 </ul>
 <p>This is the perfect example where a LUT makes sense and can dramatically improve performance.</p>
+<p>```c++
+//------ To do only ONCE -------
+std::vector<double> LUT_cos;
+std::vector<double> LUT_sin;</p>
+<p>for(int i=0; i&lt;scan_distance.size(); i++)
+{
+    const double angle = angle_minimum + (angle_increment*i);
+    LUT_cos.push_back( cos(angle) );
+    LUT_sin.push_back( sin(angle) );
+}</p>
+<p>// ----- The efficient scan conversion ------
+std::vector<double> scan_distance;
+std::vector<Pos2D> cartesian_points;</p>
+<p>cartesian_points.reserve( scan_distance.size() );</p>
+<p>for(int i=0; i&lt;scan_distance.size(); i++)
+{
+    const double dist = scan_distance[i];
+    double x = dist<em>LUT_cos[i];
+    double y = dist</em>LUT_sin[i];
+    cartesian_points.push_back( Pos2D(x,y) );
+}
+```</p>
 <h1 id="lessons-to-take-home">Lessons to take home</h1>
-<p>This is a simple example; what you shouls really learn from it is that whenever an operation is expensive to compute (SQL queries, stateless mathematical operations), you should consider to cache it and or to build a look-up-table.</p>
+<p>This is a simple example; what you should learn from it is that, whenever an operation is expensive to compute (SQL queries, stateless mathematical operations), you should consider to use a cached value and or to build a look-up-table.</p>
 <p>But, as always, measure first, to be sure that the optimization is actually relevant ;)</p>
                 
               
