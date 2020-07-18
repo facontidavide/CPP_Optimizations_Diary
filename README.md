@@ -125,7 +125,7 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 
 ### Don't compute things twice.
 
-- Example: 2D/3D transforms the smart way (TODO).
+- [Example: 2D/3D transforms the right way](docs/2d_transforms.md).
 
 - [Iterating over a 2D matrix: less elegant, more performant](docs/2d_matrix_iteration.md).
 
