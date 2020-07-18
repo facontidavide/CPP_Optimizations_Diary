@@ -591,10 +591,10 @@
                 <h1 id="dont-compute-it-twice">Don't compute it twice</h1>
 <p>The example I am going to present will make some of you react like this:</p>
 <p><img alt="really" src="../img/really.jpg" /></p>
-<p>I say this because, for some of you ,it will be absolutely obvious... in retrospective.</p>
-<p>On the other hand, I have seen <strong>this same code</strong> being used in open source projects.</p>
+<p>I say this because it will be absolutely obvious... in retrospective.</p>
+<p>On the other hand, I have seen <strong>this same code</strong> being used in multiple open source projects.</p>
 <p>Projects with hundreds of Github stars missed this (apparently obvious) opportunity for optimization.</p>
-<p>Have a look to: <a href="https://github.com/laboshinl/loam_velodyne/pull/20">Speed up improvement for laserOdometry and scanRegister (20%)</a></p>
+<p>A notable example is: <a href="https://github.com/laboshinl/loam_velodyne/pull/20">Speed up improvement for laserOdometry and scanRegister (20%)</a></p>
 <h2 id="2d-transforms">2D transforms</h2>
 <p>Let's consider this code:</p>
 <div class="codehilite"><pre><span></span><code><span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span> <span class="o">+</span> <span class="n">tx</span><span class="p">;</span>
@@ -602,7 +602,7 @@
 </code></pre></div>
 
 
-<p>People with a trained eye and a little of trigonometric background will immediately recognize the [affine transform of a 2D point], commonly used in computer graphics or robotics.</p>
+<p>People with a trained eye (and a little of trigonometric background) will immediately recognize the [affine transform of a 2D point], commonly used in computer graphics and robotics.</p>
 <p>Don't you see anything we can do better? Of course:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span> <span class="kt">double</span> <span class="n">Cos</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
 <span class="k">const</span> <span class="kt">double</span> <span class="n">Sin</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">);</span>
@@ -613,14 +613,14 @@
 
 <p>The cost of trigonometric functions is relatively high and there is absolutely no reason to compute twice the same value.
 The latter code will be 2x times faster then the former, because the cost of multiplication and sum is really low compared with <code>sin()</code> and <code>cos()</code>.</p>
-<p>In general, if the number of potential angles you need to test is finite, consider to use look-up-table where you can store pre-computed values.</p>
+<p>In general, if the number of potential angles you need to test is not extremely high, consider to use look-up-table where you can store pre-computed values.</p>
 <p>This is the case, for instance, of laser scan data, that needs to be converted from polar coordinates to cartesian ones.</p>
 <p><img alt="laser_scan_matcher.png" src="../img/laser_scan_matcher.png" /></p>
 <p>A naive implementation would invoke trigonometric functions for each point (in the order of thousands per seconds).</p>
 <div class="codehilite"><pre><span></span><code><span class="c1">// Conceptual operation (inefficient)</span>
 <span class="c1">// Data is usually stored in a vector of distances</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">scan_distance</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Pos2D</span><span class="o">&gt;</span> <span class="n">cartesian_points</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">scan_distance</span><span class="p">;</span> <span class="c1">// the input</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Pos2D</span><span class="o">&gt;</span> <span class="n">cartesian_points</span><span class="p">;</span> <span class="c1">// the output</span>
 
 <span class="n">cartesian_points</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span> <span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">);</span>
 
@@ -635,12 +635,12 @@ The latter code will be 2x times faster then the former, because the cost of mul
 </code></pre></div>
 
 
-<p>That is unecessary inefficient, because: </p>
+<p>But we should consider that: </p>
 <ul>
 <li><strong>angle_minimum</strong> and <strong>angle_increment</strong> are constants that never change.</li>
 <li>the size of the <strong>scan_distance</strong> is constant too (not its content, of course).</li>
 </ul>
-<p>This is the perfect example where a LUT makes sense and can dramatically improve performance.</p>
+<p>This is the perfect example where a LUT makes sense and will dramatically improve performance.</p>
 <p>```c++
 //------ To do only ONCE -------
 std::vector<double> LUT_cos;
@@ -664,8 +664,8 @@ std::vector<Pos2D> cartesian_points;</p>
 }
 ```</p>
 <h1 id="lessons-to-take-home">Lessons to take home</h1>
-<p>This is a simple example; what you should learn from it is that, whenever an operation is expensive to compute (SQL queries, stateless mathematical operations), you should consider to use a cached value and or to build a look-up-table.</p>
-<p>But, as always, measure first, to be sure that the optimization is actually relevant ;)</p>
+<p>This is a simple example; what you should learn from this is that, whenever an operation is expensive to compute (SQL queries, stateless mathematical operations), you should consider to use a cached value and or to build a look-up-table.</p>
+<p>But, as always, <strong>measure first</strong> to be sure that the optimization is actually relevant ;)</p>
                 
               
               
