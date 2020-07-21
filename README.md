@@ -9,13 +9,12 @@ I love C++ programming and Open Source and this "diary" is my small contribution
 # CPP Optimizations Diary
 
 Optimizing code in C++ is something that no one can resist. You can have fun
-and pretend  that you are doing something useful for your organization at the same time!
+and pretend that you are doing something useful for your organization at the same time!
 
 In this repository, I will record some simple design patterns to improve your code 
 and remove unnecessary overhead in **C++**.
 
-If you are a seasoned C++ expert, you probably have already a set of rules in your head
-that you always follow.
+If you are a seasoned C++ expert, you probably have your own set of rules already.
 
 These rules help you look like a bad-ass/rockstar/10X engineer to your colleagues.
 
@@ -29,7 +28,7 @@ Hopefully, the examples in this repository will help you achieve this status of 
 and, as a side effect, save the planet from global warming, sparing useless CPU
 cycles from being wasted.
 
-Then, of course, someone on the other side of the planet will start mining Bitcoins or write her/his 
+Then, unfortunately, someone on the other side of the planet will start mining Bitcoins or write her/his 
 application in **Python** and all your effort to save electricity was for nothing.
 
 I am kidding, Python developers, we love you!
@@ -42,13 +41,12 @@ The very first thing any person concerned about performance should do is:
  
 - **Measure first** and **make hypothesis later**.
 
-Me and my colleagues are almost always wrong about the reasons a piece of code is
-be slow. 
+Me and my colleagues are almost always wrong about the reasons a piece of code is slow. 
 
-Sometimes we are right, but it is really hard to know in advance ho refactoring will
+Sometimes we are right, but it is really hard to know in advance how refactoring will
 improve performance. Good profiling tools show in minutes the "low hanging fruits": minimum work, maximum benefit!
 
-Summarizing: 10 Minutes profiling can save you hours of work guessing and refactoring.
+Summarizing: 10 minutes profiling can save you hours of guessing and refactoring.
 
 My "goto" tools in Linux are [Hotspot](https://github.com/KDAB/hotspot) and 
 [Heaptrack](https://github.com/KDE/heaptrack). I understand Windows has similar
