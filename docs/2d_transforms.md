@@ -68,7 +68,8 @@ But we should consider that:
  
  This is the perfect example where a LUT makes sense and will dramatically improve performance.
  
- ```c++
+```C++
+ 
 //------ To do only ONCE -------
 std::vector<double> LUT_cos;
 std::vector<double> LUT_sin;
@@ -94,6 +95,7 @@ for(int i=0; i<scan_distance.size(); i++)
     cartesian_points.push_back( Pos2D(x,y) );
 }
 ```
+ 
 
 # Lessons to take home
 
