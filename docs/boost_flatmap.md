@@ -1,5 +1,13 @@
 # Optimizing using an exotic associative container
 
+
+
+![](img/twitter_unordered.png)
+
+Come on Michael, you are underestimating me ;)
+
+# The problem
+
 The last week, I decided to investigate one of the modules that was using a lot of CPU, or at least, more than I expected.
 
 I am not going to bother you with the details, but it was a low-level hardware interface to control the motors of our robots.
