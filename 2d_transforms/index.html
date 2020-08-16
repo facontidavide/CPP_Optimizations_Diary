@@ -683,28 +683,33 @@ The latter code will be 2x times faster then the former, because the cost of mul
 <li>the size of the <strong>scan_distance</strong> is constant too (not its content, of course).</li>
 </ul>
 <p>This is the perfect example where a LUT makes sense and will dramatically improve performance.</p>
-<p>```c++
-//------ To do only ONCE -------
-std::vector<double> LUT_cos;
-std::vector<double> LUT_sin;</p>
-<p>for(int i=0; i&lt;scan_distance.size(); i++)
-{
-    const double angle = angle_minimum + (angle_increment*i);
-    LUT_cos.push_back( cos(angle) );
-    LUT_sin.push_back( sin(angle) );
-}</p>
-<p>// ----- The efficient scan conversion ------
-std::vector<double> scan_distance;
-std::vector<Pos2D> cartesian_points;</p>
-<p>cartesian_points.reserve( scan_distance.size() );</p>
-<p>for(int i=0; i&lt;scan_distance.size(); i++)
-{
-    const double dist = scan_distance[i];
-    double x = dist<em>LUT_cos[i];
-    double y = dist</em>LUT_sin[i];
-    cartesian_points.push_back( Pos2D(x,y) );
-}
-```</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">//------ To do only ONCE -------</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">LUT_cos</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">LUT_sin</span><span class="p">;</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">angle_minimum</span> <span class="o">+</span> <span class="p">(</span><span class="n">angle_increment</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="n">LUT_cos</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="p">);</span>
+    <span class="n">LUT_sin</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ----- The efficient scan conversion ------</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">scan_distance</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Pos2D</span><span class="o">&gt;</span> <span class="n">cartesian_points</span><span class="p">;</span>
+
+<span class="n">cartesian_points</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span> <span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="p">);</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">scan_distance</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">scan_distance</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">dist</span><span class="o">*</span><span class="n">LUT_cos</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dist</span><span class="o">*</span><span class="n">LUT_sin</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">cartesian_points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span> <span class="n">Pos2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h1 id="lessons-to-take-home">Lessons to take home</h1>
 <p>This is a simple example; what you should learn from this is that, whenever an operation is expensive to compute (SQL queries, stateless mathematical operations), you should consider to use a cached value and or to build a look-up-table.</p>
 <p>But, as always, <strong>measure first</strong> to be sure that the optimization is actually relevant ;)</p>
