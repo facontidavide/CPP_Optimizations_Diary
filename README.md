@@ -129,7 +129,7 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 
 ### Fantastic data structures and where to find them.
 
-TODO...
+- [I tried `boost::container::flat_map`. You won't imagine what happened next](docs/boost_flatmap.md).
 
 ### Case studies
 

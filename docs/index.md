@@ -113,13 +113,13 @@ just because you believe it may run 2.5% faster.
 
 ### Don't compute things twice.
 
-- [Example: 2D/3D transforms the smart way.](2d_transforms.md )
+- [Example: 2D/3D transforms the smart way.](2d_transforms.md)
 
 - [Iterating over a 2D matrix: less elegant, more performant](2d_matrix_iteration.md).
 
 ### Fantastic data structures and where to find them.
 
-TODO...
+- [I tried `boost::container::flat_map`. You won't imagine what happened next](boost_flatmap.md).
 
 ### Case studies
 
