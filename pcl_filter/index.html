@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -12,10 +10,11 @@
       
       
       
+      
         <meta name="author" content="Davide Faconti">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -23,19 +22,21 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.71dfd922.min.css">
-      
-        <link rel="stylesheet" href="../assets/stylesheets/palette.616af814.min.css">
-      
+      <link rel="stylesheet" href="../assets/stylesheets/main.6910b76c.min.css">
       
         
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
         
-        <meta name="theme-color" content="#546e7a">
+          
+          
+          <meta name="theme-color" content="#546d78">
+        
       
     
     
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Ubuntu",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -46,8 +47,7 @@
     
       
         
-<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com">
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-134735656-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-134735656-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
@@ -58,7 +58,10 @@
     
     
     
+    
+    
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue-grey" data-md-color-accent="purple">
+      
   
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -75,7 +78,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href=".." title="CPP Optimizations diary" class="md-header-nav__button md-logo" aria-label="CPP Optimizations diary">
       
@@ -108,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -149,8 +154,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -161,7 +164,9 @@
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="CPP Optimizations diary" class="md-nav__button md-logo" aria-label="CPP Optimizations diary">
       
@@ -192,7 +197,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." title="Home" class="md-nav__link">
+    <a href=".." class="md-nav__link">
       Home
     </a>
   </li>
@@ -205,19 +210,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
     <label class="md-nav__link" for="nav-2">
       Reference and move semantic
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Reference and move semantic" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Reference and move semantic
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -229,7 +229,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../prefer_references/" title="Use references" class="md-nav__link">
+    <a href="../prefer_references/" class="md-nav__link">
       Use references
     </a>
   </li>
@@ -247,19 +247,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     <label class="md-nav__link" for="nav-3">
       Vectors are your best friend
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Vectors are your best friend" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Vectors are your best friend
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -271,7 +266,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../reserve/" title="Use reserve" class="md-nav__link">
+    <a href="../reserve/" class="md-nav__link">
       Use reserve
     </a>
   </li>
@@ -283,7 +278,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../no_lists/" title="Avoid std::list" class="md-nav__link">
+    <a href="../no_lists/" class="md-nav__link">
       Avoid std::list
     </a>
   </li>
@@ -295,7 +290,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../dont_need_map/" title="You may not need std::map" class="md-nav__link">
+    <a href="../dont_need_map/" class="md-nav__link">
       You may not need std::map
     </a>
   </li>
@@ -307,7 +302,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../small_vectors/" title="Small vector optimization" class="md-nav__link">
+    <a href="../small_vectors/" class="md-nav__link">
       Small vector optimization
     </a>
   </li>
@@ -325,19 +320,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
     <label class="md-nav__link" for="nav-4">
       It's just a string...
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="It's just a string..." data-md-level="1">
       <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         It's just a string...
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -349,7 +339,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../strings_are_vectors/" title="Strings are vectors" class="md-nav__link">
+    <a href="../strings_are_vectors/" class="md-nav__link">
       Strings are vectors
     </a>
   </li>
@@ -361,7 +351,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../small_strings/" title="Small string optimization" class="md-nav__link">
+    <a href="../small_strings/" class="md-nav__link">
       Small string optimization
     </a>
   </li>
@@ -373,7 +363,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../strings_concatenation/" title="String concatenation" class="md-nav__link">
+    <a href="../strings_concatenation/" class="md-nav__link">
       String concatenation
     </a>
   </li>
@@ -391,19 +381,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
     <label class="md-nav__link" for="nav-5">
       Don't compute it twice
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Don't compute it twice" data-md-level="1">
       <label class="md-nav__title" for="nav-5">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Don't compute it twice
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -415,7 +400,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../2d_transforms/" title="More efficient 2D transforms" class="md-nav__link">
+    <a href="../2d_transforms/" class="md-nav__link">
       More efficient 2D transforms
     </a>
   </li>
@@ -427,7 +412,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../2d_matrix_iteration/" title="Iterating over a 2D matrix" class="md-nav__link">
+    <a href="../2d_matrix_iteration/" class="md-nav__link">
       Iterating over a 2D matrix
     </a>
   </li>
@@ -445,19 +430,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
     <label class="md-nav__link" for="nav-6">
       Fantastic data structures
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Fantastic data structures" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Fantastic data structures
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -469,7 +449,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../boost_flatmap/" title="Boost flat_map to the rescue" class="md-nav__link">
+    <a href="../boost_flatmap/" class="md-nav__link">
       Boost flat_map to the rescue
     </a>
   </li>
@@ -489,19 +469,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
     <label class="md-nav__link" for="nav-7">
       Case studies
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="Case studies" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         Case studies
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -523,12 +498,10 @@
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Faster and simpler PCL filter
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Faster and simpler PCL filter" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       Faster and simpler PCL filter
     </a>
     
@@ -540,9 +513,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -575,6 +546,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../palindrome/" class="md-nav__link">
+      Fast palindrome
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -586,7 +569,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../about/" title="About me" class="md-nav__link">
+    <a href="../about/" class="md-nav__link">
       About me
     </a>
   </li>
@@ -610,9 +593,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -655,9 +636,6 @@
                   </a>
                 
                 
-                  
-                
-                
                 <h1 id="case-study-filter-a-point-cloud-faster">Case study: filter a Point Cloud faster</h1>
 <p><a href="https://pointclouds.org/">Point Cloud Library (PCL)</a> is a very popular
 library used in robotics, autonomous vehicles and 3D perception in general. 
@@ -688,7 +666,6 @@ in plain sight, even more inside the most frequently used functions.</p>
 <span class="n">condition_removal</span><span class="p">.</span><span class="n">filter</span> <span class="p">(</span><span class="o">*</span><span class="n">cloud_filtered</span><span class="p">);</span>
 </code></pre></div>
 
-
 <blockquote>
 <p>Basically, we create the condition which a given point must satisfy for it to remain in our PointCloud. 
 In this example, we use add two comparisons to the condition: greater than (GT) 0.0 and less than (LT) 1.0. 
@@ -708,18 +685,16 @@ This condition is then used to build the filter.</p>
 <p><img alt="" src="../img/think_about_it.jpg" /></p>
 <p>Seriously, take some minutes to think how, given a <strong>vector</strong> of points that looks like this:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1">// oversimplified, not the actual implementation</span>
-<span class="k">struct</span> <span class="n">PointXYZ</span><span class="p">{</span>
+<span class="k">struct</span> <span class="nc">PointXYZ</span><span class="p">{</span>
   <span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
   <span class="kt">float</span> <span class="n">y</span><span class="p">;</span>
   <span class="kt">float</span> <span class="n">z</span><span class="p">;</span> 
 <span class="p">};</span>
 </code></pre></div>
 
-
 <p>You want to create another point cloud with all the points that pass this condition:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">  0.0 &lt; point.z &lt; 1.0</span>
 </code></pre></div>
-
 
 <p>I mean, if you ask <strong>me</strong>, this is what I would do, because I am not that smart:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">auto</span> <span class="n">cloud_filtered</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">PointXYZ</span><span class="o">&gt;</span><span class="p">();</span>
@@ -733,7 +708,6 @@ This condition is then used to build the filter.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>This is what we will call the <strong>"naive filter"</strong>.</p>
 <p>Before showing you a benchmark that will knock your socks off (don't worry, I will),
 I must admit that it is an <strong>unfair comparison</strong> because the <code>pcl</code> filters
@@ -742,7 +716,6 @@ do many more checks when processing your data to prevent weird corner cases.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">pcl</span><span class="o">::</span><span class="n">FieldComparison</span><span class="o">&lt;</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="o">&gt;</span> <span class="p">(</span><span class="s">&quot;z&quot;</span><span class="p">,</span> <span class="n">pcl</span><span class="o">::</span><span class="n">ComparisonOps</span><span class="o">::</span><span class="n">GT</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)));</span>
 <span class="n">pcl</span><span class="o">::</span><span class="n">FieldComparison</span><span class="o">&lt;</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="o">&gt;</span> <span class="p">(</span><span class="s">&quot;z&quot;</span><span class="p">,</span> <span class="n">pcl</span><span class="o">::</span><span class="n">ComparisonOps</span><span class="o">::</span><span class="n">LT</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)));</span>
 </code></pre></div>
-
 
 <p>If you think about it, there <strong>must be</strong> some kind of parser "somewhere".</p>
 <p>The easiest implementation of a parser is of course a <code>switch</code>
@@ -756,7 +729,7 @@ using these "composable rules", means that the implementation is <strong>inheren
 <p>Sure thing, my friend!</p>
 <p>Since <code>pcl::FieldComparison</code> is intrinsically broken (so are all the other Conditions in the library), 
 because of their <code>switch</code>statements, let me write my own pcl::Condition (must be derived from <code>pcl::ConditionBase</code>) like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">PointT</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">PointT</span><span class="o">&gt;</span>
 <span class="k">class</span> <span class="nc">GenericCondition</span> <span class="o">:</span> <span class="k">public</span> <span class="n">pcl</span><span class="o">::</span><span class="n">ConditionBase</span><span class="o">&lt;</span><span class="n">PointT</span><span class="o">&gt;</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -770,13 +743,12 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
 
   <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">evaluate</span> <span class="p">(</span><span class="k">const</span> <span class="n">PointT</span> <span class="o">&amp;</span><span class="n">point</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
     <span class="c1">// just delegate ALL the work to the injected std::function</span>
-    <span class="k">return</span> <span class="n">_evaluator</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">_evaluator</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="k">private</span><span class="o">:</span>
   <span class="n">FunctorT</span> <span class="n">_evaluator</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre></div>
-
 
 <p>That is literally <strong>all</strong> the code you need, no omissions.</p>
 <p>I am simply wrapping a <code>std::function&lt;bool(const PointT&amp;)&gt;</code> inside  <code>pcl::ConditionBase</code>. Nothing else.</p>
@@ -788,7 +760,6 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
     <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">FieldComparison</span><span class="o">&lt;</span><span class="n">PointXYZ</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;z&quot;</span><span class="p">,</span> <span class="n">ComparisonOps</span><span class="o">::</span><span class="n">LT</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)));</span>
 </code></pre></div>
 
-
 <p>And this is the <strong>new</strong> one, where my condition is expressed in plain old code:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">auto</span> <span class="n">range_cond</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">GenericCondition</span><span class="o">&lt;</span><span class="n">PointXYZ</span><span class="o">&gt;&gt;</span><span class="p">(</span>
   <span class="p">[](</span><span class="k">const</span> <span class="n">PointXYZ</span><span class="o">&amp;</span> <span class="n">point</span><span class="p">){</span> 
@@ -796,20 +767,18 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
   <span class="p">});</span>
 </code></pre></div>
 
-
 <p>The rest of the code is unchanged!!!</p>
 <p><img alt="" src="../img/beautiful.jpg" /></p>
 <h2 id="lets-talk-about-speed">Let's talk about speed</h2>
 <p>You may find the code to replicate my tests <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/tree/master/cpp/pcl_conditional_removal.cpp">here</a>.</p>
 <p>These are the benchmarks based on my sample cloud and 4 filters (upper and lower bound in X and Y):</p>
-<div class="codehilite"><pre><span></span><code><span class="err">-------------------------------------------------------------</span>
-<span class="err">Benchmark                   Time             CPU   Iterations</span>
-<span class="err">-------------------------------------------------------------</span>
-<span class="err">PCL_Filter            1403083 ns      1403084 ns          498</span>
-<span class="err">Naive_Filter           107418 ns       107417 ns         6586</span>
-<span class="err">PCL_Filter_Generic     668223 ns       668191 ns         1069</span>
+<div class="codehilite"><pre><span></span><code><span class="nb">-------------------------------------------------------------</span><span class="c"></span>
+<span class="c">Benchmark                   Time             CPU   Iterations</span>
+<span class="nb">-------------------------------------------------------------</span><span class="c"></span>
+<span class="c">PCL_Filter            1403083 ns      1403084 ns          498</span>
+<span class="c">Naive_Filter           107418 ns       107417 ns         6586</span>
+<span class="c">PCL_Filter_Generic     668223 ns       668191 ns         1069</span>
 </code></pre></div>
-
 
 <p>Your results may change a lot according to the number of conditions and the size of the point cloud.</p>
 <p>But the lessons to learn are:</p>
@@ -835,7 +804,7 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../boost_flatmap/" title="Boost flat_map to the rescue" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../boost_flatmap/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -850,13 +819,13 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
           </a>
         
         
-          <a href="../about/" title="About me" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../palindrome/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                About me
+                Fast palindrome
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -900,15 +869,15 @@ because of their <code>switch</code>statements, let me write my own pcl::Conditi
       
     </div>
     
-      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.27c6a5e6.min.js"
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

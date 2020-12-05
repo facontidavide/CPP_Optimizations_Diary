@@ -18,7 +18,7 @@
     
     
       
-        <title>Small vector optimization - CPP Optimizations diary</title>
+        <title>Fast palindrome - CPP Optimizations diary</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#small-vector-optimization" class="md-skip">
+        <a href="#having-fun-with-palindrome-words" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Small vector optimization
+              Fast palindrome
             
           </span>
         </div>
@@ -244,12 +244,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     <label class="md-nav__link" for="nav-3">
       Vectors are your best friend
       <span class="md-nav__icon md-icon"></span>
@@ -302,20 +300,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../small_vectors/" class="md-nav__link">
       Small vector optimization
     </a>
-    
   </li>
 
         
@@ -475,10 +464,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
     <label class="md-nav__link" for="nav-7">
       Case studies
       <span class="md-nav__icon md-icon"></span>
@@ -507,11 +498,63 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../palindrome/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Fast palindrome
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Fast palindrome
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coding-interviews" class="md-nav__link">
+    Coding interviews...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-faster-ispalindrome" class="md-nav__link">
+    A faster IsPalindrome()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summarizing" class="md-nav__link">
+    Summarizing
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -549,6 +592,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coding-interviews" class="md-nav__link">
+    Coding interviews...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-faster-ispalindrome" class="md-nav__link">
+    A faster IsPalindrome()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summarizing" class="md-nav__link">
+    Summarizing
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -559,108 +631,115 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/small_vectors.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/palindrome.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="small-vector-optimization">Small vector optimization</h1>
-<p>By now, I hope I convinced you that <code>std::vector</code> is the first data structure that you should consider to use unless you need an associative container.</p>
-<p>But even when we cleverly use <code>reserve</code> to prevent superfluous heap allocations and copies, there will be a least <strong>one</strong> heap allocation at the beginning. Can we do better? </p>
-<p>Sure we can! If you have read already about the <a href="../../small_strings">small string optimization</a> you know where this is going.</p>
-<h1 id="static-vectors-and-small-vectors">"Static" vectors and "Small" vectors</h1>
-<p>When you are sure that your vector is small and will remain small-ish even in the worst-case scenario, you can allocate the entire array of elements in the stack, and skip the expensive heap allocation.</p>
-<p>You may think that this is unlikely, but you will be surprised to know that this happens much more often than you may expect. Just 2 weeks ago, I identified this very same pattern in one of our libraries, where the size of some vector could be any number between 0 and 8 at most.</p>
-<p>A 30 minutes refactoring improved the overals speed of our software by 20%!</p>
-<p>Summarizing, you want the familiar API of this guy:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">my_data</span><span class="p">;</span> <span class="c1">// at least one heap allocation unless size is 0 </span>
-</code></pre></div>
-
-<p>When in fact, under the hood, you want this:</p>
-<div class="codehilite"><pre><span></span><code><span class="kt">double</span> <span class="n">my_data</span><span class="p">[</span><span class="n">MAX_SIZE</span><span class="p">];</span> <span class="c1">// no heap allocations </span>
-<span class="kt">int</span> <span class="n">size_my_data</span><span class="p">;</span>
-</code></pre></div>
-
-<p>Let's see a simple and naive implementation of <code>StaticVector</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;array&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;initializer_list&gt;</span><span class="cp"></span>
-
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">StaticVector</span>
+                <h1 id="having-fun-with-palindrome-words">Having fun with Palindrome words</h1>
+<p>This article is not as interesting and reusable as other, but I think it might still be a nice example of how you we can speed up your code reducing the amount of branches.</p>
+<p>The <code>if</code> statement is very fast and usually we should not worry about its runtime cost, but there could be few cases in which avoiding it can provide a visible improvement.</p>
+<h2 id="coding-interviews">Coding interviews...</h2>
+<p>At the time of writing this article, I find myself in the wonderful world of job searching. As a consequence, you probably know what that implies: coding interviews!</p>
+<p>I am fine with them, but the other day a person interviewing me asked the following question:</p>
+<blockquote>
+<p>Can you write a function to find if a string is a <a href="https://en.wikipedia.org/wiki/Palindrome">palindrome</a>?</p>
+</blockquote>
+<p>And I was thinking...</p>
+<p><img alt="fizzbuss" src="../img/fizzbuzz.jpg" /></p>
+<p>To be fair, I am sure he his a great guy and he was just breaking the ice. He certainly had the best intentions, but I think it could have been more productive for both of us to look at some real-world code I wrote in production instead!</p>
+<p>Nevertheless, this is the answer:</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">bool</span> <span class="nf">IsPalindrome</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-
-  <span class="k">using</span> <span class="n">iterator</span>       <span class="o">=</span> <span class="k">typename</span> <span class="nc">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="n">N</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="p">;</span>
-  <span class="k">using</span> <span class="n">const_iterator</span> <span class="o">=</span> <span class="k">typename</span> <span class="nc">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="n">N</span><span class="o">&gt;::</span><span class="n">const_iterator</span><span class="p">;</span>
-
-  <span class="n">StaticVector</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="n">_size</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span> <span class="n">_size</span> <span class="o">&gt;</span> <span class="n">N</span> <span class="p">){</span>
-      <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&quot;SmallVector overflow&quot;</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N_half</span> <span class="o">=</span> <span class="n">N</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N_half</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str</span><span class="p">[</span><span class="n">N</span><span class="mi">-1</span><span class="o">-</span><span class="n">i</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="n">StaticVector</span><span class="p">(</span><span class="k">const</span> <span class="n">StaticVector</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="n">StaticVector</span><span class="p">(</span><span class="n">StaticVector</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-
-  <span class="n">StaticVector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">init</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">_size</span> <span class="o">=</span> <span class="n">init</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="n">_storage</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">init</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">push_back</span><span class="p">(</span><span class="n">T</span> <span class="n">val</span><span class="p">){</span>
-    <span class="n">_storage</span><span class="p">[</span><span class="n">_size</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span> <span class="n">_size</span> <span class="o">&gt;</span> <span class="n">N</span> <span class="p">){</span>
-      <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&quot;SmallVector overflow&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">pop_back</span><span class="p">(){</span>
-    <span class="k">if</span><span class="p">(</span> <span class="n">_size</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">){</span>
-      <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&quot;SmallVector underflow&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">back</span><span class="p">().</span><span class="o">~</span><span class="n">T</span><span class="p">();</span> <span class="c1">// call destructor</span>
-    <span class="n">_size</span><span class="o">--</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_size</span><span class="p">;</span> <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="n">clear</span><span class="p">(){</span> <span class="k">while</span><span class="p">(</span><span class="n">_size</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="n">pop_back</span><span class="p">();</span> <span class="p">}</span> <span class="p">}</span>
-
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">front</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="p">}</span>
-  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">front</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="p">}</span>
-
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">back</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">[</span><span class="n">_size</span><span class="mi">-1</span><span class="p">];</span> <span class="p">}</span>
-  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">back</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">[</span><span class="n">_size</span><span class="mi">-1</span><span class="p">];</span> <span class="p">}</span>
-
-  <span class="n">iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="p">}</span>
-  <span class="n">const_iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="p">}</span>
-
-  <span class="n">iterator</span> <span class="n">end</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="p">}</span>
-  <span class="n">const_iterator</span> <span class="n">end</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="p">}</span>
-
-  <span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="kt">uint8_t</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">[</span><span class="n">index</span><span class="p">];</span> <span class="p">}</span>
-  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="kt">uint8_t</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">[</span><span class="n">index</span><span class="p">];</span> <span class="p">}</span>
-
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">data</span><span class="p">();</span> <span class="p">}</span>
-  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_storage</span><span class="p">.</span><span class="n">data</span><span class="p">();</span> <span class="p">}</span>
-
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="n">N</span><span class="o">&gt;</span> <span class="n">_storage</span><span class="p">;</span>
-  <span class="kt">uint8_t</span> <span class="n">_size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 
-<p><strong>StaticVector</strong> looks like a <code>std::vector</code> but is...</p>
-<p><img alt="" src="../img/inconceivably.jpg" /></p>
-<p>In some cases, there is a very high probability that a vector-like container will have at most <strong>N</strong> elements, but we are not "absolutely sure".</p>
-<p>We can still use a container, generally known as <strong>SmallVector</strong>, that will use the pre-allocated  memory from the stack for its first N elements and <strong>only</strong> when the container needs to grow further, will create a new storage block using an heap allocation.</p>
-<h2 id="staticvector-and-smallvector-in-the-wild">StaticVector and SmallVector in the wild</h2>
-<p>It turn out that these tricks are well known and can be found implemented and ready to use in many popular libraries:</p>
+<p>Easy-peasy :)</p>
+<p>Booooring!</p>
+<p>Let's have some fun!</p>
+<h2 id="a-faster-ispalindrome">A faster IsPalindrome()</h2>
+<p>The original version is apparently the best we can do:</p>
 <ul>
-<li><a href="https://www.boost.org/doc/libs/1_73_0/doc/html/container.html">Boost::container</a>. If it exists, Boost has it of course.</li>
-<li><a href="https://github.com/abseil/abseil-cpp/tree/master/absl/container">Abseil</a>. They are called <code>fixed_array</code> and <code>inlined_vector</code>. </li>
-<li>For didactic purpose, you may have a look to the <a href="https://github.com/llvm/llvm-project/blob/master/llvm/include/llvm/ADT/SmallVector.h">SmallVector used internally by LLVM</a></li>
+<li>Zero copy.</li>
+<li>Stops the loop as fast as possible.</li>
+<li>Handles well all the corner cases.</li>
 </ul>
+<p>But I realized that there is a way to make it faster, reducing the number of <code>if</code> clause. 
+This can be easily achieved using entire "words" instead, i.e. storing the single bytes in larger data types.</p>
+<p>For instance, let's use the type <code>uint32_t</code> to manipulate 4 bytes at once.</p>
+<p>The resulting implementation will be:</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;byteswap.h&gt;</span><span class="cp"></span>
+
+<span class="kr">inline</span> <span class="kt">bool</span> <span class="n">IsPalindromeFast</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N_half</span> <span class="o">=</span> <span class="n">N</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N_half</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">uint32_t</span> <span class="n">word_left</span><span class="p">,</span> <span class="n">word_right</span><span class="p">;</span>
+
+        <span class="c1">// raw copy of 4 bytes</span>
+        <span class="c1">//memcpy(&amp;word_left, &amp;str[i], 4);</span>
+        <span class="c1">//memcpy(&amp;word_right, &amp;str[N - 4 - i], 4);</span>
+        <span class="c1">// ... or ...</span>
+        <span class="c1">// using reinterpret_cast</span>
+        <span class="n">word_left</span>  <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">uint64_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">word_right</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">uint64_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">-</span> <span class="n">i</span><span class="p">]);</span>
+
+        <span class="c1">// function bswap_32 revert the endianess of the integer</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">word_left</span> <span class="o">!=</span> <span class="n">bswap_32</span><span class="p">(</span><span class="n">word_right</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// remaining bytes. </span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span> <span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N_half</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str</span><span class="p">[</span><span class="n">N</span><span class="mi">-1</span><span class="o">-</span><span class="n">i</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>What is going on here?</p>
+<p>We look at "blocks" (words) of 4 bytes, store them in an <code>uint32_t</code> and call the comparison operator only <strong>once</strong> for each word.</p>
+<p>To reverse the order of the bytes in a "specular" way, we use the built-in function <a href="https://man7.org/linux/man-pages/man3/bswap_32.3.html">bswap_32</a>.</p>
+<p>Note that the hand-made implemetation of this function is <strong>equally fast</strong> in my benchmarks.</p>
+<div class="codehilite"><pre><span></span><code><span class="kr">inline</span> <span class="kt">uint32_t</span> <span class="n">Swap</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint32_t</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">union</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="kt">uint32_t</span> <span class="n">n</span><span class="p">;</span>
+  <span class="p">}</span> <span class="n">data</span><span class="p">;</span>
+  <span class="n">data</span><span class="p">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">.</span><span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">.</span><span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">n</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Benchmark:</p>
+<p><img alt="palindrome_benchmark.png" src="../img/palindrome_benchmark.png" /></p>
+<p>For sufficiently long strings (more than 16 bytes), <strong>the performance gain is about 2.3 X</strong>.</p>
+<h2 id="summarizing">Summarizing</h2>
+<p>This is <strong>not</strong> a good example of "keep your code simple and readable, don't worry too much about optimizations".</p>
+<p>I am mostly showing this for fun and to highlight that in <strong>some</strong> cases the cost of branches in our code can we non-negelgible and it might open the opportunity for some cool optimizations.</p>
                 
               
               
@@ -679,7 +758,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../dont_need_map/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../pcl_filter/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -688,19 +767,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                You may not need std::map
+                Faster and simpler PCL filter
               </div>
             </div>
           </a>
         
         
-          <a href="../strings_are_vectors/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../about/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Strings are vectors
+                About me
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
