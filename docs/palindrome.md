@@ -76,8 +76,8 @@ inline bool IsPalindromeFast(const std::string& str)
         //memcpy(&word_right, &str[N - 4 - i], 4);
         // ... or ...
         // using reinterpret_cast
-        word_left  = *reinterpret_cast<const uint64_t*>(&str[i]);
-        word_right = *reinterpret_cast<const uint64_t*>(&str[N - 4 - i]);
+        word_left  = *reinterpret_cast<const uint32_t*>(&str[i]);
+        word_right = *reinterpret_cast<const uint32_t*>(&str[N - 4 - i]);
 
         // function bswap_32 revert the endianess of the integer
         if( word_left != bswap_32(word_right))
