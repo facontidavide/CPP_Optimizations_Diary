@@ -680,38 +680,40 @@ This can be easily achieved using entire "words" instead, i.e. storing the singl
 <p>The resulting implementation will be:</p>
 <div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;byteswap.h&gt;</span><span class="cp"></span>
 
-<span class="kr">inline</span> <span class="kt">bool</span> <span class="n">IsPalindromeFast</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
+<span class="kr">inline</span> <span class="kt">bool</span> <span class="n">IsPalindromeWord</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N_half</span> <span class="o">=</span> <span class="n">N</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N_half</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">S</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">);</span>
+    <span class="c1">// number of words of size S in N_half</span>
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N_words</span> <span class="o">=</span> <span class="p">(</span><span class="n">N_half</span> <span class="o">/</span> <span class="n">S</span><span class="p">);</span>
+    <span class="c1">// remaining number of bytes that don&#39;t fit in a word</span>
+
+    <span class="c1">// example: if N = 18, half string is 9 bytes and</span>
+    <span class="c1">// we need to compair 2 pairs of words and 1 pair of chars</span>
+
     <span class="kt">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N_half</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N_words</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="kt">uint32_t</span> <span class="n">word_left</span><span class="p">,</span> <span class="n">word_right</span><span class="p">;</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">word_left</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">S</span><span class="p">);</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">word_right</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="n">S</span> <span class="o">-</span> <span class="n">index</span><span class="p">],</span> <span class="n">S</span><span class="p">);</span>
 
-        <span class="c1">// raw copy of 4 bytes</span>
-        <span class="c1">//memcpy(&amp;word_left, &amp;str[i], 4);</span>
-        <span class="c1">//memcpy(&amp;word_right, &amp;str[N - 4 - i], 4);</span>
-        <span class="c1">// ... or ...</span>
-        <span class="c1">// using reinterpret_cast</span>
-        <span class="n">word_left</span>  <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">uint32_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="n">word_right</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">uint32_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">-</span> <span class="n">i</span><span class="p">]);</span>
-
-        <span class="c1">// function bswap_32 revert the endianess of the integer</span>
         <span class="k">if</span><span class="p">(</span> <span class="n">word_left</span> <span class="o">!=</span> <span class="n">bswap_32</span><span class="p">(</span><span class="n">word_right</span><span class="p">))</span>
         <span class="p">{</span>
             <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="n">index</span> <span class="o">+=</span> <span class="n">S</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="c1">// remaining bytes. </span>
-    <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span> <span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N_half</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="c1">// remaining bytes.</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">N_half</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str</span><span class="p">[</span><span class="n">N</span><span class="mi">-1</span><span class="o">-</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">str</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str</span><span class="p">[</span><span class="n">N</span><span class="mi">-1</span><span class="o">-</span><span class="n">index</span><span class="p">])</span>
         <span class="p">{</span>
             <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
         <span class="p">}</span>
+        <span class="n">index</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
