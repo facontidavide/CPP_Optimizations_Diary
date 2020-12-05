@@ -687,7 +687,6 @@ This can be easily achieved using entire "words" instead, i.e. storing the singl
     <span class="k">const</span> <span class="kt">size_t</span> <span class="n">S</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">);</span>
     <span class="c1">// number of words of size S in N_half</span>
     <span class="k">const</span> <span class="kt">size_t</span> <span class="n">N_words</span> <span class="o">=</span> <span class="p">(</span><span class="n">N_half</span> <span class="o">/</span> <span class="n">S</span><span class="p">);</span>
-    <span class="c1">// remaining number of bytes that don&#39;t fit in a word</span>
 
     <span class="c1">// example: if N = 18, half string is 9 bytes and</span>
     <span class="c1">// we need to compair 2 pairs of words and 1 pair of chars</span>
@@ -738,8 +737,8 @@ This can be easily achieved using entire "words" instead, i.e. storing the singl
 
 <p>Benchmark:</p>
 <p><img alt="palindrome_benchmark.png" src="../img/palindrome_benchmark.png" /></p>
-<p>For sufficiently long strings (more than 8 bytes), <strong>the performance gain is about 2X</strong>.</p>
-<p>For very long strings, we might use words of 128 or 256 bits. This can be achieved using <a href="https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/">SIMD</a>, but this is not the purpose of this article.</p>
+<p>For sufficiently long strings (more than 8 bytes), <strong>the performance gain is about 50% for relatively short string to 150% for long ones</strong>.</p>
+<p>Actually, for very long strings, we might use words of 128 or 256 bits. This can be achieved using <a href="https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/">SIMD</a>, but this is not the purpose of this article.</p>
 <h2 id="summarizing">Summarizing</h2>
 <p>This is <strong>not</strong> a good example of "keep your code simple and readable, don't worry too much about optimizations".</p>
 <p>I am mostly showing this for fun and to highlight that in <strong>some</strong> cases the cost of branches in our code can we non-negelgible and it might open the opportunity for some cool optimizations.</p>
