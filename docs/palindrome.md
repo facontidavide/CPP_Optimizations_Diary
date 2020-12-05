@@ -48,10 +48,10 @@ Let's have some fun!
 The original version is apparently the best we can do:
 
 - Zero copy.
-- Stops the loop as fast as possible.
+- Stops the loop as soon as possible.
 - Handles well all the corner cases.
 
-But I realized that there is a way to make it faster, reducing the number of `if` clause. 
+But I realized that there is a way to make it faster, reducing the number of `if` clauses. 
 This can be easily achieved using entire "words" instead, i.e. storing the single bytes in larger data types.
 
 For instance, let's use the type `uint32_t` to manipulate 4 bytes at once.
@@ -100,7 +100,7 @@ inline bool IsPalindromeFast(const std::string& str)
 
 What is going on here?
 
-We look at "blocks" (words) of 4 bytes, store them in an `uint32_t` and call the comparison operator only **once** for each word.
+We are storing "blocks" (words) of 4 bytes and call the comparison operator only **once** for each word.
 
 To reverse the order of the bytes in a "specular" way, we use the built-in function [bswap_32](https://man7.org/linux/man-pages/man3/bswap_32.3.html).
 
@@ -124,7 +124,9 @@ Benchmark:
 
 ![palindrome_benchmark.png](img/palindrome_benchmark.png)
 
-For sufficiently long strings (more than 16 bytes), **the performance gain is about 2.3 X**.
+For sufficiently long strings (more than 8 bytes), **the performance gain is about 2X**.
+
+For very long strings, we might use words of 128 or 256 bits. This can be achieved using [SIMD](https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/), but this is not the purpose of this article.
 
 ## Summarizing
 
