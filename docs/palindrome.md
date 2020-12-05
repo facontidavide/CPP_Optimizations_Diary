@@ -61,38 +61,40 @@ The resulting implementation will be:
 ```C++
 #include <byteswap.h>
 
-inline bool IsPalindromeFast(const std::string& str)
+inline bool IsPalindromeWord(const std::string& str)
 {
     const size_t N = str.size();
-    const size_t N_half = N / 2;
+    const size_t N_half = (N/2);
+    const size_t S = sizeof(uint32_t);
+    // number of words of size S in N_half
+    const size_t N_words = (N_half / S);
+    // remaining number of bytes that don't fit in a word
+
+    // example: if N = 18, half string is 9 bytes and
+    // we need to compair 2 pairs of words and 1 pair of chars
+
     size_t index = 0;
-    
-    for(size_t i=0; i<N_half; i+=4)
+
+    for(size_t i=0; i<N_words; i++)
     {
         uint32_t word_left, word_right;
+        memcpy(&word_left, &str[index], S);
+        memcpy(&word_right, &str[N - S - index], S);
 
-        // raw copy of 4 bytes
-        //memcpy(&word_left, &str[i], 4);
-        //memcpy(&word_right, &str[N - 4 - i], 4);
-        // ... or ...
-        // using reinterpret_cast
-        word_left  = *reinterpret_cast<const uint32_t*>(&str[i]);
-        word_right = *reinterpret_cast<const uint32_t*>(&str[N - 4 - i]);
-
-        // function bswap_32 revert the endianess of the integer
         if( word_left != bswap_32(word_right))
         {
             return false;
         }
-        index = i;
+        index += S;
     }
-    // remaining bytes. 
-    for(size_t i=index+1 ; i<N_half; i++)
+    // remaining bytes.
+    while(index < N_half)
     {
-        if( str[i] != str[N-1-i])
+        if( str[index] != str[N-1-index])
         {
             return false;
         }
+        index++;
     }
     return true;
 }
