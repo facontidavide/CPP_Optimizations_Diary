@@ -68,7 +68,6 @@ inline bool IsPalindromeWord(const std::string& str)
     const size_t S = sizeof(uint32_t);
     // number of words of size S in N_half
     const size_t N_words = (N_half / S);
-    // remaining number of bytes that don't fit in a word
 
     // example: if N = 18, half string is 9 bytes and
     // we need to compair 2 pairs of words and 1 pair of chars
@@ -126,9 +125,9 @@ Benchmark:
 
 ![palindrome_benchmark.png](img/palindrome_benchmark.png)
 
-For sufficiently long strings (more than 8 bytes), **the performance gain is about 2X**.
+For sufficiently long strings (more than 8 bytes), **the performance gain is about 50% for relatively short string to 150% for long ones**.
 
-For very long strings, we might use words of 128 or 256 bits. This can be achieved using [SIMD](https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/), but this is not the purpose of this article.
+Actually, for very long strings, we might use words of 128 or 256 bits. This can be achieved using [SIMD](https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/), but this is not the purpose of this article.
 
 ## Summarizing
 
