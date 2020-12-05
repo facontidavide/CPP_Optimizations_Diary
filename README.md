@@ -135,6 +135,8 @@ For a more comfortable reading experience, visit: https://cpp-optimizations.netl
 
 - [Simpler and faster way to filter Point Clouds in PCL.](docs/pcl_filter.md)
 
+- [Fast Palindrome: the cost of conditional branches](docs/palindrome.md)
+
 
 # License
 

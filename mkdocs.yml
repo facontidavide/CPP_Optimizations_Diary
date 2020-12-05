@@ -64,6 +64,7 @@ nav:
  
   - Case studies:
     - Faster and simpler PCL filter:  pcl_filter.md
+    - Fast palindrome:  palindrome.md
 
   - About me: about.md
     
