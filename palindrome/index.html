@@ -671,10 +671,10 @@
 <p>The original version is apparently the best we can do:</p>
 <ul>
 <li>Zero copy.</li>
-<li>Stops the loop as fast as possible.</li>
+<li>Stops the loop as soon as possible.</li>
 <li>Handles well all the corner cases.</li>
 </ul>
-<p>But I realized that there is a way to make it faster, reducing the number of <code>if</code> clause. 
+<p>But I realized that there is a way to make it faster, reducing the number of <code>if</code> clauses. 
 This can be easily achieved using entire "words" instead, i.e. storing the single bytes in larger data types.</p>
 <p>For instance, let's use the type <code>uint32_t</code> to manipulate 4 bytes at once.</p>
 <p>The resulting implementation will be:</p>
@@ -718,7 +718,7 @@ This can be easily achieved using entire "words" instead, i.e. storing the singl
 </code></pre></div>
 
 <p>What is going on here?</p>
-<p>We look at "blocks" (words) of 4 bytes, store them in an <code>uint32_t</code> and call the comparison operator only <strong>once</strong> for each word.</p>
+<p>We are storing "blocks" (words) of 4 bytes and call the comparison operator only <strong>once</strong> for each word.</p>
 <p>To reverse the order of the bytes in a "specular" way, we use the built-in function <a href="https://man7.org/linux/man-pages/man3/bswap_32.3.html">bswap_32</a>.</p>
 <p>Note that the hand-made implemetation of this function is <strong>equally fast</strong> in my benchmarks.</p>
 <div class="codehilite"><pre><span></span><code><span class="kr">inline</span> <span class="kt">uint32_t</span> <span class="n">Swap</span><span class="p">(</span><span class="k">const</span> <span class="kt">uint32_t</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">)</span>
@@ -736,7 +736,8 @@ This can be easily achieved using entire "words" instead, i.e. storing the singl
 
 <p>Benchmark:</p>
 <p><img alt="palindrome_benchmark.png" src="../img/palindrome_benchmark.png" /></p>
-<p>For sufficiently long strings (more than 16 bytes), <strong>the performance gain is about 2.3 X</strong>.</p>
+<p>For sufficiently long strings (more than 8 bytes), <strong>the performance gain is about 2X</strong>.</p>
+<p>For very long strings, we might use words of 128 or 256 bits. This can be achieved using <a href="https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/">SIMD</a>, but this is not the purpose of this article.</p>
 <h2 id="summarizing">Summarizing</h2>
 <p>This is <strong>not</strong> a good example of "keep your code simple and readable, don't worry too much about optimizations".</p>
 <p>I am mostly showing this for fun and to highlight that in <strong>some</strong> cases the cost of branches in our code can we non-negelgible and it might open the opportunity for some cool optimizations.</p>
