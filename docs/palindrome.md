@@ -70,7 +70,7 @@ inline bool IsPalindromeWord(const std::string& str)
     const size_t N_words = (N_half / S);
 
     // example: if N = 18, half string is 9 bytes and
-    // we need to compair 2 pairs of words and 1 pair of chars
+    // we need to compare 2 pairs of words and 1 pair of chars
 
     size_t index = 0;
 
@@ -133,4 +133,4 @@ Actually, for very long strings, we might use words of 128 or 256 bits. This can
 
 This is **not** a good example of "keep your code simple and readable, don't worry too much about optimizations".
 
-I am mostly showing this for fun and to highlight that in **some** cases the cost of branches in our code can we non-negelgible and it might open the opportunity for some cool optimizations.
+I am mostly showing this for fun and to highlight that in **some** cases the cost of branches in our code can we non-negligible and it might open the opportunity for some cool optimizations.
