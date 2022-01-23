@@ -75,7 +75,7 @@ You want to create another point cloud with all the points that pass this condit
 I mean, if you ask **me**, this is what I would do, because I am not that smart:
 
 ```C++
-auto cloud_filtered = std::make_shared<PointCloud<PointXYZ>();
+auto cloud_filtered = std::make_shared<PointCloud<PointXYZ>>();
 
 for (const auto& point: input_cloud->points) 
 {
