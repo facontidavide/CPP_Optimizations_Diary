@@ -20,7 +20,7 @@ size_t StrSize(const Head& head, Tail const&... tail){
 
 template <class Head>
 void StrAppend(std::string& out, const Head& head){
-  out = head;
+  out += head;
 }
 
 template <class Head, class... Args>
