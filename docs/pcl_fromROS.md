@@ -37,9 +37,10 @@ this conversion alone uses a lot of CPU!
 I look at its implementation and at the results of Hotspot
 (perf profiling) and a problem becomes immediately apparent:
 
-```c++ linenums="5"
+```c++
 template<typename T>
-void fromROSMsg(const sensor_msgs::msg::PointCloud2 &cloud, pcl::PointCloud<T> &pcl_cloud)
+void fromROSMsg(const sensor_msgs::msg::PointCloud2 &cloud,
+                pcl::PointCloud<T> &pcl_cloud)
 {
   pcl::PCLPointCloud2 pcl_pc2;
   pcl_conversions::toPCL(cloud, pcl_pc2);
@@ -54,8 +55,9 @@ We are transforming/copying the data twice:
 
 Digging into the implementation of `pcl_conversions::toPCL`, I found this:
 
-```c++ linenums="4"
-void toPCL(const sensor_msgs::msg::PointCloud2 &pc2, pcl::PCLPointCloud2 &pcl_pc2)
+```c++
+void toPCL(const sensor_msgs::msg::PointCloud2 &pc2,
+           pcl::PCLPointCloud2 &pcl_pc2)
 {
   copyPointCloud2MetaData(pc2, pcl_pc2);
   pcl_pc2.data = pc2.data;

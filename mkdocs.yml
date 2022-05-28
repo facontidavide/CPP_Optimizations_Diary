@@ -30,6 +30,11 @@ extra:
 markdown_extensions:
   - admonition
   - codehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 google_analytics:
   - UA-134735656-2
