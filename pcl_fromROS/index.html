@@ -802,12 +802,12 @@ this conversion alone uses a lot of CPU!</p>
 </code></pre></div>
 <p>Copying that raw data  from one type to the other is an overhead that can be easily avoided
 with some refactoring.</p>
-<p>This refactoring is not particularly interesting, because I bascially "copy and pasted"
+<p>This refactoring is not particularly interesting, because I basically "copied and pasted"
 the code of <code>pcl::fromPCLPointCloud2</code> to use a different input type.</p>
 <p>Fast-forwarding to the solution, let's have a look at the results:</p>
 <p><img alt="" src="../img/pcl_fromros.png" /></p>
 <h2 id="what-is-the-takeaway-of-this-story">What is the takeaway of this story?</h2>
-<p>Measure, measure, measure! Don't assume that the "smart people" implemented the best solution and that you can't actively do anything about it.</p>
+<p><strong>Measure, measure, measure</strong>! Don't assume that the "smart people" implemented the best solution and that you can't actively do anything about it.</p>
 <p>In this case, code clarity and reusing existing functions was prefered over performance.</p>
 <p>But the impact of this decision is definitively too much to be ignored.</p>
                 
