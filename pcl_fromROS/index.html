@@ -765,40 +765,37 @@ The developers and maintainers deserve all my respect for that!</p>
 <p><img alt="" src="../img/davide_yells_at_PCL.jpg" /></p>
 <h2 id="using-pclfromrosmsg">Using pcl::fromROSMsg()</h2>
 <p>If you use PCL in ROS, the following code is your bread and butter:</p>
-<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">cloudCallback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">PointCloud2ConstPtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cloud</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromROSMsg</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">cloud</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">  </span><span class="c1">//...</span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cloudCallback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">PointCloud2ConstPtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cloud</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromROSMsg</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">cloud</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="c1">//...</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 <p>Now, I can not count the number of people complaining that
 this conversion alone uses a lot of CPU!</p>
 <p>I look at its implementation and at the results of Hotspot
 (perf profiling) and a problem becomes immediately apparent:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="n">fromROSMsg</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cloud</span><span class="p">,</span><span class="w"> </span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_cloud</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">pcl_conversions</span><span class="o">::</span><span class="n">toPCL</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromPCLPointCloud2</span><span class="p">(</span><span class="n">pcl_pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_cloud</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">fromROSMsg</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cloud</span><span class="p">,</span><span class="w"> </span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_cloud</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span><span class="n">pcl_conversions</span><span class="o">::</span><span class="n">toPCL</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromPCLPointCloud2</span><span class="p">(</span><span class="n">pcl_pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_cloud</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 <p>We are transforming/copying the data twice:
 - first, we convert from <code>sensor_msgs::msg::PointCloud2</code> to 
 <code>pcl::PCLPointCloud2</code>
 - then, from <code>pcl::PCLPointCloud2</code> to <code>pcl::PointCloud&lt;T&gt;</code>.</p>
 <p>Digging into the implementation of <code>pcl_conversions::toPCL</code>, I found this:</p>
-<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">toPCL</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_pc2</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">copyPointCloud2MetaData</span><span class="p">(</span><span class="n">pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">pcl_pc2</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pc2</span><span class="p">.</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">toPCL</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_pc2</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span><span class="n">copyPointCloud2MetaData</span><span class="p">(</span><span class="n">pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="n">pcl_pc2</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pc2</span><span class="p">.</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 <p>Copying that raw data  from one type to the other is an overhead that can be easily avoided
 with some refactoring.</p>
 <p>This refactoring is not particularly interesting, because I bascially "copy and pasted"
