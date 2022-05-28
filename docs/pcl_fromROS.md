@@ -49,6 +49,7 @@ void fromROSMsg(const sensor_msgs::msg::PointCloud2 &cloud,
 ```
 
 We are transforming/copying the data twice:
+
 - first, we convert from `sensor_msgs::msg::PointCloud2` to 
 `pcl::PCLPointCloud2`
 - then, from `pcl::PCLPointCloud2` to `pcl::PointCloud<T>`.
@@ -67,7 +68,7 @@ void toPCL(const sensor_msgs::msg::PointCloud2 &pc2,
 Copying that raw data  from one type to the other is an overhead that can be easily avoided
 with some refactoring.
 
-This refactoring is not particularly interesting, because I bascially "copy and pasted"
+This refactoring is not particularly interesting, because I basically "copied and pasted"
 the code of `pcl::fromPCLPointCloud2` to use a different input type.
 
 Fast-forwarding to the solution, let's have a look at the results:
@@ -76,7 +77,7 @@ Fast-forwarding to the solution, let's have a look at the results:
 
 ## What is the takeaway of this story?
 
-Measure, measure, measure! Don't assume that the "smart people" implemented the best solution and that you can't actively do anything about it.
+**Measure, measure, measure**! Don't assume that the "smart people" implemented the best solution and that you can't actively do anything about it.
 
 In this case, code clarity and reusing existing functions was prefered over performance.
 
