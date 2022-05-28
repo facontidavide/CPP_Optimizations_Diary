@@ -778,27 +778,25 @@ The developers and maintainers deserve all my respect for that!</p>
 this conversion alone uses a lot of CPU!</p>
 <p>I look at its implementation and at the results of Hotspot
 (perf profiling) and a problem becomes immediately apparent:</p>
-<p>```c++ linenums="5"
-template<typename T>
-void fromROSMsg(const sensor_msgs::msg::PointCloud2 &amp;cloud, pcl::PointCloud<T> &amp;pcl_cloud)
-{
-  pcl::PCLPointCloud2 pcl_pc2;
-  pcl_conversions::toPCL(cloud, pcl_pc2);
-  pcl::fromPCLPointCloud2(pcl_pc2, pcl_cloud);
-}</p>
-<div class="codehilite"><pre><span></span><code><span class="n">We</span> <span class="n">are</span> <span class="n">transforming</span><span class="o">/</span><span class="n">copying</span> <span class="n">the</span> <span class="n">data</span> <span class="n">twice</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">first</span><span class="p">,</span> <span class="n">we</span> <span class="nb">convert</span> <span class="n">from</span> <span class="err">`</span><span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">PointCloud2</span><span class="err">`</span> <span class="n">to</span> 
-<span class="err">`</span><span class="n">pcl</span><span class="p">::</span><span class="n">PCLPointCloud2</span><span class="err">`</span>
-<span class="o">-</span> <span class="n">then</span><span class="p">,</span> <span class="n">from</span> <span class="err">`</span><span class="n">pcl</span><span class="p">::</span><span class="n">PCLPointCloud2</span><span class="err">`</span> <span class="n">to</span> <span class="err">`</span><span class="n">pcl</span><span class="p">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="err">`</span><span class="o">.</span>
+<div class="codehilite"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">fromROSMsg</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cloud</span><span class="p">,</span><span class="w"> </span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_cloud</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">pcl_conversions</span><span class="o">::</span><span class="n">toPCL</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromPCLPointCloud2</span><span class="p">(</span><span class="n">pcl_pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_cloud</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
 
-<span class="n">Digging</span> <span class="n">into</span> <span class="n">the</span> <span class="n">implementation</span> <span class="n">of</span> <span class="err">`</span><span class="n">pcl_conversions</span><span class="p">::</span><span class="n">toPCL</span><span class="err">`</span><span class="p">,</span> <span class="n">I</span> <span class="n">found</span> <span class="n">this</span><span class="p">:</span>
-
-<span class="err">```</span><span class="n">c</span><span class="o">++</span> <span class="n">linenums</span><span class="o">=</span><span class="s2">&quot;4&quot;</span>
-<span class="n">void</span> <span class="n">toPCL</span><span class="p">(</span><span class="k">const</span> <span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">PointCloud2</span> <span class="o">&amp;</span><span class="n">pc2</span><span class="p">,</span> <span class="n">pcl</span><span class="p">::</span><span class="n">PCLPointCloud2</span> <span class="o">&amp;</span><span class="n">pcl_pc2</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">copyPointCloud2MetaData</span><span class="p">(</span><span class="n">pc2</span><span class="p">,</span> <span class="n">pcl_pc2</span><span class="p">);</span>
-  <span class="n">pcl_pc2</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pc2</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
-<span class="p">}</span>
+<p>We are transforming/copying the data twice:
+- first, we convert from <code>sensor_msgs::msg::PointCloud2</code> to 
+<code>pcl::PCLPointCloud2</code>
+- then, from <code>pcl::PCLPointCloud2</code> to <code>pcl::PointCloud&lt;T&gt;</code>.</p>
+<p>Digging into the implementation of <code>pcl_conversions::toPCL</code>, I found this:</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">toPCL</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_pc2</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">copyPointCloud2MetaData</span><span class="p">(</span><span class="n">pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_pc2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pcl_pc2</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pc2</span><span class="p">.</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Copying that raw data  from one type to the other is an overhead that can be easily avoided
