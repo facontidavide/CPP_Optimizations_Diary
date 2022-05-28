@@ -125,4 +125,6 @@ just because you believe it may run 2.5% faster.
 
 - [Simpler and faster way to filter Point Clouds in PCL.](pcl_filter.md)
 
+- [More PCL optimizations: conversion fro ROS message](pcl_fromROS.md)
+
 - [Fast Palindrome: the cost of conditional branches](palindrome.md)

@@ -64,6 +64,7 @@ nav:
  
   - Case studies:
     - Faster and simpler PCL filter:  pcl_filter.md
+    - More PCL optimizations:  pcl_fromROS.d
     - Fast palindrome:  palindrome.md
 
   - About me: about.md
