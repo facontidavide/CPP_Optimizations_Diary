@@ -18,7 +18,7 @@
     
     
       
-        <title>Avoid std::list - CPP Optimizations diary</title>
+        <title>Case study: convert ROS message to PCL - CPP Optimizations diary</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#if-you-are-using-stdlist-you-are-doing-it-wrong" class="md-skip">
+        <a href="#case-study-convert-ros-message-to-pcl" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Avoid std::list
+              Case study: convert ROS message to PCL
             
           </span>
         </div>
@@ -284,14 +284,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -326,51 +324,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Avoid std::list
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../no_lists/" class="md-nav__link">
         Avoid std::list
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#real-world-example-improving-the-intel-realsense-driver" class="md-nav__link">
-    Real world example: improving the Intel RealSense driver
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -713,8 +671,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#real-world-example-improving-the-intel-realsense-driver" class="md-nav__link">
-    Real world example: improving the Intel RealSense driver
+  <a href="#using-pclfromrosmsg" class="md-nav__link">
+    Using pcl::fromROSMsg()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-takeaway-of-this-story" class="md-nav__link">
+    What is the takeaway of this story?
   </a>
   
 </li>
@@ -731,51 +696,72 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/no_lists.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/facontidavide/CPP_Optimizations_Diary/edit/master/docs/pcl_fromROS.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="if-you-are-using-stdlist-you-are-doing-it-wrong">If you are using std::list&lt;&gt;, you are doing it wrong</h1>
-<p><img alt="" src="../img/linked_list.png" /></p>
-<p>I am not wasting time here to repeat benchmarks which a lot of people did already.</p>
-<ul>
-<li>
-<p><a href="https://baptiste-wicht.com/posts/2012/11/cpp-benchmark-vector-vs-list.html">std::vector vs std::list benchmark</a></p>
-</li>
-<li>
-<p><a href="https://isocpp.org/blog/2014/06/stroustrup-lists">Are lists evil? Bjarne Stroustrup</a></p>
-</li>
-<li>
-<p><a href="https://www.youtube.com/watch?v=YQs6IC-vgmo">Video from Bjarne Stroustrup keynote</a></p>
-</li>
-</ul>
-<p>You think your case is special, a unique snowflake. <strong>It is not</strong>. </p>
-<p>You have another STL data structure that is better than <code>std::list</code>:
- <a href="https://es.cppreference.com/w/cpp/container/deque">std::deque&lt;&gt;</a> almost 99% of the time. </p>
-<p>In some cases, even the humble <code>std::vector</code> is better than a list.</p>
-<p>If you like very exotic alternatives have a look at <a href="https://plflib.org/colony.htm">plf::colony</a>.</p>
-<p>But seriously, just use <code>vector</code>or <code>deque</code>.</p>
-<h2 id="real-world-example-improving-the-intel-realsense-driver">Real world example: improving the Intel RealSense driver</h2>
-<p>This is a practical example of a Pull Request I sent to the <a href="https://github.com/IntelRealSense">RealSense</a>
-repository a while ago.</p>
-<p><img alt="" src="../img/realsense.png" /></p>
-<p>They where using that abomination called <code>std::list&lt;&gt;</code> for a reason that I can not understand.</p>
-<p>Just kidding, Intel Developers, we love you!</p>
-<p>Here you can find the link to the Pull Request:
-- <a href="https://github.com/IntelRealSense/realsense-ros/pull/1097">Considerable CPU saving in BaseRealSenseNode::publishPointCloud()</a></p>
-<p>In a nutshell, the whole PR contains only two tiny changes:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// We changed this list, created at each camera frame</span>
-<span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;</span><span class="w"> </span><span class="n">valid_indices</span><span class="p">;</span><span class="w"></span>
+                <h1 id="case-study-convert-ros-message-to-pcl">Case study: convert ROS message to PCL</h1>
+<p><a href="https://pointclouds.org/">Point Cloud Library (PCL)</a> 
+seems to be a cornucopia of opportunities for optimizations.</p>
+<p>Even if this is a gratuitous criticism, let's remember what
+<strong>Bjarne Stroustrup</strong> said:</p>
+<blockquote>
+<p>"There are only two kinds of languages: the ones people complain about and the ones nobody uses"</p>
+</blockquote>
+<p>So, let's keep in mind that PCL has a <strong>huge</strong> role in 
+allowing everyone to process pointclouds easily.
+The developers and maintainers deserve all my respect for that!</p>
+<p>Said that, let's jump into my next rant.</p>
+<p><img alt="" src="../img/davide_yells_at_PCL.jpg" /></p>
+<h2 id="using-pclfromrosmsg">Using pcl::fromROSMsg()</h2>
+<p>If you use PCL in ROS, the following code is your bread and butter:</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">cloudCallback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">PointCloud2ConstPtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cloud</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromROSMsg</span><span class="p">(</span><span class="o">*</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">cloud</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// With this vector: a class member, that is cleared before reusing</span>
-<span class="c1">// (but allocated memory is still there)</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_valid_indices</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">//...</span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
-<p>Additionally, we have a quite large object called <code>sensor_msgs::PointCloud2 msg_pointcloud</code> that
-is converted into a class member that is reused over and over again at each frame.</p>
-<p>The reported speed improvement is 20%-30%, that is huge, if you think about it.</p>
+<p>Now, I can not count the number of people complaining that
+this conversion alone uses a lot of CPU!</p>
+<p>I look at its implementation and at the results of Hotspot
+(perf profiling) and a problem becomes immediately apparent:</p>
+<p>```c++ linenums="5"
+template<typename T>
+void fromROSMsg(const sensor_msgs::msg::PointCloud2 &amp;cloud, pcl::PointCloud<T> &amp;pcl_cloud)
+{
+  pcl::PCLPointCloud2 pcl_pc2;
+  pcl_conversions::toPCL(cloud, pcl_pc2);
+  pcl::fromPCLPointCloud2(pcl_pc2, pcl_cloud);
+}</p>
+<div class="codehilite"><pre><span></span><code><span class="n">We</span> <span class="n">are</span> <span class="n">transforming</span><span class="o">/</span><span class="n">copying</span> <span class="n">the</span> <span class="n">data</span> <span class="n">twice</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">first</span><span class="p">,</span> <span class="n">we</span> <span class="nb">convert</span> <span class="n">from</span> <span class="err">`</span><span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">PointCloud2</span><span class="err">`</span> <span class="n">to</span> 
+<span class="err">`</span><span class="n">pcl</span><span class="p">::</span><span class="n">PCLPointCloud2</span><span class="err">`</span>
+<span class="o">-</span> <span class="n">then</span><span class="p">,</span> <span class="n">from</span> <span class="err">`</span><span class="n">pcl</span><span class="p">::</span><span class="n">PCLPointCloud2</span><span class="err">`</span> <span class="n">to</span> <span class="err">`</span><span class="n">pcl</span><span class="p">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="err">`</span><span class="o">.</span>
+
+<span class="n">Digging</span> <span class="n">into</span> <span class="n">the</span> <span class="n">implementation</span> <span class="n">of</span> <span class="err">`</span><span class="n">pcl_conversions</span><span class="p">::</span><span class="n">toPCL</span><span class="err">`</span><span class="p">,</span> <span class="n">I</span> <span class="n">found</span> <span class="n">this</span><span class="p">:</span>
+
+<span class="err">```</span><span class="n">c</span><span class="o">++</span> <span class="n">linenums</span><span class="o">=</span><span class="s2">&quot;4&quot;</span>
+<span class="n">void</span> <span class="n">toPCL</span><span class="p">(</span><span class="k">const</span> <span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">PointCloud2</span> <span class="o">&amp;</span><span class="n">pc2</span><span class="p">,</span> <span class="n">pcl</span><span class="p">::</span><span class="n">PCLPointCloud2</span> <span class="o">&amp;</span><span class="n">pcl_pc2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">copyPointCloud2MetaData</span><span class="p">(</span><span class="n">pc2</span><span class="p">,</span> <span class="n">pcl_pc2</span><span class="p">);</span>
+  <span class="n">pcl_pc2</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pc2</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Copying that raw data  from one type to the other is an overhead that can be easily avoided
+with some refactoring.</p>
+<p>This refactoring is not particularly interesting, because I bascially "copy and pasted"
+the code of <code>pcl::fromPCLPointCloud2</code> to use a different input type.</p>
+<p>Fast-forwarding to the solution, let's have a look at the results:</p>
+<p><img alt="" src="../img/pcl_fromros.png" /></p>
+<h2 id="what-is-the-takeaway-of-this-story">What is the takeaway of this story?</h2>
+<p>Measure, measure, measure! Don't assume that the "smart people" implemented the best solution and that you can't actively do anything about it.</p>
+<p>In this case, code clarity and reusing existing functions was prefered over performance.</p>
+<p>But the impact of this decision is definitively too much to be ignored.</p>
                 
               
               
@@ -791,41 +777,6 @@ is converted into a class member that is reused over and over again at each fram
       
         
 <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../reserve/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Use reserve" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Use reserve
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../dont_need_map/" class="md-footer__link md-footer__link--next" aria-label="Next: You may not need std::map" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              You may not need std::map
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
