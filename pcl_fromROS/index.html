@@ -786,10 +786,12 @@ this conversion alone uses a lot of CPU!</p>
 <a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">  </span><span class="n">pcl</span><span class="o">::</span><span class="n">fromPCLPointCloud2</span><span class="p">(</span><span class="n">pcl_pc2</span><span class="p">,</span><span class="w"> </span><span class="n">pcl_cloud</span><span class="p">);</span><span class="w"></span>
 <a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<p>We are transforming/copying the data twice:
-- first, we convert from <code>sensor_msgs::msg::PointCloud2</code> to 
-<code>pcl::PCLPointCloud2</code>
-- then, from <code>pcl::PCLPointCloud2</code> to <code>pcl::PointCloud&lt;T&gt;</code>.</p>
+<p>We are transforming/copying the data twice:</p>
+<ul>
+<li>first, we convert from <code>sensor_msgs::msg::PointCloud2</code> to 
+<code>pcl::PCLPointCloud2</code></li>
+<li>then, from <code>pcl::PCLPointCloud2</code> to <code>pcl::PointCloud&lt;T&gt;</code>.</li>
+</ul>
 <p>Digging into the implementation of <code>pcl_conversions::toPCL</code>, I found this:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">toPCL</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pc2</span><span class="p">,</span><span class="w"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">           </span><span class="n">pcl</span><span class="o">::</span><span class="n">PCLPointCloud2</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pcl_pc2</span><span class="p">)</span><span class="w"></span>
