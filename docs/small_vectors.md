@@ -4,7 +4,7 @@ By now, I hope I convinced you that `std::vector` is the first data structure th
 
 But even when we cleverly use `reserve` to prevent superfluous heap allocations and copies, there will be a least **one** heap allocation at the beginning. Can we do better? 
 
-Sure we can! If you have read already about the [small string optimization](../../small_strings) you know where this is going.
+Sure we can! If you have read already about the [small string optimization](./small_strings.md) you know where this is going.
 
 # "Static" vectors and "Small" vectors
 
